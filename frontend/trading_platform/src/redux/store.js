@@ -9,7 +9,7 @@ const initialState = {};
 const middleware = [thunk];
 
 const reducers = combineReducers({
-  authReducer
+  authReducer,
 });
 
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));

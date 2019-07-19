@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions/authAction";
+import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
 
 class Signup extends React.Component {
   state = {
@@ -18,7 +21,7 @@ class Signup extends React.Component {
       console.log("Passwords do not match");
     } else {
       this.props.onAuth(username, email, password1, password2);
-      this.props.history.push("/");
+      // this.props.history.push("/");
     }
   };
 
@@ -27,59 +30,70 @@ class Signup extends React.Component {
   render() {
     const { username, email, password1, password2 } = this.state;
     return (
-      <div>
-        <h2>Register</h2>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              onChange={this.onChange}
-              value={username}
-            />
-          </div>
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              onChange={this.onChange}
-              value={email}
-            />
-          </div>
-          <div>
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password1"
-              onChange={this.onChange}
-              value={password1}
-            />
-          </div>
-          <div>
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password2"
-              onChange={this.onChange}
-              value={password2}
-            />
-          </div>
-          <div>
-            <button type="submit" className="btn btn-primary">
-              Register
-            </button>
-          </div>
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-        </form>
-      </div>
+
+      <form onSubmit={this.onSubmit}>
+        <DialogContent>
+          <TextField
+            type="text"
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            autoFocus
+            margin="dense"
+            label="Username"
+            fullWidth
+          />
+        </DialogContent>
+
+        <DialogContent>
+          <TextField
+            type="email"
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            margin="dense"
+            label="Email"
+            fullWidth
+          />
+        </DialogContent>
+
+        <DialogContent>
+          <TextField
+            type="password"
+            name="password1"
+            value={password1}
+            onChange={this.onChange}
+            margin="dense"
+            label="Password"
+            autoComplete="password"
+            fullWidth
+          />
+        </DialogContent>
+
+        <DialogContent>
+          <TextField
+            type="password"
+            name="password2"
+            value={password2}
+            onChange={this.onChange}
+            margin="dense"
+            label="Confirm password"
+            autoComplete="password"
+            fullWidth
+          />
+        </DialogContent>
+
+        <DialogActions
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button color="primary" type="submit">
+            Register
+          </Button>
+        </DialogActions>
+      </form>
     );
   }
 }

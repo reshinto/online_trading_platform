@@ -2,129 +2,6 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions/authAction";
-// import PropTypes from "prop-types";
-// import { withStyles } from "@material-ui/core/styles";
-// import AppBar from "@material-ui/core/AppBar";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import Typography from "@material-ui/core/Typography";
-// import IconButton from "@material-ui/core/IconButton";
-// import MenuIcon from "@material-ui/icons/Menu";
-// import AccountCircle from "@material-ui/icons/AccountCircle";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import Menu from "@material-ui/core/Menu";
-// import Button from "@material-ui/core/Button";
-
-// const styles = {
-//   root: {
-//     flexGrow: 1
-//   },
-//   grow: {
-//     flexGrow: 1
-//   },
-//   menuButton: {
-//     marginLeft: -12,
-//     marginRight: 20
-//   }
-// };
-
-// class Navbar extends React.Component {
-//   state = {
-//     anchorEl: null
-//   };
-
-//   handleMenu = event => {
-//     this.setState({ anchorEl: event.currentTarget });
-//   };
-
-//   handleClose = () => {
-//     this.setState({ anchorEl: null });
-//   };
-
-//   render() {
-//     const { isAuthenticated, classes } = this.props;
-//     const { anchorEl } = this.state;
-//     const open = Boolean(anchorEl);
-
-//     return (
-//       <div className={classes.root}>
-//         <AppBar style={{ backgroundColor: "#323232" }} position="static">
-//           <Toolbar>
-//             <IconButton
-//               className={classes.menuButton}
-//               color="inherit"
-//               aria-label="Menu"
-//             >
-//               <MenuIcon />
-//             </IconButton>
-//             <Typography variant="h6" color="inherit" className={classes.grow}>
-//               <Button color="inherit" component={Link} to="/">
-//                 Dashboard
-//               </Button>
-//             </Typography>
-//             {isAuthenticated ? (
-//               <div>
-//                 <IconButton
-//                   aria-owns={open ? "menu-appbar" : undefined}
-//                   aria-haspopup="true"
-//                   onClick={this.handleMenu}
-//                   color="inherit"
-//                 >
-//                   <AccountCircle />
-//                 </IconButton>
-//                 <Menu
-//                   id="menu-appbar"
-//                   anchorEl={anchorEl}
-//                   anchorOrigin={{
-//                     vertical: "top",
-//                     horizontal: "right"
-//                   }}
-//                   transformOrigin={{
-//                     vertical: "top",
-//                     horizontal: "right"
-//                   }}
-//                   open={open}
-//                   onClose={this.handleClose}
-//                 >
-//                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-//                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
-//                   <MenuItem onClick={this.props.logout}>Logout</MenuItem>
-//                 </Menu>
-//               </div>
-//             ) : (
-//               <div>
-//                 <Button color="inherit" component={Link} to="/login">
-//                   Login
-//                 </Button>
-//                 <Button color="inherit" component={Link} to="/signup">
-//                   Signup
-//                 </Button>
-//               </div>
-//             )}
-//           </Toolbar>
-//         </AppBar>
-//         {this.props.children}
-//       </div>
-//     );
-//   }
-// }
-
-// Navbar.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     logout: () => dispatch(actions.logout())
-//   };
-// };
-
-// export default withRouter(
-//   connect(
-//     null,
-//     mapDispatchToProps
-//   )(withStyles(styles)(Navbar))
-// );
-
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -144,6 +21,9 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+import Dialog from "@material-ui/core/Dialog";
 
 const styles = theme => ({
   root: {
@@ -218,24 +98,50 @@ const styles = theme => ({
 class Navbar extends React.Component {
   state = {
     anchorEl: null,
-    mobileMoreAnchorEl: null
+    mobileMoreAnchorEl: null,
+    openLogin: false,
+    openSignup: false
+  };
+
+  handleClickOpenLogin = () => {
+    this.setState({ openLogin: true });
+  };
+
+  handleClickOpenSignup = () => {
+    this.setState({ openSignup: true });
+  };
+
+  handleClose = () => {
+    this.setState({ openLogin: false, openSignup: false });
   };
 
   handleProfileMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({
+      anchorEl: event.currentTarget,
+      openLogin: false,
+      openSignup: false
+    });
   };
 
   handleMenuClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({ anchorEl: null, openLogin: false, openSignup: false });
     this.handleMobileMenuClose();
   };
 
   handleMobileMenuOpen = event => {
-    this.setState({ mobileMoreAnchorEl: event.currentTarget });
+    this.setState({
+      mobileMoreAnchorEl: event.currentTarget,
+      openLogin: false,
+      openSignup: false
+    });
   };
 
   handleMobileMenuClose = () => {
-    this.setState({ mobileMoreAnchorEl: null });
+    this.setState({
+      mobileMoreAnchorEl: null,
+      openLogin: false,
+      openSignup: false
+    });
   };
 
   render() {
@@ -255,7 +161,9 @@ class Navbar extends React.Component {
         <div>
           <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-          <MenuItem onClick={this.props.logout}>Logout</MenuItem>
+          <span onClick={this.handleMenuClose}>
+            <MenuItem onClick={this.props.logout}>Logout</MenuItem>
+          </span>
         </div>
       </Menu>
     );
@@ -369,12 +277,34 @@ class Navbar extends React.Component {
               </div>
             ) : (
               <div>
-                <Button color="inherit" component={Link} to="/signup">
+                <Button
+                  color="inherit"
+                  onClick={this.handleClickOpenSignup}
+                  // component={Link} to="/signup"
+                >
                   Signup
                 </Button>
-                <Button color="inherit" component={Link} to="/login">
+                <Dialog
+                  open={this.state.openSignup}
+                  onClose={this.handleClose}
+                  aria-labelledby="form-dialog-title"
+                >
+                  <Signup />
+                </Dialog>
+                <Button
+                  color="inherit"
+                  onClick={this.handleClickOpenLogin}
+                  // component={Link} to="/login"
+                >
                   Login
                 </Button>
+                <Dialog
+                  open={this.state.openLogin}
+                  onClose={this.handleClose}
+                  aria-labelledby="form-dialog-title"
+                >
+                  <Login />
+                </Dialog>
               </div>
             )}
           </Toolbar>

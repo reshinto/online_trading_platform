@@ -1,7 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import * as actions from "../redux/actions/authAction";
+import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
 
 class LoginForm extends React.Component {
   state = {
@@ -12,7 +15,7 @@ class LoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.onAuth(this.state.username, this.state.password);
-    this.props.history.push("/");
+    // this.props.history.push("/");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -22,24 +25,42 @@ class LoginForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          placeholder="Password"
-          autoComplete="password"
-        />
+        <DialogContent>
+          <TextField
+            type="text"
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            autoFocus
+            margin="dense"
+            label="Username"
+            fullWidth
+          />
+        </DialogContent>
 
-        <button type="submit">Login</button>
-        <NavLink to="/signup/">signup</NavLink>
+        <DialogContent>
+          <TextField
+            type="password"
+            name="password"
+            value={password}
+            onChange={this.onChange}
+            autoComplete="password"
+            margin="dense"
+            label="Password"
+            fullWidth
+          />
+        </DialogContent>
+
+        <DialogActions
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button color="primary" type="submit">
+            Login
+          </Button>
+        </DialogActions>
       </form>
     );
   }
