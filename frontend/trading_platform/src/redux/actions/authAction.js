@@ -1,4 +1,4 @@
-import axios from "axios";
+  import axios from "axios";
 import * as actionTypes from "../types";
 
 const authProxy = "http://127.0.0.1:8000/rest-auth";
@@ -19,7 +19,14 @@ export const authSuccess = token => {
 export const authFail = error => {
   return {
     type: actionTypes.AUTH_FAIL,
-    error: error
+    // error: error,
+    payload: error.response.data
+  };
+};
+
+export const clearErrors = () => {
+  return {
+    type: actionTypes.CLEAR_ERRORS,
   };
 };
 
@@ -53,6 +60,7 @@ export const authLogin = (username, password) => {
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
+        dispatch(clearErrors());
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {
@@ -77,6 +85,7 @@ export const authSignup = (username, email, password1, password2) => {
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
+        dispatch(clearErrors());
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {

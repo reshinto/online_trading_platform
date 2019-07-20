@@ -105,44 +105,46 @@ class Navbar extends React.Component {
 
   handleClickOpenLogin = () => {
     this.setState({ openLogin: true });
+    this.props.clearErrors();
   };
 
   handleClickOpenSignup = () => {
     this.setState({ openSignup: true });
-  };
-
-  handleClose = () => {
-    this.setState({ openLogin: false, openSignup: false });
+    this.props.clearErrors();
   };
 
   handleProfileMenuOpen = event => {
     this.setState({
       anchorEl: event.currentTarget,
-      openLogin: false,
-      openSignup: false
     });
+    this.closeDialog();
   };
 
   handleMenuClose = () => {
-    this.setState({ anchorEl: null, openLogin: false, openSignup: false });
+    this.setState({ anchorEl: null });
     this.handleMobileMenuClose();
   };
 
   handleMobileMenuOpen = event => {
     this.setState({
       mobileMoreAnchorEl: event.currentTarget,
-      openLogin: false,
-      openSignup: false
     });
+    this.closeDialog();
   };
 
   handleMobileMenuClose = () => {
     this.setState({
       mobileMoreAnchorEl: null,
+    });
+    this.closeDialog();
+  };
+
+  closeDialog = () => {
+    this.setState({
       openLogin: false,
       openSignup: false
     });
-  };
+  }
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
@@ -157,14 +159,15 @@ class Navbar extends React.Component {
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={isMenuOpen}
         onClose={this.handleMenuClose}
+        disableAutoFocusItem={true}
       >
-        <div>
+        <span>
           <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
           <span onClick={this.handleMenuClose}>
             <MenuItem onClick={this.props.logout}>Logout</MenuItem>
           </span>
-        </div>
+        </span>
       </Menu>
     );
 
@@ -286,7 +289,7 @@ class Navbar extends React.Component {
                 </Button>
                 <Dialog
                   open={this.state.openSignup}
-                  onClose={this.handleClose}
+                  onClose={this.handleMenuClose}
                   aria-labelledby="form-dialog-title"
                 >
                   <Signup />
@@ -300,7 +303,7 @@ class Navbar extends React.Component {
                 </Button>
                 <Dialog
                   open={this.state.openLogin}
-                  onClose={this.handleClose}
+                  onClose={this.handleMenuClose}
                   aria-labelledby="form-dialog-title"
                 >
                   <Login />
@@ -323,7 +326,8 @@ Navbar.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(actions.logout())
+    logout: () => dispatch(actions.logout()),
+    clearErrors: () => dispatch(actions.clearErrors()),
   };
 };
 

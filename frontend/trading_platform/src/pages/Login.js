@@ -5,11 +5,16 @@ import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 class LoginForm extends React.Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    showPassword: false
   };
 
   handleSubmit = e => {
@@ -18,10 +23,15 @@ class LoginForm extends React.Component {
     // this.props.history.push("/");
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = prop => e => this.setState({ [prop]: e.target.value });
+
+  handleClickShowPassword = () => {
+    this.setState(state => ({ showPassword: !state.showPassword }));
+  };
 
   render() {
     const { username, password } = this.state;
+    const { error } = this.props;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -30,23 +40,50 @@ class LoginForm extends React.Component {
             type="text"
             name="username"
             value={username}
-            onChange={this.onChange}
+            onChange={this.onChange("username")}
             autoFocus
             margin="dense"
             label="Username"
+            error={error !== null && username === ""}
+            helperText={
+              error && username === "" ? "This field may not be blank." : ""
+            }
             fullWidth
           />
         </DialogContent>
 
         <DialogContent>
           <TextField
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.onChange}
-            autoComplete="password"
-            margin="dense"
+            id="filled-adornment-password"
+            type={this.state.showPassword ? "text" : "password"}
             label="Password"
+            value={password}
+            onChange={this.onChange("password")}
+            margin="dense"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Toggle password visibility"
+                    onClick={this.handleClickShowPassword}
+                  >
+                    {this.state.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            error={error !== null}
+            helperText={
+              error
+                ? error.password
+                  ? error.password
+                  : error.non_field_errors
+                : ""
+            }
             fullWidth
           />
         </DialogContent>
@@ -54,7 +91,7 @@ class LoginForm extends React.Component {
         <DialogActions
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "center"
           }}
         >
           <Button color="primary" type="submit">
@@ -68,8 +105,8 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.loading,
-    error: state.error
+    loading: state.authReducer.loading,
+    error: state.authReducer.error
   };
 };
 
@@ -84,3 +121,26 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(LoginForm);
+
+// error={username === ""}
+// helperText={username === "" ? "Empty field!" : " "}
+//
+//
+// <TextField
+//   type="password"
+//   name="password"
+//   value={password}
+//   onChange={this.onChange}
+//   autoComplete="password"
+//   margin="dense"
+//   label="Password"
+//   error={error !== null}
+//   helperText={
+//     error
+//       ? error.password
+//         ? error.password
+//         : error.non_field_errors
+//       : ""
+//   }
+//   fullWidth
+// />
