@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions/authAction";
-import BaseRouter from "../routes";
+import BaseRouter from "./Routes";
 
 class Platform extends React.Component {
   componentDidMount() {

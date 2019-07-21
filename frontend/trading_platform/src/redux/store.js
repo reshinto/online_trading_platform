@@ -3,6 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import thunk from "redux-thunk";
 
 import authReducer from "./reducers/authReducer";
+import iexReducer from "./reducers/iexReducer";
 
 const initialState = {};
 
@@ -10,6 +11,7 @@ const middleware = [thunk];
 
 const reducers = combineReducers({
   authReducer,
+  iexReducer,
 });
 
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));

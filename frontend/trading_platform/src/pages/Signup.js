@@ -73,7 +73,6 @@ class Signup extends React.Component {
 
         <DialogContent>
           <TextField
-            id="filled-adornment-password"
             type={this.state.showPassword ? "text" : "password"}
             label="Password"
             value={password1}
@@ -99,13 +98,13 @@ class Signup extends React.Component {
             helperText={
               error ? (error.password1 ? error.password1 : "") : ""
             }
+            autoComplete="mew-password"
             fullWidth
           />
         </DialogContent>
 
         <DialogContent>
           <TextField
-            id="filled-adornment-password"
             type={this.state.showPassword ? "text" : "password"}
             label="Confirm Password"
             value={password2}
@@ -139,6 +138,7 @@ class Signup extends React.Component {
                 : ""
             }
             fullWidth
+            autoComplete="mew-password"
           />
         </DialogContent>
 

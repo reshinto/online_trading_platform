@@ -48,13 +48,13 @@ class LoginForm extends React.Component {
             helperText={
               error && username === "" ? "This field may not be blank." : ""
             }
+            autoComplete="username"
             fullWidth
           />
         </DialogContent>
 
         <DialogContent>
           <TextField
-            id="filled-adornment-password"
             type={this.state.showPassword ? "text" : "password"}
             label="Password"
             value={password}
@@ -84,6 +84,7 @@ class LoginForm extends React.Component {
                   : error.non_field_errors
                 : ""
             }
+            autoComplete="current-password"
             fullWidth
           />
         </DialogContent>
@@ -121,26 +122,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(LoginForm);
-
-// error={username === ""}
-// helperText={username === "" ? "Empty field!" : " "}
-//
-//
-// <TextField
-//   type="password"
-//   name="password"
-//   value={password}
-//   onChange={this.onChange}
-//   autoComplete="password"
-//   margin="dense"
-//   label="Password"
-//   error={error !== null}
-//   helperText={
-//     error
-//       ? error.password
-//         ? error.password
-//         : error.non_field_errors
-//       : ""
-//   }
-//   fullWidth
-// />
