@@ -7,7 +7,7 @@ import LineChart from "./LineChart";
 class SetChart extends React.Component {
   state = {
     days: 50,
-    keys: this.props.data.map((data, i) => i)
+    keys: []
   };
 
   componentDidMount() {
@@ -25,15 +25,6 @@ class SetChart extends React.Component {
 
   render() {
     const { days } = this.state;
-    let graphData;
-    let key = [];
-    if (this.props.data.length !== 0) {
-      graphData = this.props.data.map((data, i) => {
-        key.push(i);
-        return { a: i, b: data.volume };
-      });
-    }
-    console.log(key);
 
     return (
       <div>
@@ -49,8 +40,8 @@ class SetChart extends React.Component {
             margin="dense"
           />
         </form>
-        {this.props.data.length > 0 ? (
-          <LineChart key={[...key]} width={800} height={800} graphData={graphData} />
+        {this.props.data.length !== 0 ? (
+          <LineChart width={800} height={800} data={this.props.data} />
         ) : (
           ""
         )}
