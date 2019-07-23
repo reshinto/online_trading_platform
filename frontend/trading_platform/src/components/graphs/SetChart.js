@@ -3,6 +3,17 @@ import { connect } from "react-redux";
 import { getData } from "../../redux/actions/iexAction";
 import TextField from "@material-ui/core/TextField";
 import LineChart from "./LineChart";
+import Surface from "./Surface";
+import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
+  }
+});
 
 class SetChart extends React.Component {
   state = {
@@ -25,10 +36,12 @@ class SetChart extends React.Component {
 
   render() {
     const { days } = this.state;
+    const view = [800, 800]; // [width, height]
+    const trbl = [10, 10, 30, 10]; // [top, right, bottom, left] margins
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <Paper elevation={1}>
+        <form style={{marginLeft: "50px"}} onSubmit={this.handleSubmit}>
           <TextField
             name="days"
             value={days}
@@ -40,12 +53,14 @@ class SetChart extends React.Component {
             margin="dense"
           />
         </form>
-        {this.props.data.length !== 0 ? (
-          <LineChart width={800} height={800} data={this.props.data} />
-        ) : (
-          ""
-        )}
-      </div>
+        <Surface view={view} trbl={trbl}>
+          {this.props.data.length !== 0 ? (
+            <LineChart width={800} height={800} data={this.props.data} />
+          ) : (
+            ""
+          )}
+        </Surface>
+      </Paper>
     );
   }
 }
@@ -59,4 +74,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { getData }
-)(SetChart);
+)(withStyles(styles)(SetChart));

@@ -5,7 +5,7 @@ import "./graph.css";
 
 class LineChart extends React.Component {
   state = {
-    margin: 20,
+    margin: 60,
   }
 
   render() {
@@ -17,9 +17,6 @@ class LineChart extends React.Component {
 
 
     const h = height - 2 * margin, w = width - 2 * margin
-
-    //number formatter
-    const xFormat = d3.format('.2')
 
     //x scale
     const x = d3.scaleLinear()
@@ -41,7 +38,7 @@ class LineChart extends React.Component {
     const xTicks = x.ticks(6).map(d => (
         x(d) > margin && x(d) < w ?
           <g transform={`translate(${x(d)},${h + margin})`}>
-            <text>{xFormat(d)}</text>
+            <text>{d}</text>
             <line x1='0' x2='0' y1='0' y2='5' transform="translate(0,-20)"/>
           </g>
         : null
@@ -50,7 +47,7 @@ class LineChart extends React.Component {
     const yTicks = y.ticks(5).map(d => (
         y(d) > 10 && y(d) < h ?
           <g transform={`translate(${margin},${y(d)})`}>
-            <text x="-12" y="5">{xFormat(d)}</text>
+            <text x="-12" y="5">{d}</text>
             <line x1='0' x2='5' y1='0' y2='0' transform="translate(-5,0)"/>
             <line className='gridline' x1='0' x2={w - margin} y1='0' y2='0' transform="translate(-5,0)"/>
           </g>
@@ -69,8 +66,7 @@ class LineChart extends React.Component {
            {yTicks}
          </g>
       </svg>
-    )
-  }
+    )}
 }
 
 
