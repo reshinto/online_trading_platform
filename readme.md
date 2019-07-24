@@ -1,9 +1,9 @@
 # Online Trading Platform
 ## Purpose
 * This is my 1st big project to develop a full stack app by myself.
-* This will be an online trading platform mainly for equities.
+* It will be an online trading platform mainly for equities.
 * Charts visualization and creation of personal portfolios will be the first end goal.
-* Implement machine learning to analyze stocks will be my 2nd end goal, This will be down in the near future when I have the time.
+* Implement machine learning to analyze stocks will be my 2nd end goal, this will be done in the near future when I have the time.
 
 ## How to make this work
 * Get your own Django secret key
