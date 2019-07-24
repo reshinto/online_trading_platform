@@ -7,7 +7,7 @@
 
 ## How to make this work
 * Get your own Django secret key
-  * Create your own Django app => copy the secret key => paste into this project's secrete key location at settings.py or in your environment.
+  * Create your own Django app => copy the secret key => paste into this project's secret key location at settings.py or in your environment.
 * Create your own mysql database
   * Change the username, password, and database name at settings.py
 * API key is required if you want to use data from IEX cloud.
@@ -39,4 +39,6 @@
 * Expand the type of graphs and visualizations with d3
 * Add portfolio functionality
 * Add privacy for portfolio
+* Add Realtime data support (if IEX allows it) else will create a mock version
+* Add trading functionality
 * Improve overall styling
