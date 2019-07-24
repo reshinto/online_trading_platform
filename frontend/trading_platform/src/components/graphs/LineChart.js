@@ -16,7 +16,12 @@ const styles = theme => ({
 
 class LineChart extends React.Component {
   state = {
-    margin: 60
+    margin: 60,
+    defaultData: [
+      {
+        price: 0
+      }
+    ]
   };
 
   render() {
@@ -24,11 +29,15 @@ class LineChart extends React.Component {
     const trbl = [10, 10, 30, 10]; // [top, right, bottom, left] margins
     const { margin } = this.state;
     let { width, height, data } = this.props;
-    data = data.map((data, i) => {
-      return { id: i, ...data };
-    });
+    if (data !== undefined) {
+      data = data.map((data, i) => {
+        return { id: i, ...data };
+      });
+    } else {
+      data = this.state.defaultData;
+    }
 
-    const h = height - 2 * margin,
+    const h = height - margin,
       w = width - 2 * margin;
 
     //x scale
@@ -40,7 +49,7 @@ class LineChart extends React.Component {
     //y scale
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, d => d.volume)]) // domain [0,max] of b (start from 0)
+      .domain([0, d3.max(data, d => d.open)]) // domain [0,max] of b (start from 0)
       .range([h, margin]);
 
     //line generator: each point is [x(d.a), y(d.b)] where d is a row in data
@@ -48,7 +57,7 @@ class LineChart extends React.Component {
     const line = d3
       .line()
       .x(d => x(d.id))
-      .y(d => y(d.volume))
+      .y(d => y(d.open))
       .curve(d3.curveCatmullRom.alpha(0.5)); //curve line
 
     const xTicks = x.ticks(6).map(d =>

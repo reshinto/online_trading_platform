@@ -4,6 +4,6 @@ export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
-
-
+// IEX api
 export const GET_DATA = "GET_DATA";
+export const GET_CLOUD_DATA = "GET_CLOUD_DATA";
