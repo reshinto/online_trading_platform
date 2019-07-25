@@ -42,7 +42,7 @@
 * ~~Integrate d3 with React~~
 * ~~Write my own iex api to get financial data from IEX~~
 * ~~Integrate iex api with d3~~
-* ~~Wrte my own iex cloud api to get financial market and stocks data from IEX cloud~~
+* ~~Write my own iex cloud api to get financial market and stocks data from IEX cloud~~
 * ~~Integrate iex cloud api with d3~~
 * ~~Slightly improved d3 charts~~
 * Improve d3 visualization
