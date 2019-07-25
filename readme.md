@@ -18,9 +18,9 @@
 ## How to run
 1. Turn on MySql server
 2. Turn on backend server
-  * python migrate.py runserver
+    * python manage.py runserver
 3. Turn on Frontend server
-  * npm start
+    * npm start
 
 ## List of major technologies used
 * Django
