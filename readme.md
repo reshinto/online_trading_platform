@@ -12,6 +12,15 @@
   * Change the username, password, and database name at settings.py
 * API key is required if you want to use data from IEX cloud.
   * Create your own account with IEX (it's free).
+* Use pipenv to install all python dependencies for the backend.
+* Use npm to install all frontend related dependencies.
+
+## How to run
+1. Turn on MySql server
+2. Turn on backend server
+  * python migrate.py runserver
+3. Turn on Frontend server
+  * npm start
 
 ## List of major technologies used
 * Django
@@ -35,6 +44,7 @@
 * ~~Integrate iex api with d3~~
 * ~~Wrte my own iex cloud api to get financial market and stocks data from IEX cloud~~
 * ~~Integrate iex cloud api with d3~~
+* ~~Slightly improved d3 charts~~
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add portfolio functionality

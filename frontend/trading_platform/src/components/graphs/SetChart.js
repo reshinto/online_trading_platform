@@ -14,7 +14,7 @@ class SetChart extends React.Component {
     parameter2: null,
     cinfixKey: "stock",
     csuffixKey: "chart",
-    cparameter: "/max",
+    cparameter: null,
     cquery: null,
   };
 
@@ -87,6 +87,7 @@ class SetChart extends React.Component {
         {this.props.data.length !== 0 ? (
           <Grid container spacing={24}>
             <LineChart
+              title={this.state.parameter}
               width={800}
               height={800}
               data={this.props.cloudData}

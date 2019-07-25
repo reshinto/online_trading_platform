@@ -1,6 +1,5 @@
 import React from "react";
 import * as d3 from "d3";
-import "./graph.css";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +15,7 @@ const styles = theme => ({
 
 class LineChart extends React.Component {
   state = {
-    margin: 60,
+    margin: 80,
     defaultData: [
       {
         price: 0
@@ -25,10 +24,26 @@ class LineChart extends React.Component {
   };
 
   render() {
+    const axis = {
+      stroke: "#000"
+    };
+
+    const axisLabels = {
+      fill: "#000",
+      fillOpacity: 0.9,
+      fontSize: 12,
+      textAnchor: "middle",
+      stroke: "#000"
+    };
+
+    const gridline = {
+      opacity: 0.2
+    };
+
     const view = [800, 800]; // [width, height]
     const trbl = [10, 10, 30, 10]; // [top, right, bottom, left] margins
     const { margin } = this.state;
-    let { width, height, data } = this.props;
+    let { width, height, data, title } = this.props;
     if (data !== undefined) {
       data = data.map((data, i) => {
         return { id: i, ...data };
@@ -62,23 +77,37 @@ class LineChart extends React.Component {
 
     const xTicks = x.ticks(6).map(d =>
       x(d) > margin && x(d) < w ? (
-        <g transform={`translate(${x(d)},${h + margin})`}>
-          <text>{d}</text>
-          <line x1="0" x2="0" y1="0" y2="5" transform="translate(0,-20)" />
+        <g transform={`translate(${x(d)},${h + margin - 50})`}>
+          <text style={{ fontSize: "1em" }}>{d}</text>
+          <line
+            x1="0"
+            x2="0"
+            y1="0"
+            y2="10"
+            transform="translate(0, -30)"
+            style={{ stroke: "#000" }}
+          />
         </g>
       ) : null
     );
 
     const yTicks = y.ticks(5).map(d =>
       y(d) > 10 && y(d) < h ? (
-        <g transform={`translate(${margin},${y(d)})`}>
-          <text x="-12" y="5">
+        <g transform={`translate(${margin - 10},${y(d)})`}>
+          <text x="-12" y="5" style={{ fontSize: "1em" }}>
             {d}
           </text>
-          <line x1="0" x2="5" y1="0" y2="0" transform="translate(-5,0)" />
           <line
-            className="gridline"
             x1="0"
+            x2="5"
+            y1="0"
+            y2="0"
+            transform="translate(5,0)"
+            style={{ stroke: "#000" }}
+          />
+          <line
+            style={gridline}
+            x1="10"
             x2={w - margin}
             y1="0"
             y2="0"
@@ -92,18 +121,69 @@ class LineChart extends React.Component {
       <Grid item xs={4}>
         <Paper elevation={1}>
           <Surface view={view} trbl={trbl}>
-            <svg width={width} height={height}>
-              <line className="axis" x1={margin} x2={w} y1={h} y2={h} />
-              <line
-                className="axis"
-                x1={margin}
-                x2={margin}
-                y1={margin}
-                y2={h}
+            <svg
+              width={width}
+              height={height}
+              style={{
+                fill: "#000",
+                fillOpacity: 0.3
+              }}
+            >
+              {/* Title label */}
+              <text
+                x={width / 2}
+                y={30}
+                style={{
+                  textAnchor: "middle",
+                  fontSize: "2.5em",
+                  fill: "black",
+                  fillOpacity: 1
+                }}
+              >
+                {title} Line Chart
+              </text>
+              {/* X axis line */}
+              <line style={axis} x1={margin} x2={w} y1={h} y2={h} />
+              {/* Y axis line */}
+              <line style={axis} x1={margin} x2={margin} y1={margin} y2={h} />
+              {/* data line */}
+              <path
+                d={line(data)}
+                style={{
+                  stroke: "steelblue",
+                  strokeWidth: 2,
+                  fill: "none"
+                }}
               />
-              <path d={line(data)} />
-              <g className="axis-labels">{xTicks}</g>
-              <g className="axis-labels">{yTicks}</g>
+              {/* X ticks at x axis line */}
+              <g style={axisLabels}>{xTicks}</g>
+              <text
+                x={width / 2}
+                y={780}
+                style={{
+                  textAnchor: "middle",
+                  fill: "black",
+                  fillOpacity: 1,
+                  fontSize: "2em"
+                }}
+              >
+                Suppose to be date
+              </text>
+              {/* y ticks at y axis line */}
+              <g style={axisLabels}>{yTicks}</g>
+              <text
+                x={-width / 2}
+                y={30}
+                style={{
+                  textAnchor: "middle",
+                  fill: "black",
+                  fillOpacity: 1,
+                  transform: "rotate(-90deg)",
+                  fontSize: "2em"
+                }}
+              >
+                Price
+              </text>
             </svg>
           </Surface>
         </Paper>
