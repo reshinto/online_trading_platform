@@ -45,6 +45,10 @@
 * ~~Write my own iex cloud api to get financial market and stocks data from IEX cloud~~
 * ~~Integrate iex cloud api with d3~~
 * ~~Slightly improved d3 charts~~
+* ~~Reorganize Navbar into separate components~~
+* ~~Implement Search Bar and enable multi search feature~~
+* Increase search speed to enable search in large database of symbols
+* Send search results to data input for display of stock chart
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add portfolio functionality
