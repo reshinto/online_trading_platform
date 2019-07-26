@@ -23,6 +23,8 @@ class IEX {
           : url +
               IEX.getSuffixUrls(optionKey, ...parameter) +
               IEX.addSuffixUrls(optionKey2, parameter2);
+      case "symbols":
+        return url;
       default:
         return null;
     }

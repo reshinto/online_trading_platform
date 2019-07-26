@@ -26,6 +26,23 @@ export const getData = (
     });
 };
 
+export const getSymbols = () => (dispatch, state) => {
+  const iex = new IEX();
+  axios
+    .get(
+      iex.getFullUrl("symbols")
+    )
+    .then(res => {
+      dispatch({
+        type: actionTypes.GET_SYMBOLS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 export const getCloudData = (infixKey, symbol, suffixKey, parameter, query) => (
   dispatch,
   state

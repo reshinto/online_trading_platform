@@ -7,3 +7,4 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 // IEX api
 export const GET_DATA = "GET_DATA";
 export const GET_CLOUD_DATA = "GET_CLOUD_DATA";
+export const GET_SYMBOLS = "GET_SYMBOLS";

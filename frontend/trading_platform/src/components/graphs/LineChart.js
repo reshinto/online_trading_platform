@@ -15,7 +15,11 @@ const styles = theme => ({
 
 class LineChart extends React.Component {
   state = {
-    margin: 80,
+    margin: 120,
+    marginLeft: 60,
+    marginRight: 0,
+    marginTop: 50,
+    marginBottom: 80,
     defaultData: [
       {
         price: 0
@@ -32,52 +36,62 @@ class LineChart extends React.Component {
       fill: "#000",
       fillOpacity: 0.9,
       fontSize: 12,
-      textAnchor: "middle",
-      stroke: "#000"
+      textAnchor: "middle"
     };
 
     const gridline = {
-      opacity: 0.2
+      opacity: 0.5,
+      stroke: "#000"
     };
 
     const view = [800, 800]; // [width, height]
     const trbl = [10, 10, 30, 10]; // [top, right, bottom, left] margins
-    const { margin } = this.state;
+    const {
+      margin,
+      marginLeft,
+      marginRight,
+      marginTop,
+      marginBottom
+    } = this.state;
     let { width, height, data, title } = this.props;
     if (data !== undefined) {
       data = data.map((data, i) => {
-        return { id: i, ...data };
+        return { key: i, ...data };
       });
     } else {
       data = this.state.defaultData;
     }
 
-    const h = height - margin,
-      w = width - 2 * margin;
+    const maxValue = d3.max(data, d => d.open);
+    const minValue = d3.min(data, d => d.open);
+    const scaleMax = maxValue + maxValue * 0.05
+    const scaleMin = (minValue - minValue * 0.05) < 0 ? 0 : (minValue - minValue * 0.05);
+    const h = height - marginBottom;
+    const w = width - marginLeft - marginRight;
 
     //x scale
     const x = d3
       .scaleLinear()
-      .domain(d3.extent(data, d => d.id)) //domain: [min,max] of a
-      .range([margin, w]);
+      .domain(d3.extent(data, d => d.key)) //domain: [min,max] of a
+      .range([marginLeft, w]);
 
     //y scale
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, d => d.open)]) // domain [0,max] of b (start from 0)
-      .range([h, margin]);
+      .domain([scaleMin, scaleMax]) // domain [0,max] of b (start from 0)
+      .range([h, marginBottom]);
 
     //line generator: each point is [x(d.a), y(d.b)] where d is a row in data
     // and x, y are scales (e.g. x(10) returns pixel value of 10 scaled by x)
     const line = d3
       .line()
-      .x(d => x(d.id))
+      .x(d => x(d.key))
       .y(d => y(d.open))
       .curve(d3.curveCatmullRom.alpha(0.5)); //curve line
 
     const xTicks = x.ticks(6).map(d =>
-      x(d) > margin && x(d) < w ? (
-        <g transform={`translate(${x(d)},${h + margin - 50})`}>
+      x(d) > marginLeft && x(d) < w ? (
+        <g transform={`translate(${x(d)},${h + 30})`}>
           <text style={{ fontSize: "1em" }}>{d}</text>
           <line
             x1="0"
@@ -93,32 +107,24 @@ class LineChart extends React.Component {
 
     const yTicks = y.ticks(5).map(d =>
       y(d) > 10 && y(d) < h ? (
-        <g transform={`translate(${margin - 10},${y(d)})`}>
+        <g transform={`translate(${marginLeft},${y(d)})`}>
           <text x="-12" y="5" style={{ fontSize: "1em" }}>
             {d}
           </text>
           <line
-            x1="0"
-            x2="5"
-            y1="0"
-            y2="0"
-            transform="translate(5,0)"
-            style={{ stroke: "#000" }}
-          />
-          <line
             style={gridline}
-            x1="10"
-            x2={w - margin}
+            x1="0"
+            x2={w - marginRight - marginLeft}
             y1="0"
             y2="0"
-            transform="translate(-5,0)"
+            transform="translate(0,0)"
           />
         </g>
       ) : null
     );
 
     return (
-      <Grid item xs={4}>
+      <Grid item xs={8}>
         <Paper elevation={1}>
           <Surface view={view} trbl={trbl}>
             <svg
@@ -132,7 +138,7 @@ class LineChart extends React.Component {
               {/* Title label */}
               <text
                 x={width / 2}
-                y={30}
+                y={marginTop}
                 style={{
                   textAnchor: "middle",
                   fontSize: "2.5em",
@@ -140,12 +146,18 @@ class LineChart extends React.Component {
                   fillOpacity: 1
                 }}
               >
-                {title} Line Chart
+                {title}
               </text>
               {/* X axis line */}
-              <line style={axis} x1={margin} x2={w} y1={h} y2={h} />
+              <line style={axis} x1={marginLeft} x2={w} y1={h} y2={h} />
               {/* Y axis line */}
-              <line style={axis} x1={margin} x2={margin} y1={margin} y2={h} />
+              <line
+                style={axis}
+                x1={marginLeft}
+                x2={marginLeft}
+                y1={margin}
+                y2={h}
+              />
               {/* data line */}
               <path
                 d={line(data)}

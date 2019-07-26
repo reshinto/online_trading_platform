@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions/authAction";
 import BaseRouter from "./Routes";
