@@ -47,7 +47,7 @@
 * ~~Slightly improved d3 charts~~
 * ~~Reorganize Navbar into separate components~~
 * ~~Implement Search Bar and enable multi search feature~~
-* Increase search speed to enable search in large database of symbols
+* ~~Implement Async Select and Search in large database~~
 * Send search results to data input for display of stock chart
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
