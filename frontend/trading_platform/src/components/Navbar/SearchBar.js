@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import MenuItem from "@material-ui/core/MenuItem";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
@@ -11,6 +10,7 @@ import {
   getCloudData,
   getSymbols
 } from "../../redux/actions/iexAction";
+import { getSearchResult } from "../../redux/actions/searchAction";
 import classNames from "classnames";
 import AsyncSelect from "react-select/async";
 import NoSsr from "@material-ui/core/NoSsr";
@@ -43,21 +43,6 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit",
-    width: "100%"
-  },
-  inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 200
-    }
   },
   innerRoot: {
     flexGrow: 1
@@ -203,7 +188,6 @@ const components = {
 
 class SearchBar extends React.Component {
   state = {
-    searchSym: "",
     multi: null
   };
 
@@ -211,16 +195,11 @@ class SearchBar extends React.Component {
     this.props.getSymbols();
   }
 
-  cleanInput = () => this.setState({ searchSym: "" });
-
-  onChange = prop => e => {
-    if (typeof this.state.searchSym === "string")
-      this.setState({ [prop]: e.target.value.toUpperCase() });
-    if (typeof this.state.searchSym === "number")
-      this.setState({ [prop]: e.target.value });
-  };
-
-  onSubmit = () => {};
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.multi !== prevState.multi) {
+      this.props.getSearchResult(this.state.multi);
+    }
+  }
 
   handleSearchChange = name => value => {
     this.setState({
@@ -246,14 +225,8 @@ class SearchBar extends React.Component {
     });
   };
 
-  handleInputChange = newValue => {
-    const searchSym = newValue.replace(/\W/g, "");
-    this.setState({ searchSym });
-    return searchSym;
-  };
-
   render() {
-    const { searchSym } = this.state;
+    const { multi } = this.state;
     let { classes, theme } = this.props;
 
     const selectStyles = {
@@ -283,7 +256,7 @@ class SearchBar extends React.Component {
               }}
               loadOptions={this.promiseOptions}
               components={components}
-              value={this.state.multi}
+              value={multi}
               onChange={this.handleSearchChange("multi")}
               placeholder="Search..."
               isMulti
@@ -297,12 +270,14 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    multi: state.searchReducer.multi,
     symbols: state.iexReducer.symbols
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    getSearchResult: result => dispatch(getSearchResult(result)),
     getSymbols: () => dispatch(getSymbols()),
     getCloudData
   };
@@ -312,52 +287,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles, { withTheme: true })(SearchBar));
-
-// SearchBar without auto suggest
-// <div className={classes.search}>
-//   <div className={classes.searchIcon}>
-//     <SearchIcon />
-//   </div>
-//   <InputBase
-//     value={searchSym}
-//     onChange={this.onChange("searchSym")}
-//     onClick={this.cleanInput}
-//     onSubmit={this.onSubmit}
-//     placeholder="Search…"
-//     autoComplete={this.props.symbols}
-//     classes={{
-//       root: classes.inputRoot,
-//       input: classes.inputInput
-//     }}
-//   />
-// </div>
-
-// SearchBar with auto suggest
-// <div className={classes.innerRoot}>
-//   <div className={classes.search}>
-//     <div className={classes.searchIcon}>
-//       <SearchIcon />
-//     </div>
-//     <NoSsr>
-//       <Select
-//         classes={classes}
-//         styles={selectStyles}
-//         textFieldProps={{
-//           InputLabelProps: {
-//             shrink: true
-//           }
-//         }}
-//         options={[
-//           { value: "chocolate", label: "Chocolate" },
-//           { value: "strawberry", label: "Strawberry" },
-//           { value: "vanilla", label: "Vanilla" }
-//         ]}
-//         components={components}
-//         value={this.state.multi}
-//         onChange={this.handleSearchChange("multi")}
-//         placeholder="Search..."
-//         isMulti
-//       />
-//     </NoSsr>
-//   </div>
-// </div>

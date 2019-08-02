@@ -48,7 +48,7 @@
 * ~~Reorganize Navbar into separate components~~
 * ~~Implement Search Bar and enable multi search feature~~
 * ~~Implement Async Select and Search in large database~~
-* Send search results to data input for display of stock chart
+* ~~Link Nav search bar with chart display~~
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add portfolio functionality
