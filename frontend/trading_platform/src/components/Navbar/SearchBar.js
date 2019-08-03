@@ -5,11 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import {
-  getData,
-  getCloudData,
-  getSymbols
-} from "../../redux/actions/iexAction";
+import { getSymbols } from "../../redux/actions/iexAction";
 import { getSearchResult } from "../../redux/actions/searchAction";
 import classNames from "classnames";
 import AsyncSelect from "react-select/async";
@@ -278,8 +274,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getSearchResult: result => dispatch(getSearchResult(result)),
-    getSymbols: () => dispatch(getSymbols()),
-    getCloudData
+    getSymbols: () => dispatch(getSymbols())
   };
 };
 

@@ -49,6 +49,8 @@
 * ~~Implement Search Bar and enable multi search feature~~
 * ~~Implement Async Select and Search in large database~~
 * ~~Link Nav search bar with chart display~~
+* ~~Add range select for chart~~
+* Display X ticks
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add portfolio functionality

@@ -13,20 +13,24 @@ class SetChart extends React.Component {
     parameter2: null,
     cinfixKey: "stock",
     csuffixKey: "chart",
-    cparameter: null,
-    cquery: null
+    cparameter: "",
+    cquery: null,
+    marginLeft: 60,
+    marginRight: 0,
+    marginTop: 50,
+    marginBottom: 80,
+    width: 800,
+    height: 800,
+    trbl: [10, 10, 30, 10], // [top, right, bottom, left] margins
+    defaultData: [
+      {
+        open: 0,
+        date: new Date("2019-01-01")
+      }
+    ]
   };
 
   componentDidMount() {
-    // this.props.getData(this.state.infix, this.state.option, null, null, this.state.parameter);
-    // this.props.getData("histDay", null, null, null, this.state.days);
-    // this.props.getData(
-    //   this.state.infix,
-    //   this.state.option,
-    //   this.state.option2,
-    //   this.state.parameter2,
-    //   this.state.parameter
-    // );
     this.getCloudData();
   }
 
@@ -36,6 +40,9 @@ class SetChart extends React.Component {
         this.setState({
           parameter: this.props.multi.map(data => data.value)[0]
         });
+        this.getCloudData();
+      }
+      if (this.state.cparameter !== prevState.cparameter) {
         this.getCloudData();
       }
     }
@@ -51,16 +58,19 @@ class SetChart extends React.Component {
     );
   };
 
+  handleRangeChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   render() {
     return (
       <React.Fragment>
         {this.props.cloudData.length !== 0 ? (
           <Grid container spacing={24}>
             <LineChart
-              title={this.state.parameter}
-              width={800}
-              height={800}
               data={this.props.cloudData}
+              {...this.state}
+              handleRangeChange={this.handleRangeChange}
             />
           </Grid>
         ) : (
@@ -88,3 +98,13 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SetChart);
+
+// this.props.getData(this.state.infix, this.state.option, null, null, this.state.parameter);
+// this.props.getData("histDay", null, null, null, this.state.days);
+// this.props.getData(
+//   this.state.infix,
+//   this.state.option,
+//   this.state.option2,
+//   this.state.parameter2,
+//   this.state.parameter
+// );

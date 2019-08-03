@@ -9,13 +9,15 @@ class IEXCloud {
 
   getFullUrl(
     infixKey,
-    symbol = null,
+    symbol = "SNAP", // Set as default to prevent TypeError
     suffixKey = null,
     parameter = null,
     query = null
   ) {
     if (parameter === null) parameter = "";
+    else if (parameter[0] !== "/") parameter = "/" + parameter;
     if (query === null) query = "";
+    else if (query[0] !== "/") query = "/" + query;
     const paraQuery = parameter + query;
 
     let url = this.prefix + IEXCloud.getInfixUrls(infixKey);
