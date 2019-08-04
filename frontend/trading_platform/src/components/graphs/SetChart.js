@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getData, getCloudData } from "../../redux/actions/iexAction";
-import LineChart from "./LineChart";
 import Grid from "@material-ui/core/Grid";
+import CandleStickChart from "./CandleStickChart";
 
 class SetChart extends React.Component {
   state = {
@@ -15,19 +15,8 @@ class SetChart extends React.Component {
     csuffixKey: "chart",
     cparameter: "",
     cquery: null,
-    marginLeft: 60,
-    marginRight: 0,
-    marginTop: 50,
-    marginBottom: 80,
-    width: 800,
-    height: 800,
-    trbl: [10, 10, 30, 10], // [top, right, bottom, left] margins
-    defaultData: [
-      {
-        open: 0,
-        date: new Date("2019-01-01")
-      }
-    ]
+    height: 600,
+    margin: { left: 60, right: 60, top: 30, bottom: 50 }
   };
 
   componentDidMount() {
@@ -66,8 +55,12 @@ class SetChart extends React.Component {
     return (
       <React.Fragment>
         {this.props.cloudData.length !== 0 ? (
-          <Grid container spacing={24}>
-            <LineChart
+          <Grid
+            container
+            spacing={24}
+            style={{ position: "relative", zIndex: 1 }}
+          >
+            <CandleStickChart
               data={this.props.cloudData}
               {...this.state}
               handleRangeChange={this.handleRangeChange}
@@ -98,13 +91,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SetChart);
-
-// this.props.getData(this.state.infix, this.state.option, null, null, this.state.parameter);
-// this.props.getData("histDay", null, null, null, this.state.days);
-// this.props.getData(
-//   this.state.infix,
-//   this.state.option,
-//   this.state.option2,
-//   this.state.parameter2,
-//   this.state.parameter
-// );

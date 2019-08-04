@@ -18,6 +18,7 @@ import { emphasize } from "@material-ui/core/styles/colorManipulator";
 const styles = theme => ({
   search: {
     position: "relative",
+    zIndex: 2,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
