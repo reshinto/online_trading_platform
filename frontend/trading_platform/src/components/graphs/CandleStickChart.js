@@ -195,7 +195,13 @@ class CandleStickChart extends React.Component {
               fontSize={12}
               text="Date"
             />
-            <Label x={0} y={-10} fontSize={12} text="Price" />
+            <Label
+              x={-margin.left + 20}
+              y={height / 2 - margin.top - margin.bottom}
+              fontSize={12}
+              text="Price"
+              rotate={-90}
+            />
             <Chart id={1} yExtents={d => [d.high, d.low]}>
               <XAxis
                 axisAt="bottom"
