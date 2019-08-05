@@ -96,7 +96,7 @@ class IEXCloud {
       largestTrades: "/largest-trades",
       logo: "/logo",
       news: "/news",
-      newsLast: "/news/last/",
+      newsLast: "/news/last",
       ohlc: "/ohlc",
       options: "/options",
       optionsExpiration: "/options/",

@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getData, getCloudData } from "../../redux/actions/iexAction";
-import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Range from "./Range";
 import CandleStickChart from "./CandleStickChart";
 
 class SetChart extends React.Component {
   state = {
-    parameter: "SNAP",
+    symbol: [{ label: "SNAP", value: "SNAP" }],
     infix: "symbols",
     option: null,
     option2: null,
@@ -20,29 +21,34 @@ class SetChart extends React.Component {
   };
 
   componentDidMount() {
-    this.getCloudData();
+    this.getCloudData(this.state.symbol, this.state.cparameter);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.multi !== null) {
-      if (this.props.multi !== prevProps.multi) {
+    const { symbol, cparameter } = this.state;
+    const { multi } = this.props;
+    if (multi !== null) {
+      if (multi !== prevProps.multi) {
         this.setState({
-          parameter: this.props.multi.map(data => data.value)[0]
+          symbol: multi
         });
-        this.getCloudData();
+        this.getCloudData(multi, cparameter);
       }
-      if (this.state.cparameter !== prevState.cparameter) {
-        this.getCloudData();
+      if (cparameter !== prevState.cparameter) {
+        this.setState({
+          cparameter: cparameter
+        });
+        this.getCloudData(symbol, cparameter);
       }
     }
   }
 
-  getCloudData = () => {
+  getCloudData = (symbol, cparameter) => {
     this.props.getCloudData(
       this.state.cinfixKey,
-      this.state.parameter,
+      symbol[0].value,
       this.state.csuffixKey,
-      this.state.cparameter,
+      cparameter,
       this.state.cquery
     );
   };
@@ -55,17 +61,10 @@ class SetChart extends React.Component {
     return (
       <React.Fragment>
         {this.props.cloudData.length !== 0 ? (
-          <Grid
-            container
-            spacing={24}
-            style={{ position: "relative", zIndex: 1 }}
-          >
-            <CandleStickChart
-              data={this.props.cloudData}
-              {...this.state}
-              handleRangeChange={this.handleRangeChange}
-            />
-          </Grid>
+          <Paper elevation={2}>
+            <Range {...this.state} handleRangeChange={this.handleRangeChange} />
+            <CandleStickChart data={this.props.cloudData} {...this.state} />
+          </Paper>
         ) : (
           ""
         )}

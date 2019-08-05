@@ -5,6 +5,7 @@ const initialState = {
   data: [],
   cloudData: [],
   symbols: [],
+  news: [],
 };
 
 const getData = (state, action) => {
@@ -25,6 +26,12 @@ const getSymbols = (state, action) => {
   });
 }
 
+const getNews = (state, action) => {
+  return updateObject(state, {
+    news: action.payload
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_DATA:
@@ -33,6 +40,8 @@ const reducer = (state = initialState, action) => {
       return getCloudData(state, action);
     case actionTypes.GET_SYMBOLS:
       return getSymbols(state, action);
+    case actionTypes.GET_NEWS_DATA:
+      return getNews(state, action);
     default:
       return state;
   }

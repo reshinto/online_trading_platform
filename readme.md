@@ -53,6 +53,7 @@
 * ~~Implement Candle Stick chart~~
 * ~~Fix X ticks~~
 * ~~Implement Menu bar~~
+* ~~Add news to Dashboard~~
 * Add other features and links into Menu (news, etc.)
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3

@@ -60,3 +60,22 @@ export const getCloudData = (infixKey, symbol, suffixKey, parameter, query) => (
       console.log(err);
     });
 };
+
+
+export const getNews = (symbol, parameter) => (
+  dispatch,
+  state
+) => {
+  const iex = new IEXCloud();
+  axios
+    .get(iex.getFullUrl("stock", symbol, "newsLast", parameter))
+    .then(res => {
+      dispatch({
+        type: actionTypes.GET_NEWS_DATA,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
