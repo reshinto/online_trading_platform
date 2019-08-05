@@ -52,7 +52,8 @@
 * ~~Add range select for chart~~
 * ~~Implement Candle Stick chart~~
 * ~~Fix X ticks~~
-* Add other features into Menu (news, etc.)
+* ~~Implement Menu bar~~
+* Add other features and links into Menu (news, etc.)
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add portfolio functionality

@@ -44,13 +44,12 @@ const styles = theme => ({
   }
 });
 
-
 class Navbar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
     openLogin: false,
-    openSignup: false,
+    openSignup: false
   };
 
   handleClickOpenLogin = () => {
@@ -65,7 +64,7 @@ class Navbar extends React.Component {
 
   handleProfileMenuOpen = event => {
     this.setState({
-      anchorEl: event.currentTarget,
+      anchorEl: event.currentTarget
     });
     this.closeDialog();
   };
@@ -77,14 +76,14 @@ class Navbar extends React.Component {
 
   handleMobileMenuOpen = event => {
     this.setState({
-      mobileMoreAnchorEl: event.currentTarget,
+      mobileMoreAnchorEl: event.currentTarget
     });
     this.closeDialog();
   };
 
   handleMobileMenuClose = () => {
     this.setState({
-      mobileMoreAnchorEl: null,
+      mobileMoreAnchorEl: null
     });
     this.closeDialog();
   };
@@ -94,7 +93,7 @@ class Navbar extends React.Component {
       openLogin: false,
       openSignup: false
     });
-  }
+  };
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
@@ -166,9 +165,9 @@ class Navbar extends React.Component {
       <div className={classes.root}>
         <AppBar style={{ backgroundColor: "#323232" }} position="static">
           <Toolbar>
-            <MainMenu/>
-            <Tab/>
-            <SearchBar/>
+            <MainMenu />
+            <Tab />
+            <SearchBar />
             <div className={classes.grow} />
             {isAuthenticated ? (
               <div>
@@ -247,7 +246,7 @@ class Navbar extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => dispatch(actions.logout()),
-    clearErrors: () => dispatch(actions.clearErrors()),
+    clearErrors: () => dispatch(actions.clearErrors())
   };
 };
 
