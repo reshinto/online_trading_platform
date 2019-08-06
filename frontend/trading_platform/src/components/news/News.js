@@ -10,16 +10,12 @@ const styles = {
   card: {
     minWidth: 275
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
   title: {
-    fontSize: 14
+    fontSize: 24
   },
   pos: {
-    marginBottom: 12
+    marginTop: 6,
+    marginBottom: 6
   },
   summary: {
     overflowX: "hidden",
@@ -34,13 +30,13 @@ class News extends React.Component {
     return (
       <Card className={classes.card}>
         <CardContent>
-          <b>NEWS</b>
-        </CardContent>
-        {news.map((data, i) => (
-          <div key={i}>
-            <Divider />
-            <CardContent>
-              <Typography className={classes.title} gutterBottom>
+          <Typography className={classes.title} gutterBottom>
+            <b>NEWS</b>
+          </Typography>
+          {news.map((data, i) => (
+            <div key={i}>
+              <Divider />
+              <Typography className={classes.pos} gutterBottom>
                 <b>{data.headline}</b>
               </Typography>
               <Typography
@@ -53,12 +49,14 @@ class News extends React.Component {
               <Typography className={classes.pos} color="textSecondary">
                 By {data.source} | {JSON.stringify(new Date(data.datetime))}
               </Typography>
-              <a href={data.url} target="_blank" rel="noopener noreferrer">
-                View source
-              </a>
-            </CardContent>
-          </div>
-        ))}
+              <Typography className={classes.pos}>
+                <a href={data.url} target="_blank" rel="noopener noreferrer">
+                  View source
+                </a>
+              </Typography>
+            </div>
+          ))}
+        </CardContent>
       </Card>
     );
   }

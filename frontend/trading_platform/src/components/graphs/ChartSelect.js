@@ -5,42 +5,37 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { withStyles } from "@material-ui/core/styles";
 
+// TODO: implement chart select feature
+
 const styles = theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap"
   },
   formControl: {
-    marginLeft: theme.spacing.unit * 4,
+    marginRight: theme.spacing.unit * 4,
     minWidth: 120
   }
 });
 
-class Range extends React.Component {
+class ChartSelect extends React.Component {
   render() {
-    const { classes, cparameter, handleRangeChange } = this.props;
+    const { classes, cparameter } = this.props;
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="date-range">Range</InputLabel>
+          <InputLabel htmlFor="chart-select">Chart Type</InputLabel>
           <Select
             value={cparameter}
-            onChange={handleRangeChange}
             inputProps={{
               name: "cparameter",
-              id: "date-range"
+              id: "chart-select"
             }}
           >
             <MenuItem value="">
               <em>Default</em>
             </MenuItem>
-            <MenuItem value={"max"}>Max</MenuItem>
-            <MenuItem value={"5y"}>Five years</MenuItem>
-            <MenuItem value={"1y"}>One year</MenuItem>
-            <MenuItem value={"ytd"}>Year To Date</MenuItem>
-            <MenuItem value={"6m"}>Six months</MenuItem>
-            <MenuItem value={"3m"}>Three months</MenuItem>
-            <MenuItem value={"1m"}>One month</MenuItem>
+            <MenuItem value={"candleStick"}>Candle Stick</MenuItem>
           </Select>
         </FormControl>
       </form>
@@ -48,4 +43,4 @@ class Range extends React.Component {
   }
 }
 
-export default withStyles(styles)(Range);
+export default withStyles(styles)(ChartSelect);

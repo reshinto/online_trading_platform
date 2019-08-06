@@ -207,7 +207,8 @@ class SearchBar extends React.Component {
   filterSymbols = searchSym => {
     let symbols = this.props.symbols.map(data => ({
       label: data.symbol,
-      value: data.symbol
+      value: data.symbol,
+      name: data.name
     }));
     return symbols.filter(i =>
       i.label.toUpperCase().includes(searchSym.toUpperCase())

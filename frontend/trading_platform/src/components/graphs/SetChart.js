@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import { getData, getCloudData } from "../../redux/actions/iexAction";
 import Paper from "@material-ui/core/Paper";
 import Range from "./Range";
+import ChartSelect from "./ChartSelect";
 import CandleStickChart from "./CandleStickChart";
+import Typography from "@material-ui/core/Typography";
 
 class SetChart extends React.Component {
   state = {
-    symbol: [{ label: "SNAP", value: "SNAP" }],
     infix: "symbols",
     option: null,
     option2: null,
@@ -21,24 +22,21 @@ class SetChart extends React.Component {
   };
 
   componentDidMount() {
-    this.getCloudData(this.state.symbol, this.state.cparameter);
+    this.getCloudData(this.props.multi, this.state.cparameter);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { symbol, cparameter } = this.state;
+    const { cparameter } = this.state;
     const { multi } = this.props;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.setState({
-          symbol: multi
-        });
         this.getCloudData(multi, cparameter);
       }
       if (cparameter !== prevState.cparameter) {
         this.setState({
           cparameter: cparameter
         });
-        this.getCloudData(symbol, cparameter);
+        this.getCloudData(multi, cparameter);
       }
     }
   }
@@ -59,16 +57,38 @@ class SetChart extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Paper elevation={2}>
         {this.props.cloudData.length !== 0 ? (
-          <Paper elevation={2}>
-            <Range {...this.state} handleRangeChange={this.handleRangeChange} />
-            <CandleStickChart data={this.props.cloudData} {...this.state} />
-          </Paper>
+          <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-between"
+              }}
+            >
+              <Range
+                {...this.state}
+                handleRangeChange={this.handleRangeChange}
+              />
+              <Typography variant="h5">
+                {this.props.multi !== null ? this.props.multi[0].value : ""}
+              </Typography>
+              <ChartSelect
+                {...this.state}
+                handleRangeChange={this.handleRangeChange}
+              />
+            </div>
+            <CandleStickChart
+              data={this.props.cloudData}
+              {...this.state}
+              multi={this.props.multi}
+            />
+          </div>
         ) : (
           ""
         )}
-      </React.Fragment>
+      </Paper>
     );
   }
 }

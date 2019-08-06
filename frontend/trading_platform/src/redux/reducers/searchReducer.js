@@ -2,7 +2,7 @@ import * as actionTypes from "../types";
 import { updateObject } from "../utility";
 
 const initialState = {
-  multi: [{label: "SNAP", value: "SNAP"}]
+  multi: [{label: "SNAP", value: "SNAP", name: "Snap Inc. Class A"}]
 };
 
 const getSearchResult = (state, action) => {

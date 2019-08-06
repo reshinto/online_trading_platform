@@ -6,29 +6,25 @@ import News from "./News";
 
 class SetNews extends React.Component {
   state = {
-    symbol: [{ label: "SNAP", value: "SNAP" }],
     cparameter: "3"
   };
 
   componentDidMount() {
-    this.getNews(this.state.symbol, this.state.cparameter);
+    this.getNews(this.props.multi, this.state.cparameter);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { symbol, cparameter } = this.state;
+    const { cparameter } = this.state;
     const { multi } = this.props;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.setState({
-          symbol: multi
-        });
         this.getNews(multi, cparameter);
       }
       if (cparameter !== prevState.cparameter) {
         this.setState({
           cparameter: cparameter
         });
-        this.getNews(symbol, cparameter);
+        this.getNews(multi, cparameter);
       }
     }
   }

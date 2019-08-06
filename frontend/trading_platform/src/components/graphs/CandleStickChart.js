@@ -84,7 +84,6 @@ class CandleStickChart extends React.Component {
       clamp,
       margin
     } = this.props;
-    const title = this.props.symbol[0].value;
 
     const parseDate = d3.timeParse("%Y-%m-%d");
 
@@ -131,12 +130,6 @@ class CandleStickChart extends React.Component {
           xAccessor={xAccessor}
           displayXAccessor={displayXAccessor}
         >
-          <Label
-            x={(width - margin.left - margin.right) / 2}
-            y={-5}
-            fontSize={30}
-            text={title}
-          />
           <Label
             x={(width - margin.left - margin.right) / 2}
             y={height - 50}
