@@ -8,6 +8,10 @@ const initialState = {
   news: [],
   profile: {},
   advStats: {},
+  keyStats: {},
+  balanceSheet: {},
+  cashFlow: {},
+  incomeStatement: {},
 };
 
 const getData = (state, action) => {
@@ -46,6 +50,30 @@ const getAdvStats = (state, action) => {
   });
 };
 
+const getKeyStats = (state, action) => {
+  return updateObject(state, {
+    keyStats: action.payload
+  });
+};
+
+const getBalanceSheet = (state, action) => {
+  return updateObject(state, {
+    balanceSheet: action.payload
+  });
+};
+
+const getCashFlow = (state, action) => {
+  return updateObject(state, {
+    cashFlow: action.payload
+  });
+};
+
+const getIncomeStatement = (state, action) => {
+  return updateObject(state, {
+    incomeStatement: action.payload
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_DATA:
@@ -60,6 +88,14 @@ const reducer = (state = initialState, action) => {
       return getProfile(state, action);
     case actionTypes.GET_ADVANCED_STATS:
       return getAdvStats(state, action);
+    case actionTypes.GET_KEY_STATS:
+      return getKeyStats(state, action);
+    case actionTypes.GET_BALANCE_SHEET:
+      return getBalanceSheet(state, action);
+    case actionTypes.GET_CASH_FLOW:
+      return getCashFlow(state, action);
+    case actionTypes.GET_INCOME_STATEMENT:
+      return getIncomeStatement(state, action);
     default:
       return state;
   }

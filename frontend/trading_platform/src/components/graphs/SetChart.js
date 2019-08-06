@@ -17,7 +17,7 @@ class SetChart extends React.Component {
     csuffixKey: "chart",
     cparameter: "",
     cquery: null,
-    height: 600,
+    height: this.props.height,
     margin: { left: 60, right: 60, top: 30, bottom: 50 }
   };
 

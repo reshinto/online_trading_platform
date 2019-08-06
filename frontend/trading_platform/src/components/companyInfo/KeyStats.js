@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAdvStats } from "../../redux/actions/iexAction";
+import { getKeyStats } from "../../redux/actions/iexAction";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -21,40 +21,40 @@ const styles = theme => ({
   }
 });
 
-class AdvancedStats extends React.Component {
+class KeyStats extends React.Component {
   componentDidMount() {
-    this.getAdvStats(this.props.multi);
+    this.getKeyStats(this.props.multi);
   }
 
   componentDidUpdate(prevProps) {
     const { multi } = this.props;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.getAdvStats(multi);
+        this.getKeyStats(multi);
       }
     }
   }
 
-  getAdvStats = symbol => {
-    this.props.getAdvStats(symbol[0].value);
+  getKeyStats = symbol => {
+    this.props.getKeyStats(symbol[0].value);
   };
 
   render() {
-    const { advStats, classes } = this.props;
-    const advStatsArray = [];
-    for (let [key, value] of Object.entries(advStats)) {
-      advStatsArray.push({ key: key, value: value });
+    const { keyStats, classes } = this.props;
+    const keyStatsArray = [];
+    for (let [key, value] of Object.entries(keyStats)) {
+      keyStatsArray.push({ key: key, value: value });
     }
 
     return (
       <Paper className={classes.root} style={{ height: this.props.height }}>
         <Typography className={classes.title} gutterBottom>
-          <b>Advanced Stats</b>
+          <b>Key Stats</b>
         </Typography>
         <Divider />
         <Table>
           <TableBody>
-            {advStatsArray.map((row, i) => (
+            {keyStatsArray.map((row, i) => (
               <TableRow key={i}>
                 <TableCell>{row.key}</TableCell>
                 <TableCell align="right">{row.value}</TableCell>
@@ -69,16 +69,16 @@ class AdvancedStats extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    advStats: state.iexReducer.advStats,
+    keyStats: state.iexReducer.keyStats,
     multi: state.searchReducer.multi
   };
 };
 
 const mapDispatchToProps = {
-  getAdvStats
+  getKeyStats
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(AdvancedStats));
+)(withStyles(styles)(KeyStats));

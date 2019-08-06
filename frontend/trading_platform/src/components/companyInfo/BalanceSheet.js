@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAdvStats } from "../../redux/actions/iexAction";
+import { getBalanceSheet } from "../../redux/actions/iexAction";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -21,40 +21,42 @@ const styles = theme => ({
   }
 });
 
-class AdvancedStats extends React.Component {
+class BalanceSheet extends React.Component {
   componentDidMount() {
-    this.getAdvStats(this.props.multi);
+    this.getBalanceSheet(this.props.multi);
   }
 
   componentDidUpdate(prevProps) {
     const { multi } = this.props;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.getAdvStats(multi);
+        this.getBalanceSheet(multi);
       }
     }
   }
 
-  getAdvStats = symbol => {
-    this.props.getAdvStats(symbol[0].value);
+  getBalanceSheet = symbol => {
+    this.props.getBalanceSheet(symbol[0].value);
   };
 
   render() {
-    const { advStats, classes } = this.props;
-    const advStatsArray = [];
-    for (let [key, value] of Object.entries(advStats)) {
-      advStatsArray.push({ key: key, value: value });
+    const { balanceSheet, classes } = this.props;
+    const balanceSheetArray = [];
+    if (balanceSheet.balancesheet !== undefined) {
+      for (let [key, value] of Object.entries(balanceSheet.balancesheet[0])) {
+        balanceSheetArray.push({ key: key, value: value });
+      }
     }
 
     return (
       <Paper className={classes.root} style={{ height: this.props.height }}>
         <Typography className={classes.title} gutterBottom>
-          <b>Advanced Stats</b>
+          <b>Balance Sheet</b>
         </Typography>
         <Divider />
         <Table>
           <TableBody>
-            {advStatsArray.map((row, i) => (
+            {balanceSheetArray.map((row, i) => (
               <TableRow key={i}>
                 <TableCell>{row.key}</TableCell>
                 <TableCell align="right">{row.value}</TableCell>
@@ -69,16 +71,16 @@ class AdvancedStats extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    advStats: state.iexReducer.advStats,
+    balanceSheet: state.iexReducer.balanceSheet,
     multi: state.searchReducer.multi
   };
 };
 
 const mapDispatchToProps = {
-  getAdvStats
+  getBalanceSheet
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(AdvancedStats));
+)(withStyles(styles)(BalanceSheet));

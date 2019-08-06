@@ -104,7 +104,7 @@ export const getNews = (symbol, parameter) => (dispatch, state) => {
   );
 };
 
-export const getProfile = (symbol, parameter) => (dispatch, state) => {
+export const getProfile = symbol => (dispatch, state) => {
   requestCloudData(
     dispatch,
     state,
@@ -115,7 +115,7 @@ export const getProfile = (symbol, parameter) => (dispatch, state) => {
   );
 };
 
-export const getAdvStats = (symbol, parameter) => (dispatch, state) => {
+export const getAdvStats = symbol => (dispatch, state) => {
   requestCloudData(
     dispatch,
     state,
@@ -123,5 +123,52 @@ export const getAdvStats = (symbol, parameter) => (dispatch, state) => {
     "stock",
     symbol,
     "advancedStats"
+  );
+};
+
+export const getKeyStats = symbol => (dispatch, state) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_KEY_STATS,
+    "stock",
+    symbol,
+    "stats"
+  );
+};
+
+export const getBalanceSheet = symbol => (dispatch, state) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_BALANCE_SHEET,
+    "stock",
+    symbol,
+    "balanceSheet",
+    "?period=annual"
+  );
+};
+
+export const getCashFlow = symbol => (dispatch, state) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_CASH_FLOW,
+    "stock",
+    symbol,
+    "cashFlow",
+    "?period=annual"
+  );
+};
+
+export const getIncomeStatement = symbol => (dispatch, state) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_INCOME_STATEMENT,
+    "stock",
+    symbol,
+    "incomeStatement",
+    "?period=annual"
   );
 };

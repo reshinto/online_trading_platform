@@ -56,6 +56,8 @@
 * ~~Add news to Dashboard~~
 * ~~Add Company Profile to Dashboard~~
 * ~~Add Advanced Stats to Dashboard~~
+* ~~Add Key Stats, Balance Sheet, Cash Flow, Income Statement to Dashboard~~
+* Reorganize Dashboard and split into different pages
 * Implement chart select feature
 * Add other features and links into Menu (news, etc.)
 * Improve d3 visualization

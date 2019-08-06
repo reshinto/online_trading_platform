@@ -3,6 +3,10 @@ import SetChart from "../components/graphs/SetChart";
 import SetNews from "../components/news/SetNews";
 import CompanyProfile from "../components/companyInfo/CompanyProfile";
 import AdvancedStats from "../components/companyInfo/AdvancedStats";
+import KeyStats from "../components/companyInfo/KeyStats";
+import BalanceSheet from "../components/companyInfo/BalanceSheet";
+import CashFlow from "../components/companyInfo/CashFlow";
+import IncomeStatement from "../components/companyInfo/IncomeStatement";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
@@ -27,16 +31,28 @@ class Dashboard extends React.Component {
           style={{ padding: 10, position: "relative", zIndex: 1 }}
         >
           <Grid item xs={12}>
-            <SetChart />
+            <SetChart height={600} />
           </Grid>
           <Grid item md={6}>
-            <CompanyProfile />
+            <CompanyProfile height={300} />
           </Grid>
           <Grid item md={6}>
-            <SetNews />
+            <SetNews height={300} />
           </Grid>
-          <Grid item xs={12}>
-            <AdvancedStats />
+          <Grid item md={6}>
+            <AdvancedStats height={300} />
+          </Grid>
+          <Grid item md={6}>
+            <KeyStats height={300} />
+          </Grid>
+          <Grid item md={6}>
+            <BalanceSheet height={300} />
+          </Grid>
+          <Grid item md={6}>
+            <CashFlow height={300} />
+          </Grid>
+          <Grid item md={6}>
+            <IncomeStatement height={300} />
           </Grid>
         </Grid>
       </Paper>

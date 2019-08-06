@@ -42,7 +42,7 @@ class SetNews extends React.Component {
       <React.Fragment>
         {this.props.news.length !== 0 ? (
           <Paper elevation={2}>
-            <News />
+            <News height={this.props.height} />
           </Paper>
         ) : (
           ""

@@ -14,12 +14,18 @@ class IEXCloud {
     parameter = null,
     query = null
   ) {
-    if (parameter === null) parameter = "";
-    else if (parameter[0] !== "/") parameter = "/" + parameter;
-    if (query === null) query = "";
-    else if (query[0] !== "/") query = "/" + query;
-    const paraQuery = parameter + query;
+    if (parameter === null || parameter === "") parameter = "";
+    else if (parameter[0] === "?")
+      this.token = `&token=${process.env.REACT_APP_iexToken}`;
+    else if (parameter[0] !== "/" && parameter[0] !== "?")
+      parameter = "/" + parameter;
 
+    if (query === null || query === "") query = "";
+    else if (query[0] === "?")
+      this.token = `&token=${process.env.REACT_APP_iexToken}`;
+    else if (query[0] !== "/" && query[0] !== "?") query = "/" + query;
+
+    const paraQuery = parameter + query;
     let url = this.prefix + IEXCloud.getInfixUrls(infixKey);
     if (symbol === null) {
       url = url + IEXCloud.getSuffixUrls(suffixKey) + paraQuery + this.token;
@@ -92,7 +98,6 @@ class IEXCloud {
       institutionalOwnership: "/institutional-ownership",
       intradayPrices: "/intraday-prices",
       stats: "/stats",
-      keyStats: "/stats/",
       largestTrades: "/largest-trades",
       logo: "/logo",
       news: "/news",
