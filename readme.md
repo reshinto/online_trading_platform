@@ -55,6 +55,7 @@
 * ~~Implement Menu bar~~
 * ~~Add news to Dashboard~~
 * ~~Add Company Profile to Dashboard~~
+* ~~Add Advanced Stats to Dashboard~~
 * Implement chart select feature
 * Add other features and links into Menu (news, etc.)
 * Improve d3 visualization

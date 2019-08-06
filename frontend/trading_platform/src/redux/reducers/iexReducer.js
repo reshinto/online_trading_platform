@@ -6,7 +6,8 @@ const initialState = {
   cloudData: [],
   symbols: [],
   news: [],
-  profile: []
+  profile: {},
+  advStats: {},
 };
 
 const getData = (state, action) => {
@@ -39,6 +40,12 @@ const getProfile = (state, action) => {
   });
 };
 
+const getAdvStats = (state, action) => {
+  return updateObject(state, {
+    advStats: action.payload
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_DATA:
@@ -51,6 +58,8 @@ const reducer = (state = initialState, action) => {
       return getNews(state, action);
     case actionTypes.GET_COMPANY_PROFILE:
       return getProfile(state, action);
+    case actionTypes.GET_ADVANCED_STATS:
+      return getAdvStats(state, action);
     default:
       return state;
   }

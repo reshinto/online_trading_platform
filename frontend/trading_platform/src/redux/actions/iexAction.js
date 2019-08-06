@@ -114,3 +114,14 @@ export const getProfile = (symbol, parameter) => (dispatch, state) => {
     "company"
   );
 };
+
+export const getAdvStats = (symbol, parameter) => (dispatch, state) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_ADVANCED_STATS,
+    "stock",
+    symbol,
+    "advancedStats"
+  );
+};

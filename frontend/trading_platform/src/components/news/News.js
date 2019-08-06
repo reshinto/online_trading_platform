@@ -8,7 +8,9 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = {
   card: {
-    minWidth: 275
+    minWidth: 300,
+    height: 300,
+    overflowY: "auto"
   },
   title: {
     fontSize: 24
@@ -17,10 +19,6 @@ const styles = {
     marginTop: 6,
     marginBottom: 6
   },
-  summary: {
-    overflowX: "hidden",
-    height: 50
-  }
 };
 
 class News extends React.Component {
@@ -40,7 +38,6 @@ class News extends React.Component {
                 <b>{data.headline}</b>
               </Typography>
               <Typography
-                className={classes.summary}
                 component="p"
                 gutterBottom
               >
