@@ -57,13 +57,15 @@
 * ~~Add Company Profile to Dashboard~~
 * ~~Add Advanced Stats to Dashboard~~
 * ~~Add Key Stats, Balance Sheet, Cash Flow, Income Statement to Dashboard~~
-* Reorganize Dashboard and split into different pages
+* ~~Add other features and links into Menu (news, etc.)~~
+* ~~Reorganize Dashboard and split into different pages~~
 * Implement chart select feature
-* Add other features and links into Menu (news, etc.)
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
-* Add portfolio functionality
+* Add portfolio feature
+* Add buy and sell stock feature
 * Add privacy for portfolio
 * Add Realtime data support (if IEX allows it) else will create a mock version
-* Add trading functionality
+* Add Profile feature
+* Add notification feature
 * Improve overall styling

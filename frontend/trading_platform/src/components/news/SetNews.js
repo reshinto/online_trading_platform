@@ -6,7 +6,7 @@ import News from "./News";
 
 class SetNews extends React.Component {
   state = {
-    cparameter: "3"
+    cparameter: this.props.noOfNews
   };
 
   componentDidMount() {

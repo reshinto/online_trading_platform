@@ -8,6 +8,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   root: {
@@ -51,16 +53,20 @@ class MainMenu extends React.Component {
         </List>
         <Divider />
         <List>
-          {["Dashboard", "Chart", "News"].map((text, index) => (
-            <ListItem button key={text}>
-              {/*
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              */}
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {["Dashboard", "Chart", "Company", "Financials"].map(
+            (text, i) => (
+              <Button key={i} fullWidth component={Link} to={`/${text}`}>
+                <ListItem key={text}>
+                  {/*
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  */}
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Button>
+            )
+          )}
         </List>
       </div>
     );

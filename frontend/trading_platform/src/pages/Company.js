@@ -1,13 +1,12 @@
 import React from "react";
-import Title from "./Title";
-import SetChart from "../components/graphs/SetChart";
-import AdvancedStats from "../components/companyInfo/AdvancedStats";
-import KeyStats from "../components/companyInfo/KeyStats";
+import SetNews from "../components/news/SetNews";
+import CompanyProfile from "../components/companyInfo/CompanyProfile";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
+import Title from "./Title";
 
-class Dashboard extends React.Component {
+class Company extends React.Component {
   default = this.props.multi;
 
   render() {
@@ -22,13 +21,10 @@ class Dashboard extends React.Component {
           style={{ padding: 10, position: "relative", zIndex: 1 }}
         >
           <Grid item xs={12}>
-            <SetChart height={600} />
+            <CompanyProfile />
           </Grid>
-          <Grid item md={6}>
-            <AdvancedStats height={300} />
-          </Grid>
-          <Grid item md={6}>
-            <KeyStats height={300} />
+          <Grid item xs={12}>
+            <SetNews noOfNews={100} />
           </Grid>
         </Grid>
       </Paper>
@@ -45,4 +41,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null
-)(Dashboard);
+)(Company);

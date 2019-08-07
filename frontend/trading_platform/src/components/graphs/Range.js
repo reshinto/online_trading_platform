@@ -17,8 +17,15 @@ const styles = theme => ({
 });
 
 class Range extends React.Component {
+  state = {
+    defaultRange: ["", "max", "5y", "1y", "ytd", "6m", "3m", "1m"]
+  }
+
   render() {
-    const { classes, cparameter, handleRangeChange } = this.props;
+    const { classes, cparameter, handleRangeChange, menuList } = this.props;
+    const {defaultRange} = this.state;
+    const menu = menuList === undefined ? defaultRange : menuList;
+
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
@@ -31,16 +38,9 @@ class Range extends React.Component {
               id: "date-range"
             }}
           >
-            <MenuItem value="">
-              <em>Default</em>
-            </MenuItem>
-            <MenuItem value={"max"}>Max</MenuItem>
-            <MenuItem value={"5y"}>Five years</MenuItem>
-            <MenuItem value={"1y"}>One year</MenuItem>
-            <MenuItem value={"ytd"}>Year To Date</MenuItem>
-            <MenuItem value={"6m"}>Six months</MenuItem>
-            <MenuItem value={"3m"}>Three months</MenuItem>
-            <MenuItem value={"1m"}>One month</MenuItem>
+            {menu.map((data, i) => (
+              <MenuItem key={i} value={data}>{data}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </form>

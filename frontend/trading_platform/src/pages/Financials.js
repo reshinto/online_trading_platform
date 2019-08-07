@@ -1,13 +1,15 @@
 import React from "react";
-import Title from "./Title";
-import SetChart from "../components/graphs/SetChart";
 import AdvancedStats from "../components/companyInfo/AdvancedStats";
 import KeyStats from "../components/companyInfo/KeyStats";
+import BalanceSheet from "../components/companyInfo/BalanceSheet";
+import CashFlow from "../components/companyInfo/CashFlow";
+import IncomeStatement from "../components/companyInfo/IncomeStatement";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
+import Title from "./Title";
 
-class Dashboard extends React.Component {
+class Financials extends React.Component {
   default = this.props.multi;
 
   render() {
@@ -21,14 +23,20 @@ class Dashboard extends React.Component {
           justify="space-between"
           style={{ padding: 10, position: "relative", zIndex: 1 }}
         >
-          <Grid item xs={12}>
-            <SetChart height={600} />
+          <Grid item md={6}>
+            <CashFlow />
           </Grid>
           <Grid item md={6}>
-            <AdvancedStats height={300} />
+            <IncomeStatement />
           </Grid>
           <Grid item md={6}>
-            <KeyStats height={300} />
+            <KeyStats />
+          </Grid>
+          <Grid item md={6}>
+            <BalanceSheet />
+          </Grid>
+          <Grid item md={6}>
+            <AdvancedStats />
           </Grid>
         </Grid>
       </Paper>
@@ -45,4 +53,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null
-)(Dashboard);
+)(Financials);
