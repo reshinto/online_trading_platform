@@ -62,7 +62,9 @@
 * ~~Add Loading feature~~
 * ~~Add portfolio frontend and backend feature~~
 * ~~Add buy and sell stock feature~~
-* Improve portfolio and trade design
+* ~~Improve trade UI~~
+* Set auto price and cash on hand update for trade UI
+* Improve portfolio design
 * Improve loading UI
 * Implement chart select feature
 * Improve d3 visualization

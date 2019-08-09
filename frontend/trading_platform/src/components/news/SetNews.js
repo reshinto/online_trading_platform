@@ -21,9 +21,9 @@ class SetNews extends React.Component {
         this.getNews(multi, cparameter);
       }
       if (cparameter !== prevState.cparameter) {
-        this.setState({
-          cparameter: cparameter
-        });
+        this.setState((prevState, props) => ({
+          cparameter: prevState.cparameter
+        }));
         this.getNews(multi, cparameter);
       }
     }

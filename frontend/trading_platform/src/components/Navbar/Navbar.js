@@ -63,9 +63,9 @@ class Navbar extends React.Component {
     this.props.clearErrors();
   };
 
-  handleProfileMenuOpen = event => {
+  handleProfileMenuOpen = e => {
     this.setState({
-      anchorEl: event.currentTarget
+      anchorEl: e.currentTarget
     });
     this.closeDialog();
   };

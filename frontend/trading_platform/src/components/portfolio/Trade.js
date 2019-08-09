@@ -3,33 +3,30 @@ import { connect } from "react-redux";
 import { addTrade } from "../../redux/actions/tradeAction";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import Divider from "@material-ui/core/Divider";
 
 const styles = theme => ({
   root: {
     display: "flex",
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     flexDirection: "column"
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120
+    minWidth: 60
   }
 });
 
 class Trade extends React.Component {
   state = {
     transaction: "",
-    cashOnHand: "",
+    cashOnHand: 100000,
     quantity: "",
-    price: "",
-    owner: ""
+    price: 12,
+    owner: 2
   };
 
   onSubmit = e => {
@@ -47,95 +44,68 @@ class Trade extends React.Component {
       owner
     };
     this.props.addTrade(trade);
-    this.props.onSubmit()
+    this.props.onSubmit();
   };
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  buy = () => {
+    this.setState({ transaction: "BUY" });
+  };
+
+  sell = () => {
+    this.setState({ transaction: "SELL" });
+  };
+
   render() {
     const { multi, classes } = this.props;
-    const { transaction, cashOnHand, quantity, price, owner } = this.state;
+    const { quantity } = this.state;
     return (
       <div className={classes.root}>
+        <div style={{ textAlign: "center", marginTop: 10 }}>
+          <b>TRADE</b>
+        </div>
+        <Divider />
         <form onSubmit={this.onSubmit} className={classes.root}>
           <DialogContent>
-            <div>Symbol: {multi[0].value}</div>
-            <div>Company: {multi[0].name}</div>
-          </DialogContent>
-          <DialogContent>
-            <FormControl required className={classes.formControl}>
-              <InputLabel htmlFor="transaction-native-required">
-                Transaction
-              </InputLabel>
-              <Select
-                native
-                value={transaction}
+            <div>Stock Symbol: {multi[0].value}</div>
+            <div style={{ paddingLeft: 62, marginTop: 10, marginBottom: 10 }}>
+              Price: {this.state.price}
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span style={{ paddingLeft: 37, paddingRight: 5 }}>
+                Quantity:{" "}
+              </span>
+              <TextField
+                id="quantity"
+                variant="outlined"
+                name="quantity"
                 onChange={this.onChange}
-                name="transaction"
-                inputProps={{
-                  id: "transaction-native-required"
-                }}
-              >
-                <option value="" />
-                <option value="BUY">BUY</option>
-                <option value="SELL">SELL</option>
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-            </FormControl>
+                value={quantity}
+                style={{ width: 60 }}
+              />
+            </div>
           </DialogContent>
-          <DialogContent>
-            <TextField
-              type="text"
-              name="cashOnHand"
-              margin="dense"
-              label="Cash on Hand"
-              onChange={this.onChange}
-              value={cashOnHand}
-              className={classes.formControl}
-            />
-          </DialogContent>
-          <DialogContent>
-            <TextField
-              type="text"
-              name="quantity"
-              margin="dense"
-              label="Quantity"
-              onChange={this.onChange}
-              value={quantity}
-              className={classes.formControl}
-            />
-          </DialogContent>
-          <DialogContent>
-            <TextField
-              type="text"
-              name="price"
-              margin="dense"
-              label="Price"
-              onChange={this.onChange}
-              value={price}
-              className={classes.formControl}
-            />
-          </DialogContent>
-          <DialogContent>
-            <TextField
-              type="text"
-              name="owner"
-              margin="dense"
-              label="Owner"
-              onChange={this.onChange}
-              value={owner}
-              className={classes.formControl}
-            />
-          </DialogContent>
+          <Divider />
           <DialogActions
             style={{
               display: "flex",
               justifyContent: "center"
             }}
           >
-            <Button color="primary" type="submit">Trade</Button>
+            <Button fullWidth color="primary" type="submit" onClick={this.buy}>
+              BUY
+            </Button>
+            <Button
+              fullWidth
+              color="secondary"
+              type="submit"
+              onClick={this.sell}
+            >
+              SELL
+            </Button>
           </DialogActions>
         </form>
       </div>

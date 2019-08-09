@@ -199,9 +199,7 @@ class SearchBar extends React.Component {
   }
 
   handleSearchChange = name => value => {
-    this.setState({
-      [name]: value
-    });
+    this.setState({ [name]: value });
   };
 
   filterSymbols = searchSym => {

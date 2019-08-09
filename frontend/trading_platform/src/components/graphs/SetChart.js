@@ -33,9 +33,9 @@ class SetChart extends React.Component {
         this.getCloudData(multi, cparameter);
       }
       if (cparameter !== prevState.cparameter) {
-        this.setState({
-          cparameter: cparameter
-        });
+        this.setState((_prevState, props) => ({
+          cparameter: _prevState.cparameter
+        }));
         this.getCloudData(multi, cparameter);
       }
     }
