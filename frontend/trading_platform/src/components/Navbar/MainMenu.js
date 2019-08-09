@@ -43,7 +43,6 @@ class MainMenu extends React.Component {
 
   render() {
     const { isAuthenticated, classes } = this.props;
-    console.log(isAuthenticated);
     const { open } = this.state;
 
     const sideList = (
