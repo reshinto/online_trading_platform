@@ -74,7 +74,7 @@ const getIncomeStatement = (state, action) => {
   });
 };
 
-const reducer = (state = initialState, action) => {
+const iexReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_DATA:
       return getData(state, action);
@@ -101,4 +101,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default iexReducer;

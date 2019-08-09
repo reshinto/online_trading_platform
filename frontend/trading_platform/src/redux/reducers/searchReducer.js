@@ -11,7 +11,7 @@ const getSearchResult = (state, action) => {
   });
 };
 
-const reducer = (state = initialState, action) => {
+const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_SEARCH_RESULTS:
       return getSearchResult(state, action);
@@ -20,5 +20,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
-
+export default searchReducer;

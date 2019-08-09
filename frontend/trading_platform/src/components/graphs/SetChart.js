@@ -57,38 +57,40 @@ class SetChart extends React.Component {
 
   render() {
     return (
-      <Paper elevation={2}>
+      <React.Fragment>
         {this.props.cloudData.length !== 0 ? (
-          <div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-between"
-              }}
-            >
-              <Range
+          <Paper elevation={2}>
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between"
+                }}
+              >
+                <Range
+                  {...this.state}
+                  handleRangeChange={this.handleRangeChange}
+                />
+                <Typography variant="h5">
+                  {this.props.multi !== null ? this.props.multi[0].value : ""}
+                </Typography>
+                <ChartSelect
+                  {...this.state}
+                  handleRangeChange={this.handleRangeChange}
+                />
+              </div>
+              <CandleStickChart
+                data={this.props.cloudData}
                 {...this.state}
-                handleRangeChange={this.handleRangeChange}
-              />
-              <Typography variant="h5">
-                {this.props.multi !== null ? this.props.multi[0].value : ""}
-              </Typography>
-              <ChartSelect
-                {...this.state}
-                handleRangeChange={this.handleRangeChange}
+                multi={this.props.multi}
               />
             </div>
-            <CandleStickChart
-              data={this.props.cloudData}
-              {...this.state}
-              multi={this.props.multi}
-            />
-          </div>
+          </Paper>
         ) : (
-          ""
+          <div>loading...</div>
         )}
-      </Paper>
+      </React.Fragment>
     );
   }
 }

@@ -26,15 +26,29 @@ export const authFail = error => {
 
 export const clearErrors = () => {
   return {
-    type: actionTypes.CLEAR_ERRORS,
+    type: actionTypes.CLEAR_ERRORS
+  };
+};
+
+export const logoutSuccess = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
   };
 };
 
 export const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("expirationDate");
-  return {
-    type: actionTypes.AUTH_LOGOUT
+  return dispatch => {
+    axios
+      .post(`${authProxy}/rest-auth/logout/`)
+      .then(res => {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("expirationDate");
+        dispatch(logoutSuccess());
+        dispatch(clearErrors());
+      })
+      .catch(err => {
+        dispatch(authFail(err));
+      });
   };
 };
 
@@ -57,8 +71,7 @@ export const authLogin = (username, password) => {
       .then(res => {
         const token = res.data.key;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem("token", token);
-        localStorage.setItem("expirationDate", expirationDate);
+        setAuthorizationHeader(token, expirationDate);
         dispatch(authSuccess(token));
         dispatch(clearErrors());
         dispatch(checkAuthTimeout(3600));
@@ -82,8 +95,7 @@ export const authSignup = (username, email, password1, password2) => {
       .then(res => {
         const token = res.data.key;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem("token", token);
-        localStorage.setItem("expirationDate", expirationDate);
+        setAuthorizationHeader(token, expirationDate);
         dispatch(authSuccess(token));
         dispatch(clearErrors());
         dispatch(checkAuthTimeout(3600));
@@ -96,7 +108,7 @@ export const authSignup = (username, email, password1, password2) => {
 
 export const authCheckState = () => {
   return dispatch => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("authToken");
     if (token === undefined) {
       dispatch(logout());
     } else {
@@ -113,4 +125,10 @@ export const authCheckState = () => {
       }
     }
   };
+};
+
+const setAuthorizationHeader = (token, expirationDate) => {
+  const authToken = `Bearer ${token}`;
+  localStorage.setItem('authToken', authToken);
+  localStorage.setItem("expirationDate", expirationDate);
 };

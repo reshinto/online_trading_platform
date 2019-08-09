@@ -17,5 +17,13 @@ export const GET_BALANCE_SHEET = "GET_BALANCE_SHEET";
 export const GET_CASH_FLOW = "GET_CASH_FLOW";
 export const GET_INCOME_STATEMENT = "GET_INCOME_STATEMENT";
 
+// User data
+export const GET_USER_DATA = "GET_USER_DATA";
+
 // Search Bar
 export const GET_SEARCH_RESULTS = "GET_SEARCH_RESULTS";
+
+// Trade data
+export const GET_TRADES = "GET_TRADES";
+export const DELETE_TRADE = "DELETE_TRADE";
+export const ADD_TRADE = "ADD_TRADE";

@@ -49,22 +49,28 @@ class BalanceSheet extends React.Component {
     }
 
     return (
-      <Paper className={classes.root} style={{ height: this.props.height }}>
-        <Typography className={classes.title} gutterBottom>
-          <b>Balance Sheet</b>
-        </Typography>
-        <Divider />
-        <Table>
-          <TableBody>
-            {balanceSheetArray.map((row, i) => (
-              <TableRow key={i}>
-                <TableCell>{row.key}</TableCell>
-                <TableCell align="right">{row.value}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
+      <React.Fragment>
+        {balanceSheetArray.length !== 0 ? (
+          <Paper className={classes.root} style={{ height: this.props.height }}>
+            <Typography className={classes.title} gutterBottom>
+              <b>Balance Sheet</b>
+            </Typography>
+            <Divider />
+            <Table>
+              <TableBody>
+                {balanceSheetArray.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{row.key}</TableCell>
+                    <TableCell align="right">{row.value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        ) : (
+          <div>loading...</div>
+        )}
+      </React.Fragment>
     );
   }
 }

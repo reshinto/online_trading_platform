@@ -14,6 +14,8 @@ coverage = "*"
 django-rest-auth = "*"
 django-allauth = "*"
 django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
+django-rest-knox = "*"
 
 [requires]
 python_version = "3.7"

@@ -45,7 +45,7 @@ class SetNews extends React.Component {
             <News height={this.props.height} />
           </Paper>
         ) : (
-          ""
+          <div>loading...</div>
         )}
       </React.Fragment>
     );

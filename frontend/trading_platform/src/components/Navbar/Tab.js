@@ -18,7 +18,7 @@ class Tab extends React.Component {
     const { classes } = this.props;
     return (
       <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-        <Button color="inherit" component={Link} to="/Dashboard">
+        <Button color="inherit" component={Link} to="/dashboard">
           Dashboard
         </Button>
       </Typography>

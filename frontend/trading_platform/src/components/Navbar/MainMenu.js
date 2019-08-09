@@ -10,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -41,32 +42,59 @@ class MainMenu extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { isAuthenticated, classes } = this.props;
+    console.log(isAuthenticated);
     const { open } = this.state;
 
     const sideList = (
       <div className={classes.list}>
         <List>
-          <ListItem key="Menu">
-            <ListItemText primary="Menu" />
-          </ListItem>
+          <Button disabled>
+            <ListItem>
+              <ListItemText primary="Menu" />
+            </ListItem>
+          </Button>
         </List>
         <Divider />
         <List>
-          {["Dashboard", "Chart", "Company", "Financials"].map(
-            (text, i) => (
-              <Button key={i} fullWidth component={Link} to={`/${text}`}>
-                <ListItem key={text}>
-                  {/*
+          {["Dashboard", "Chart", "Company", "Financials"].map((text, i) => (
+            <Button
+              key={i}
+              fullWidth
+              component={Link}
+              to={`/${text.toLowerCase()}`}
+            >
+              <ListItem>
+                {/*
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
                   */}
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Button>
-            )
-          )}
+                <ListItemText primary={text} />
+              </ListItem>
+            </Button>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["Portfolio"].map((text, i) => (
+            <Button
+              key={i}
+              disabled={!isAuthenticated}
+              fullWidth
+              component={Link}
+              to={`/${text.toLowerCase()}`}
+            >
+              <ListItem>
+                {/*
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  */}
+                <ListItemText primary={text} />
+              </ListItem>
+            </Button>
+          ))}
         </List>
       </div>
     );
@@ -96,4 +124,13 @@ class MainMenu extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(MainMenu);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authReducer.isAuthenticated
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(withStyles(styles, { withTheme: true })(MainMenu));

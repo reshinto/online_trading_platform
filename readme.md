@@ -59,11 +59,14 @@
 * ~~Add Key Stats, Balance Sheet, Cash Flow, Income Statement to Dashboard~~
 * ~~Add other features and links into Menu (news, etc.)~~
 * ~~Reorganize Dashboard and split into different pages~~
+* ~~Add Loading feature~~
+* ~~Add portfolio frontend and backend feature~~
+* ~~Add buy and sell stock feature~~
+* Improve portfolio and trade design
+* Improve loading UI
 * Implement chart select feature
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
-* Add portfolio feature
-* Add buy and sell stock feature
 * Add privacy for portfolio
 * Add Realtime data support (if IEX allows it) else will create a mock version
 * Add Profile feature

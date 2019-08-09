@@ -21,6 +21,7 @@ import LogoutIcon from "@material-ui/icons/ExitToApp";
 import Login from "../../pages/Login";
 import Signup from "../../pages/Signup";
 import Dialog from "@material-ui/core/Dialog";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -111,7 +112,13 @@ class Navbar extends React.Component {
         disableAutoFocusItem={true}
       >
         <span>
-          <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+          <MenuItem
+            onClick={this.handleMenuClose}
+            component={Link}
+            to="/profile"
+          >
+            Profile
+          </MenuItem>
           <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
           <span onClick={this.handleMenuClose}>
             <MenuItem onClick={this.props.logout}>Logout</MenuItem>
@@ -144,7 +151,11 @@ class Navbar extends React.Component {
           </IconButton>
           <p>Notifications</p>
         </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
+        <MenuItem
+          onClick={this.handleMobileMenuClose}
+          component={Link}
+          to="/profile"
+        >
           <IconButton color="inherit">
             <AccountCircle />
           </IconButton>
