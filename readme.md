@@ -63,14 +63,18 @@
 * ~~Add portfolio frontend and backend feature~~
 * ~~Add buy and sell stock feature~~
 * ~~Improve trade UI~~
-* Set auto price and cash on hand update for trade UI
+* ~~Add real time price update for trade UI~~
+* ~~Add real time price and change update for Dashboard UI~~
+* ~~Add Profile feature~~
+* ~~Add privacy for portfolio and profile~~
+* Improve profile feature and design
+* Add password reset feature
+* Set auto cash on hand update for trade UI
 * Improve portfolio design
 * Improve loading UI
 * Implement chart select feature
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
-* Add privacy for portfolio
-* Add Realtime data support (if IEX allows it) else will create a mock version
-* Add Profile feature
+* Add Real time chart support
 * Add notification feature
 * Improve overall styling

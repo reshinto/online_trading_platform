@@ -20,15 +20,15 @@ const styles = theme => ({
 
 class ChartSelect extends React.Component {
   render() {
-    const { classes, cparameter } = this.props;
+    const { classes, range } = this.props;
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="chart-select">Chart Type</InputLabel>
           <Select
-            value={cparameter}
+            value={range}
             inputProps={{
-              name: "cparameter",
+              name: "range",
               id: "chart-select"
             }}
           >

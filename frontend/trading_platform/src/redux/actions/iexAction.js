@@ -76,19 +76,32 @@ const requestCloudData = (
     });
 };
 
-export const getCloudData = (infixKey, symbol, suffixKey, parameter, query) => (
+export const getChart = (symbol, parameter) => (
   dispatch,
   state
 ) => {
   requestCloudData(
     dispatch,
     state,
-    actionTypes.GET_CLOUD_DATA,
-    infixKey,
+    actionTypes.GET_CHART,
+    "stock",
     symbol,
-    suffixKey,
-    parameter,
-    query
+    "chart",
+    parameter
+  );
+};
+
+export const getQuote = (symbol) => (
+  dispatch,
+  state
+) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_QUOTE,
+    "stock",
+    symbol,
+    "quote"
   );
 };
 
@@ -96,7 +109,7 @@ export const getNews = (symbol, parameter) => (dispatch, state) => {
   requestCloudData(
     dispatch,
     state,
-    actionTypes.GET_NEWS_DATA,
+    actionTypes.GET_NEWS,
     "stock",
     symbol,
     "newsLast",

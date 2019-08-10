@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getData, getCloudData } from "../../redux/actions/iexAction";
+import { getChart } from "../../redux/actions/iexAction";
 import Paper from "@material-ui/core/Paper";
 import Range from "./Range";
 import ChartSelect from "./ChartSelect";
@@ -9,45 +9,35 @@ import Typography from "@material-ui/core/Typography";
 
 class SetChart extends React.Component {
   state = {
-    infix: "symbols",
-    option: null,
-    option2: null,
-    parameter2: null,
-    cinfixKey: "stock",
-    csuffixKey: "chart",
-    cparameter: "",
-    cquery: null,
+    range: "",
     height: this.props.height,
     margin: { left: 60, right: 60, top: 30, bottom: 50 }
   };
 
   componentDidMount() {
-    this.getCloudData(this.props.multi, this.state.cparameter);
+    this.getChart(this.props.multi, this.state.range);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { cparameter } = this.state;
+    const { range } = this.state;
     const { multi } = this.props;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.getCloudData(multi, cparameter);
+        this.getChart(multi, range);
       }
-      if (cparameter !== prevState.cparameter) {
+      if (range !== prevState.range) {
         this.setState((_prevState, props) => ({
-          cparameter: _prevState.cparameter
+          range: _prevState.range
         }));
-        this.getCloudData(multi, cparameter);
+        this.getChart(multi, range);
       }
     }
   }
 
-  getCloudData = (symbol, cparameter) => {
-    this.props.getCloudData(
-      this.state.cinfixKey,
+  getChart = (symbol, range) => {
+    this.props.getChart(
       symbol[0].value,
-      this.state.csuffixKey,
-      cparameter,
-      this.state.cquery
+      range,
     );
   };
 
@@ -58,7 +48,7 @@ class SetChart extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.cloudData.length !== 0 ? (
+        {this.props.chart.length !== 0 ? (
           <Paper elevation={2}>
             <div>
               <div
@@ -81,7 +71,7 @@ class SetChart extends React.Component {
                 />
               </div>
               <CandleStickChart
-                data={this.props.cloudData}
+                data={this.props.chart}
                 {...this.state}
                 multi={this.props.multi}
               />
@@ -97,15 +87,13 @@ class SetChart extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    // data: state.iexReducer.data,
-    cloudData: state.iexReducer.cloudData,
+    chart: state.iexReducer.chart,
     multi: state.searchReducer.multi
   };
 };
 
 const mapDispatchToProps = {
-  // getData,
-  getCloudData
+  getChart
 };
 
 export default connect(

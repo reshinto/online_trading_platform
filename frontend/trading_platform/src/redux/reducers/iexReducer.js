@@ -3,7 +3,8 @@ import { updateObject } from "../utility";
 
 const initialState = {
   data: [],
-  cloudData: [],
+  chart: [],
+  quote: {},
   symbols: [],
   news: [],
   profile: {},
@@ -20,9 +21,15 @@ const getData = (state, action) => {
   });
 };
 
-const getCloudData = (state, action) => {
+const getChart = (state, action) => {
   return updateObject(state, {
-    cloudData: action.payload
+    chart: action.payload
+  });
+};
+
+const getQuote = (state, action) => {
+  return updateObject(state, {
+    quote: action.payload
   });
 };
 
@@ -78,11 +85,11 @@ const iexReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_DATA:
       return getData(state, action);
-    case actionTypes.GET_CLOUD_DATA:
-      return getCloudData(state, action);
+    case actionTypes.GET_CHART:
+      return getChart(state, action);
     case actionTypes.GET_SYMBOLS:
       return getSymbols(state, action);
-    case actionTypes.GET_NEWS_DATA:
+    case actionTypes.GET_NEWS:
       return getNews(state, action);
     case actionTypes.GET_COMPANY_PROFILE:
       return getProfile(state, action);
@@ -96,6 +103,8 @@ const iexReducer = (state = initialState, action) => {
       return getCashFlow(state, action);
     case actionTypes.GET_INCOME_STATEMENT:
       return getIncomeStatement(state, action);
+    case actionTypes.GET_QUOTE:
+      return getQuote(state, action);
     default:
       return state;
   }

@@ -22,7 +22,7 @@ class Range extends React.Component {
   }
 
   render() {
-    const { classes, cparameter, handleRangeChange, menuList } = this.props;
+    const { classes, range, handleRangeChange, menuList } = this.props;
     const {defaultRange} = this.state;
     const menu = menuList === undefined ? defaultRange : menuList;
 
@@ -31,10 +31,10 @@ class Range extends React.Component {
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="date-range">Range</InputLabel>
           <Select
-            value={cparameter}
+            value={range}
             onChange={handleRangeChange}
             inputProps={{
-              name: "cparameter",
+              name: "range",
               id: "date-range"
             }}
           >

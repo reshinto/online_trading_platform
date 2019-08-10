@@ -28,10 +28,9 @@ class Profile extends React.Component {
   };
 
   render() {
-    console.log(this.props)
     return (
       <div>
-        Welcome
+        Welcome {this.props.userData.username}
       </div>
     );
   }

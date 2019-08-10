@@ -4,7 +4,8 @@ import Tab from "./Tab";
 import SearchBar from "./SearchBar";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import * as actions from "../../redux/actions/authAction";
+// import * as actions from "../../redux/actions/authAction";
+import { logout, clearErrors } from "../../redux/actions/authAction";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -254,11 +255,9 @@ class Navbar extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    logout: () => dispatch(actions.logout()),
-    clearErrors: () => dispatch(actions.clearErrors())
-  };
+const mapDispatchToProps = {
+  logout,
+  clearErrors
 };
 
 export default withRouter(

@@ -22,7 +22,7 @@ class Platform extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.authReducer.isAuthenticated
+    isAuthenticated: state.authReducer.isAuthenticated,
   };
 };
 

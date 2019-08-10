@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addTrade } from "../../redux/actions/tradeAction";
+import { getQuote } from "../../redux/actions/iexAction";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -25,15 +26,34 @@ class Trade extends React.Component {
     transaction: "",
     cashOnHand: 100000,
     quantity: "",
-    price: 12,
-    owner: 2
   };
+
+  componentDidMount() {
+    const { multi } = this.props;
+    if (multi !== null) this.props.getQuote(multi[0].value);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { multi, quote } = this.props;
+    if (multi !== null) {
+      setTimeout(() => {
+        if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
+      }, 5000);
+    }
+  }
 
   onSubmit = e => {
     e.preventDefault();
-    const { transaction, cashOnHand, quantity, price, owner } = this.state;
-    const symbol = this.props.multi[0].value;
-    const company = this.props.multi[0].name;
+    const { transaction, cashOnHand, quantity } = this.state;
+    const { multi, quote } = this.props;
+    const owner = this.props.userData.id
+    const price = quote.latestPrice;
+    let symbol;
+    let company;
+    if (multi !== null) {
+      symbol = multi[0].value;
+      company = multi[0].name;
+    }
     const trade = {
       symbol,
       company,
@@ -43,8 +63,9 @@ class Trade extends React.Component {
       price,
       owner
     };
+    console.log(trade);
     this.props.addTrade(trade);
-    this.props.onSubmit();
+    this.props.clickSubmit();
   };
 
   onChange = e => {
@@ -60,7 +81,7 @@ class Trade extends React.Component {
   };
 
   render() {
-    const { multi, classes } = this.props;
+    const { multi, classes, quote } = this.props;
     const { quantity } = this.state;
     return (
       <div className={classes.root}>
@@ -70,9 +91,12 @@ class Trade extends React.Component {
         <Divider />
         <form onSubmit={this.onSubmit} className={classes.root}>
           <DialogContent>
-            <div>Stock Symbol: {multi[0].value}</div>
+            <div>Stock Symbol: {multi !== null ? multi[0].value : ""}</div>
             <div style={{ paddingLeft: 62, marginTop: 10, marginBottom: 10 }}>
-              Price: {this.state.price}
+              Price:{" "}
+              <span style={{ color: "green" }}>
+                {multi !== null ? quote.latestPrice : ""}
+              </span>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
               <span style={{ paddingLeft: 37, paddingRight: 5 }}>
@@ -85,6 +109,7 @@ class Trade extends React.Component {
                 onChange={this.onChange}
                 value={quantity}
                 style={{ width: 60 }}
+                autoFocus
               />
             </div>
           </DialogContent>
@@ -115,12 +140,15 @@ class Trade extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    multi: state.searchReducer.multi
+    userData: state.userReducer.userData,
+    multi: state.searchReducer.multi,
+    quote: state.iexReducer.quote
   };
 };
 
 const mapDispatchToProps = {
-  addTrade
+  addTrade,
+  getQuote
 };
 
 export default connect(

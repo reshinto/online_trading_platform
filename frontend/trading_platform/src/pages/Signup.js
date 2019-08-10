@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as actions from "../redux/actions/authAction";
+import { signup } from "../redux/actions/authAction";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -14,16 +14,16 @@ class Signup extends React.Component {
   state = {
     username: "",
     email: "",
-    password1: "",
-    password2: "",
+    password: "",
+    confirmPassword: "",
     showPassword: false
   };
 
   onSubmit = e => {
     e.preventDefault();
-    const { username, email, password1, password2 } = this.state;
-    this.props.onAuth(username, email, password1, password2);
-    // this.props.history.push("/");
+    const { username, email, password, confirmPassword } = this.state;
+    if (password === confirmPassword)
+      this.props.signup(username, email, password);
   };
 
   onChange = prop => e => this.setState({ [prop]: e.target.value });
@@ -33,7 +33,7 @@ class Signup extends React.Component {
   };
 
   render() {
-    const { username, email, password1, password2 } = this.state;
+    const { username, email, password, confirmPassword } = this.state;
     const { error } = this.props;
 
     return (
@@ -48,9 +48,8 @@ class Signup extends React.Component {
             margin="dense"
             label="Username"
             error={error !== null && error["username"] !== undefined}
-            helperText={
-              error ? (error.username ? error.username : "") : ""
-            }
+            helperText={error ? (error.username ? error.username : "") : ""}
+            autoComplete="username"
             fullWidth
           />
         </DialogContent>
@@ -64,9 +63,8 @@ class Signup extends React.Component {
             margin="dense"
             label="Email"
             error={error !== null && error["email"] !== undefined}
-            helperText={
-              error ? (error.email ? error.email : "") : ""
-            }
+            helperText={error ? (error.email ? error.email : "") : ""}
+            autoComplete="email"
             fullWidth
           />
         </DialogContent>
@@ -75,8 +73,8 @@ class Signup extends React.Component {
           <TextField
             type={this.state.showPassword ? "text" : "password"}
             label="Password"
-            value={password1}
-            onChange={this.onChange("password1")}
+            value={password}
+            onChange={this.onChange("password")}
             margin="dense"
             InputProps={{
               endAdornment: (
@@ -94,11 +92,9 @@ class Signup extends React.Component {
                 </InputAdornment>
               )
             }}
-            error={error !== null && error["password1"] !== undefined}
-            helperText={
-              error ? (error.password1 ? error.password1 : "") : ""
-            }
-            autoComplete="mew-password"
+            error={error !== null && error["password"] !== undefined}
+            helperText={error ? (error.password ? error.password : "") : ""}
+            autoComplete="new-password"
             fullWidth
           />
         </DialogContent>
@@ -107,8 +103,8 @@ class Signup extends React.Component {
           <TextField
             type={this.state.showPassword ? "text" : "password"}
             label="Confirm Password"
-            value={password2}
-            onChange={this.onChange("password2")}
+            value={confirmPassword}
+            onChange={this.onChange("confirmPassword")}
             margin="dense"
             InputProps={{
               endAdornment: (
@@ -126,19 +122,12 @@ class Signup extends React.Component {
                 </InputAdornment>
               )
             }}
-            error={
-              error !== null &&
-              (error["password2"] !== undefined || password1 !== password2)
-            }
+            error={password !== confirmPassword}
             helperText={
-              error
-                ? error.password2
-                  ? error.password2
-                  : error.non_field_errors
-                : ""
+              password !== confirmPassword ? "Passowrds do not match!" : ""
             }
             fullWidth
-            autoComplete="mew-password"
+            autoComplete="new-password"
           />
         </DialogContent>
 
@@ -164,11 +153,8 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuth: (username, email, password1, password2) =>
-      dispatch(actions.authSignup(username, email, password1, password2))
-  };
+const mapDispatchToProps = {
+    signup: (username, email, password) => signup(username, email, password)
 };
 
 export default connect(

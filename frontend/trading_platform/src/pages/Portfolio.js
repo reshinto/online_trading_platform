@@ -41,21 +41,19 @@ class Portfolio extends React.Component {
           onClose={this.closeDialog}
           aria-labelledby="form-dialog-title"
         >
-          <Trade onSubmit={this.closeDialog} />
+          <Trade clickSubmit={this.closeDialog} />
         </Dialog>
         {tradeData === undefined
           ? ""
           : tradeData.map(data => (
               <div key={data.id}>
-                <div>id: {data.id}</div>
                 <div>Symbol: {data.symbol}</div>
                 <div>Company: {data.company}</div>
                 <div>Transaction: {data.transaction}</div>
                 <div>Cash: {data.cashOnHand}</div>
                 <div>Quantity: {data.quantity}</div>
                 <div>Price: {data.price}</div>
-                <div>Done at: {data.created_at}</div>
-                <div>Owner: {data.owner}</div>
+                <div>Transaction Date: {data.created_at}</div>
                 <button onClick={this.props.deleteTrade.bind(this, data.id)}>
                   Delete
                 </button>

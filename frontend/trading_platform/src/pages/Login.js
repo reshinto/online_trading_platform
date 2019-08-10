@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as actions from "../redux/actions/authAction";
+import { login } from "../redux/actions/authAction";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onAuth(this.state.username, this.state.password);
+    this.props.login(this.state.username, this.state.password);
     // this.props.history.push("/");
   };
 
@@ -111,11 +111,8 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuth: (username, password) =>
-      dispatch(actions.authLogin(username, password))
-  };
+const mapDispatchToProps = {
+  login: (username, password) => login(username, password)
 };
 
 export default connect(

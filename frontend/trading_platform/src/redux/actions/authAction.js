@@ -1,7 +1,8 @@
 import axios from "axios";
 import * as actionTypes from "../types";
+import { tokenConfig } from "../utility";
 
-const authProxy = "http://127.0.0.1:8000";
+const authProxy = "http://127.0.0.1:8000/api/auth";
 
 export const authStart = () => {
   return {
@@ -36,10 +37,9 @@ export const logoutSuccess = () => {
   };
 };
 
-export const logout = () => {
-  return dispatch => {
+export const logout = () => (dispatch, state) => {
     axios
-      .post(`${authProxy}/rest-auth/logout/`)
+      .post(`${authProxy}/logout`, null, tokenConfig(state))
       .then(res => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("expirationDate");
@@ -49,7 +49,6 @@ export const logout = () => {
       .catch(err => {
         dispatch(authFail(err));
       });
-  };
 };
 
 export const checkAuthTimeout = expirationTime => {
@@ -60,50 +59,65 @@ export const checkAuthTimeout = expirationTime => {
   };
 };
 
-export const authLogin = (username, password) => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post(`${authProxy}/rest-auth/login/`, {
+export const login = (username, password) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  dispatch(authStart());
+  axios
+    .post(
+      `${authProxy}/login`,
+      {
         username: username,
         password: password
-      })
-      .then(res => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        setAuthorizationHeader(token, expirationDate);
-        dispatch(authSuccess(token));
-        dispatch(clearErrors());
-        dispatch(checkAuthTimeout(3600));
-      })
-      .catch(err => {
-        dispatch(authFail(err));
-      });
-  };
+      },
+      config
+    )
+    .then(res => {
+      const token = res.data.token;
+      const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+      setAuthorizationHeader(token, expirationDate);
+      dispatch(authSuccess(token));
+      dispatch(clearErrors());
+      dispatch(checkAuthTimeout(3600));
+    })
+    .catch(err => {
+      dispatch(authFail(err));
+    });
 };
 
-export const authSignup = (username, email, password1, password2) => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post(`${authProxy}/rest-auth/registration/`, {
+export const signup = (username, email, password) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  dispatch(authStart());
+  axios
+    .post(
+      `${authProxy}/register`,
+      {
         username: username,
         email: email,
-        password1: password1,
-        password2: password2
-      })
-      .then(res => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        setAuthorizationHeader(token, expirationDate);
-        dispatch(authSuccess(token));
-        dispatch(clearErrors());
-        dispatch(checkAuthTimeout(3600));
-      })
-      .catch(err => {
-        dispatch(authFail(err));
-      });
-  };
+        password: password
+      },
+      config
+    )
+    .then(res => {
+      const token = res.data.token;
+      const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+      setAuthorizationHeader(token, expirationDate);
+      dispatch(authSuccess(token));
+      dispatch(clearErrors());
+      dispatch(checkAuthTimeout(3600));
+    })
+    .catch(err => {
+      dispatch(authFail(err));
+    });
 };
 
 export const authCheckState = () => {
@@ -128,7 +142,7 @@ export const authCheckState = () => {
 };
 
 const setAuthorizationHeader = (token, expirationDate) => {
-  const authToken = `Bearer ${token}`;
-  localStorage.setItem('authToken', authToken);
+  const authToken = `Token ${token}`;
+  localStorage.setItem("authToken", authToken);
   localStorage.setItem("expirationDate", expirationDate);
 };
