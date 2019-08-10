@@ -4,7 +4,6 @@ import Tab from "./Tab";
 import SearchBar from "./SearchBar";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import * as actions from "../../redux/actions/authAction";
 import { logout, clearErrors } from "../../redux/actions/authAction";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -255,6 +254,12 @@ class Navbar extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authReducer.isAuthenticated
+  };
+};
+
 const mapDispatchToProps = {
   logout,
   clearErrors
@@ -262,7 +267,7 @@ const mapDispatchToProps = {
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(withStyles(styles)(Navbar))
 );

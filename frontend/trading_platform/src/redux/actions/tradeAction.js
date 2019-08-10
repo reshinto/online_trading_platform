@@ -14,7 +14,9 @@ export const getTrades = () => (dispatch, state) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      localStorage.removeItem("authToken");
+      alert("You have been logged out due to inactivity for more than 2 hours")
+      document.location.reload();
     });
 };
 

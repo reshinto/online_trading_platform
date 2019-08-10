@@ -42,7 +42,6 @@ export const logout = () => (dispatch, state) => {
       .post(`${authProxy}/logout`, null, tokenConfig(state))
       .then(res => {
         localStorage.removeItem("authToken");
-        localStorage.removeItem("expirationDate");
         dispatch(logoutSuccess());
         dispatch(clearErrors());
       })
@@ -77,9 +76,8 @@ export const login = (username, password) => dispatch => {
       config
     )
     .then(res => {
-      const token = res.data.token;
-      const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-      setAuthorizationHeader(token, expirationDate);
+      const token = res.data.bearer;
+      setAuthorizationHeader(token);
       dispatch(authSuccess(token));
       dispatch(clearErrors());
       dispatch(checkAuthTimeout(3600));
@@ -108,9 +106,8 @@ export const signup = (username, email, password) => dispatch => {
       config
     )
     .then(res => {
-      const token = res.data.token;
-      const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-      setAuthorizationHeader(token, expirationDate);
+      const token = res.data.bearer;
+      setAuthorizationHeader(token);
       dispatch(authSuccess(token));
       dispatch(clearErrors());
       dispatch(checkAuthTimeout(3600));
@@ -120,29 +117,7 @@ export const signup = (username, email, password) => dispatch => {
     });
 };
 
-export const authCheckState = () => {
-  return dispatch => {
-    const token = localStorage.getItem("authToken");
-    if (token === undefined) {
-      dispatch(logout());
-    } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        dispatch(logout());
-      } else {
-        dispatch(authSuccess(token));
-        dispatch(
-          checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000
-          )
-        );
-      }
-    }
-  };
-};
-
-const setAuthorizationHeader = (token, expirationDate) => {
-  const authToken = `Token ${token}`;
+const setAuthorizationHeader = (token) => {
+  const authToken = `Bearer ${token}`;
   localStorage.setItem("authToken", authToken);
-  localStorage.setItem("expirationDate", expirationDate);
 };

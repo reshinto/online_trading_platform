@@ -67,6 +67,8 @@
 * ~~Add real time price and change update for Dashboard UI~~
 * ~~Add Profile feature~~
 * ~~Add privacy for portfolio and profile~~
+* ~~Add token expiry feature (auto logout or extend) in backend and frontend~~
+* Improve auto logout alert UI
 * Improve profile feature and design
 * Add password reset feature
 * Set auto cash on hand update for trade UI

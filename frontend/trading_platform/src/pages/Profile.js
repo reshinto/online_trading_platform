@@ -39,6 +39,7 @@ class Profile extends React.Component {
 const mapStateToProps = state => {
   return {
     userData: state.userReducer.userData,
+    userError: state.userReducer.userError
   };
 };
 
