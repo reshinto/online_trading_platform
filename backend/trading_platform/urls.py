@@ -22,6 +22,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('portfolio.urls')),
+    path('', include('funds.urls')),
     path('', include('accounts.urls')),
     # path('api/token/', TokenObtainPairView.as_view()),
     # path('api/token/refresh/', TokenRefreshView.as_view()),

@@ -1,36 +1,39 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getUserData } from "../redux/actions/userAction";
+import { getFunds, addFunds } from "../redux/actions/fundsAction";
+import Button from "@material-ui/core/Button";
 
 class Profile extends React.Component {
   componentDidMount() {
-    this.getUserData();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // const { cparameter } = this.state;
-    // const { multi } = this.props;
-    // if (multi !== null) {
-    //   if (multi !== prevProps.multi) {
-    //     this.getCloudData(multi, cparameter);
-    //   }
-    //   if (cparameter !== prevState.cparameter) {
-    //     this.setState({
-    //       cparameter: cparameter
-    //     });
-    //     this.getCloudData(multi, cparameter);
-    //   }
-    // }
-  }
-
-  getUserData = () => {
     this.props.getUserData();
+  }
+
+  onClick = () => {
+    const { funds } = this.props;
+    const oldFund = funds[funds.length - 1].totalFund;
+    const transactionType = "TOPUP";
+    const amount = 200;
+    const totalFund = oldFund + amount;
+    const fund = {
+      transactionType,
+      amount,
+      totalFund
+    };
+    this.props.addFunds(fund);
   };
 
   render() {
+    const { userData } = this.props;
+    let { funds } = this.props;
     return (
       <div>
-        Welcome {this.props.userData.username}
+        <div>Welcome {userData.username}</div>
+        Funds:{" "}
+        {funds[funds.length - 1].totalFund === null
+          ? 0
+          : funds[funds.length - 1].totalFund}
+        <Button onClick={this.onClick}>TOP UP</Button>
       </div>
     );
   }
@@ -39,12 +42,14 @@ class Profile extends React.Component {
 const mapStateToProps = state => {
   return {
     userData: state.userReducer.userData,
-    userError: state.userReducer.userError
+    funds: state.fundsReducer.funds
   };
 };
 
 const mapDispatchToProps = {
-  getUserData
+  getUserData,
+  getFunds,
+  addFunds
 };
 
 export default connect(

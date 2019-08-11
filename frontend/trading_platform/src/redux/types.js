@@ -29,3 +29,9 @@ export const GET_SEARCH_RESULTS = "GET_SEARCH_RESULTS";
 export const GET_TRADES = "GET_TRADES";
 export const DELETE_TRADE = "DELETE_TRADE";
 export const ADD_TRADE = "ADD_TRADE";
+
+// Funds data
+export const GET_FUNDS = "GET_FUNDS";
+export const ADD_FUNDS = "ADD_FUNDS";
+export const UPDATE_FUNDS = "UPDATE_FUNDS";
+export const DELETE_FUNDS = "DELETE_FUNDS";

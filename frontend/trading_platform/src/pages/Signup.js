@@ -16,7 +16,7 @@ class Signup extends React.Component {
     email: "",
     password: "",
     confirmPassword: "",
-    showPassword: false
+    showPassword: false,
   };
 
   onSubmit = e => {
@@ -154,7 +154,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    signup: (username, email, password) => signup(username, email, password)
+  signup: (username, email, password) => signup(username, email, password),
 };
 
 export default connect(

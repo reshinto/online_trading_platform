@@ -38,16 +38,16 @@ export const logoutSuccess = () => {
 };
 
 export const logout = () => (dispatch, state) => {
-    axios
-      .post(`${authProxy}/logout`, null, tokenConfig(state))
-      .then(res => {
-        localStorage.removeItem("authToken");
-        dispatch(logoutSuccess());
-        dispatch(clearErrors());
-      })
-      .catch(err => {
-        dispatch(authFail(err));
-      });
+  axios
+    .post(`${authProxy}/logout`, null, tokenConfig(state))
+    .then(res => {
+      localStorage.removeItem("authToken");
+      dispatch(logoutSuccess());
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch(authFail(err));
+    });
 };
 
 export const checkAuthTimeout = expirationTime => {
@@ -117,7 +117,7 @@ export const signup = (username, email, password) => dispatch => {
     });
 };
 
-const setAuthorizationHeader = (token) => {
+const setAuthorizationHeader = token => {
   const authToken = `Bearer ${token}`;
   localStorage.setItem("authToken", authToken);
 };

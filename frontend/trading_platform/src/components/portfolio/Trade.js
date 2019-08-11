@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { addTrade } from "../../redux/actions/tradeAction";
 import { getQuote } from "../../redux/actions/iexAction";
+import { addFunds } from "../../redux/actions/fundsAction";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -24,8 +25,7 @@ const styles = theme => ({
 class Trade extends React.Component {
   state = {
     transaction: "",
-    cashOnHand: 100000,
-    quantity: "",
+    quantity: ""
   };
 
   componentDidMount() {
@@ -44,9 +44,9 @@ class Trade extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { transaction, cashOnHand, quantity } = this.state;
+    const { transaction, quantity } = this.state;
     const { multi, quote } = this.props;
-    const owner = this.props.userData.id
+    const owner = this.props.userData.id;
     const price = quote.latestPrice;
     let symbol;
     let company;
@@ -58,12 +58,10 @@ class Trade extends React.Component {
       symbol,
       company,
       transaction,
-      cashOnHand,
       quantity,
       price,
       owner
     };
-    console.log(trade);
     this.props.addTrade(trade);
     this.props.clickSubmit();
   };
@@ -73,11 +71,41 @@ class Trade extends React.Component {
   };
 
   buy = () => {
-    this.setState({ transaction: "BUY" });
+    const { quantity } = this.state;
+    const { quote, funds } = this.props;
+    const transactionType = "BUY";
+    const price = quote.latestPrice;
+    const oldFund = funds[funds.length - 1].totalFund;
+    const amount = price * quantity;
+    if (oldFund >= amount) {
+      this.setState({ transaction: "BUY" });
+      const totalFund = (oldFund - amount).toFixed(2);
+      const fund = {
+        transactionType,
+        amount,
+        totalFund
+      };
+      this.props.addFunds(fund);
+    } else {
+      alert("You have insufficient funds!");
+    }
   };
 
   sell = () => {
     this.setState({ transaction: "SELL" });
+    const { quantity } = this.state;
+    const { quote, funds } = this.props;
+    const transactionType = "SELL";
+    const price = quote.latestPrice;
+    const oldFund = funds[funds.length - 1].totalFund;
+    const amount = price * quantity;
+    const totalFund = (oldFund + amount).toFixed(2);
+    const fund = {
+      transactionType,
+      amount,
+      totalFund
+    };
+    this.props.addFunds(fund);
   };
 
   render() {
@@ -142,13 +170,15 @@ const mapStateToProps = state => {
   return {
     userData: state.userReducer.userData,
     multi: state.searchReducer.multi,
-    quote: state.iexReducer.quote
+    quote: state.iexReducer.quote,
+    funds: state.fundsReducer.funds
   };
 };
 
 const mapDispatchToProps = {
   addTrade,
-  getQuote
+  getQuote,
+  addFunds
 };
 
 export default connect(

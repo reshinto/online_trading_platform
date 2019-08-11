@@ -7,6 +7,7 @@ import iexReducer from "./reducers/iexReducer";
 import userReducer from "./reducers/userReducer";
 import searchReducer from "./reducers/searchReducer";
 import tradeReducer from "./reducers/tradeReducer";
+import fundsReducer from "./reducers/fundsReducer";
 
 const initialState = {};
 
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   userReducer,
   searchReducer,
   tradeReducer,
+  fundsReducer,
 });
 
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));

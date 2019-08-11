@@ -68,10 +68,12 @@
 * ~~Add Profile feature~~
 * ~~Add privacy for portfolio and profile~~
 * ~~Add token expiry feature (auto logout or extend) in backend and frontend~~
+* ~~Add auto fund update for trade UI~~
+* ~~Add transaction history at backend~~
+* Add manual fund input feature
 * Improve auto logout alert UI
 * Improve profile feature and design
 * Add password reset feature
-* Set auto cash on hand update for trade UI
 * Improve portfolio design
 * Improve loading UI
 * Implement chart select feature

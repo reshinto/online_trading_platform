@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout, clearErrors } from "../../redux/actions/authAction";
+import { getFunds, addFunds } from "../../redux/actions/fundsAction";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -50,8 +51,26 @@ class Navbar extends React.Component {
     anchorEl: null,
     mobileMoreAnchorEl: null,
     openLogin: false,
-    openSignup: false
+    openSignup: false,
+    initialFund: {
+      transactionType: "INITIAL",
+      amount: 0.0,
+      totalFund: 0.0
+    }
   };
+
+  componentDidUpdate() {
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      if (this.props.funds === null) {
+        this.props.getFunds();
+      } else {
+        if (this.props.funds.length === 0) {
+          this.props.addFunds(this.state.initialFund);
+        }
+      }
+    }
+  }
 
   handleClickOpenLogin = () => {
     this.setState({ openLogin: true });
@@ -256,13 +275,16 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.authReducer.isAuthenticated
+    isAuthenticated: state.authReducer.isAuthenticated,
+    funds: state.fundsReducer.funds
   };
 };
 
 const mapDispatchToProps = {
   logout,
-  clearErrors
+  clearErrors,
+  getFunds,
+  addFunds
 };
 
 export default withRouter(

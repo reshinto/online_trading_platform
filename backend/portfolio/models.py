@@ -7,7 +7,6 @@ class Portfolio(models.Model):
     symbol = models.CharField(max_length=10)
     company = models.CharField(max_length=100)
     transaction = models.CharField(max_length=20)
-    cashOnHand = models.FloatField()
     quantity = models.IntegerField()
     price = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)

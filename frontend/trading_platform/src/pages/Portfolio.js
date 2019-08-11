@@ -25,10 +25,11 @@ class Portfolio extends React.Component {
   };
 
   render() {
-    const { tradeData } = this.props;
+    const { tradeData, funds } = this.props;
     return (
       <div style={{height: "93vh", overflowY: "auto"}}>
         <h1>My Portfolio</h1>
+        <h5>Funds: {funds[funds.length-1].totalFund}</h5>
         <Button
           color="inherit"
           onClick={this.handleClickOpenTrade}
@@ -50,7 +51,6 @@ class Portfolio extends React.Component {
                 <div>Symbol: {data.symbol}</div>
                 <div>Company: {data.company}</div>
                 <div>Transaction: {data.transaction}</div>
-                <div>Cash: {data.cashOnHand}</div>
                 <div>Quantity: {data.quantity}</div>
                 <div>Price: {data.price}</div>
                 <div>Transaction Date: {data.created_at}</div>
@@ -66,7 +66,8 @@ class Portfolio extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tradeData: state.tradeReducer.tradeData
+    tradeData: state.tradeReducer.tradeData,
+    funds: state.fundsReducer.funds,
   };
 };
 
