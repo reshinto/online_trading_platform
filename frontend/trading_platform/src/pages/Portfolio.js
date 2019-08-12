@@ -4,11 +4,14 @@ import { getTrades, deleteTrade } from "../redux/actions/tradeAction";
 import Trade from "../components/portfolio/Trade";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
+import PortfolioHistory from "../components/portfolio/PortfolioHistory";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 class Portfolio extends React.Component {
   state = {
-    openTrade: false,
-  }
+    openTrade: false
+  };
 
   componentDidMount() {
     this.props.getTrades();
@@ -20,45 +23,49 @@ class Portfolio extends React.Component {
 
   closeDialog = () => {
     this.setState({
-      openTrade: false,
+      openTrade: false
     });
   };
 
   render() {
-    const { tradeData, funds } = this.props;
+    const { funds } = this.props;
     return (
-      <div style={{height: "93vh", overflowY: "auto"}}>
-        <h1>My Portfolio</h1>
-        <h5>Funds: {funds[funds.length-1].totalFund}</h5>
-        <Button
-          color="inherit"
-          onClick={this.handleClickOpenTrade}
-          // component={Link} to="/login"
+      <div style={{ height: "93vh", overflowY: "auto" }}>
+        <Grid
+          container
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            alignContent: "flex-start"
+          }}
         >
-            Trade
-        </Button>
-        <Dialog
-          open={this.state.openTrade}
-          onClose={this.closeDialog}
-          aria-labelledby="form-dialog-title"
-        >
-          <Trade clickSubmit={this.closeDialog} />
-        </Dialog>
-        {tradeData === undefined
-          ? ""
-          : tradeData.map(data => (
-              <div key={data.id}>
-                <div>Symbol: {data.symbol}</div>
-                <div>Company: {data.company}</div>
-                <div>Transaction: {data.transaction}</div>
-                <div>Quantity: {data.quantity}</div>
-                <div>Price: {data.price}</div>
-                <div>Transaction Date: {data.created_at}</div>
-                <button onClick={this.props.deleteTrade.bind(this, data.id)}>
-                  Delete
-                </button>
-              </div>
-            ))}
+          <Grid item>
+            <Paper>
+              <h1>My Portfolio</h1>
+              <h5>Cash: {funds[funds.length - 1].totalFund}</h5>
+              <Button
+                color="inherit"
+                onClick={this.handleClickOpenTrade}
+                // component={Link} to="/login"
+              >
+                Trade
+              </Button>
+              <Dialog
+                open={this.state.openTrade}
+                onClose={this.closeDialog}
+                aria-labelledby="form-dialog-title"
+              >
+                <Trade clickSubmit={this.closeDialog} />
+              </Dialog>
+            </Paper>
+          </Grid>
+          <Grid item>
+            <Paper>
+              <PortfolioHistory />
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -66,8 +73,7 @@ class Portfolio extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tradeData: state.tradeReducer.tradeData,
-    funds: state.fundsReducer.funds,
+    funds: state.fundsReducer.funds
   };
 };
 

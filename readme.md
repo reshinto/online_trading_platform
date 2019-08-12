@@ -70,15 +70,15 @@
 * ~~Add token expiry feature (auto logout or extend) in backend and frontend~~
 * ~~Add auto fund update for trade UI~~
 * ~~Add transaction history at backend~~
-* Add manual fund input feature
+* ~~Add manual fund input feature~~
+* ~~Improve profile feature~~
 * Improve auto logout alert UI
-* Improve profile feature and design
 * Add password reset feature
-* Improve portfolio design
+* Add username edit feature
+* Add email edit feature
 * Improve loading UI
 * Implement chart select feature
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add Real time chart support
-* Add notification feature
 * Improve overall styling

@@ -6,7 +6,6 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 
@@ -36,7 +35,8 @@ class BalanceSheet extends React.Component {
   }
 
   getBalanceSheet = symbol => {
-    this.props.getBalanceSheet(symbol[0].value);
+    if(symbol[0] !== undefined)
+      this.props.getBalanceSheet(symbol[0].value);
   };
 
   render() {
@@ -51,7 +51,7 @@ class BalanceSheet extends React.Component {
     return (
       <React.Fragment>
         {balanceSheetArray.length !== 0 ? (
-          <Paper className={classes.root} style={{ height: this.props.height }}>
+          <div className={classes.root} style={{ height: this.props.height }}>
             <Typography className={classes.title} gutterBottom>
               <b>Balance Sheet</b>
             </Typography>
@@ -66,7 +66,7 @@ class BalanceSheet extends React.Component {
                 ))}
               </TableBody>
             </Table>
-          </Paper>
+          </div>
         ) : (
           <div>loading...</div>
         )}

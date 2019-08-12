@@ -5,7 +5,6 @@ export const updateObject = (oldObject, updatedProperties) => {
   };
 };
 
-
 // Setup config with token - helper function
 export const tokenConfig = getState => {
   // Headers
@@ -21,4 +20,8 @@ export const tokenConfig = getState => {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
   return config;
+};
+
+export const currencyFormat = num => {
+  return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };

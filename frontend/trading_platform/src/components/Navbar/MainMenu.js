@@ -10,7 +10,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -42,7 +41,7 @@ class MainMenu extends React.Component {
   };
 
   render() {
-    const { isAuthenticated, classes } = this.props;
+    const { classes } = this.props;
     const { open } = this.state;
 
     const sideList = (
@@ -75,6 +74,7 @@ class MainMenu extends React.Component {
           ))}
         </List>
         <Divider />
+        {/*
         <List>
           {["Portfolio"].map((text, i) => (
             <Button
@@ -85,16 +85,15 @@ class MainMenu extends React.Component {
               to={`/${text.toLowerCase()}`}
             >
               <ListItem>
-                {/*
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
-                  */}
                 <ListItemText primary={text} />
               </ListItem>
             </Button>
           ))}
         </List>
+        */}
       </div>
     );
 
@@ -123,13 +122,4 @@ class MainMenu extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.authReducer.isAuthenticated
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(withStyles(styles, { withTheme: true })(MainMenu));
+export default withStyles(styles, { withTheme: true })(MainMenu);

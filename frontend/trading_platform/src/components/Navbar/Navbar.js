@@ -9,13 +9,10 @@ import { getFunds, addFunds } from "../../redux/actions/fundsAction";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
@@ -138,7 +135,6 @@ class Navbar extends React.Component {
           >
             Profile
           </MenuItem>
-          <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
           <span onClick={this.handleMenuClose}>
             <MenuItem onClick={this.props.logout}>Logout</MenuItem>
           </span>
@@ -154,22 +150,6 @@ class Navbar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
         <MenuItem
           onClick={this.handleMobileMenuClose}
           component={Link}
@@ -202,16 +182,6 @@ class Navbar extends React.Component {
             {isAuthenticated ? (
               <div>
                 <div className={classes.sectionDesktop}>
-                  <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
-                  <IconButton color="inherit">
-                    <Badge badgeContent={17} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
                   <IconButton
                     aria-owns={isMenuOpen ? "material-appbar" : undefined}
                     aria-haspopup="true"
@@ -236,7 +206,6 @@ class Navbar extends React.Component {
                 <Button
                   color="inherit"
                   onClick={this.handleClickOpenSignup}
-                  // component={Link} to="/signup"
                 >
                   Signup
                 </Button>
@@ -250,7 +219,6 @@ class Navbar extends React.Component {
                 <Button
                   color="inherit"
                   onClick={this.handleClickOpenLogin}
-                  // component={Link} to="/login"
                 >
                   Login
                 </Button>

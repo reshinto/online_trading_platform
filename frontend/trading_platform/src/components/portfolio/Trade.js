@@ -28,19 +28,19 @@ class Trade extends React.Component {
     quantity: ""
   };
 
-  componentDidMount() {
-    const { multi } = this.props;
-    if (multi !== null) this.props.getQuote(multi[0].value);
-  }
+  // componentDidMount() {
+  //   const { multi } = this.props;
+  //   if (multi !== null) this.props.getQuote(multi[0].value);
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { multi, quote } = this.props;
-    if (multi !== null) {
-      setTimeout(() => {
-        if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
-      }, 5000);
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { multi, quote } = this.props;
+  //   if (multi !== null) {
+  //     setTimeout(() => {
+  //       if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
+  //     }, 5000);
+  //   }
+  // }
 
   onSubmit = e => {
     e.preventDefault();
@@ -50,7 +50,7 @@ class Trade extends React.Component {
     const price = quote.latestPrice;
     let symbol;
     let company;
-    if (multi !== null) {
+    if (multi !== null && multi[0] !== undefined) {
       symbol = multi[0].value;
       company = multi[0].name;
     }
@@ -76,10 +76,10 @@ class Trade extends React.Component {
     const transactionType = "BUY";
     const price = quote.latestPrice;
     const oldFund = funds[funds.length - 1].totalFund;
-    const amount = price * quantity;
+    const amount = (price * quantity).toFixed(2);
     if (oldFund >= amount) {
       this.setState({ transaction: "BUY" });
-      const totalFund = (oldFund - amount).toFixed(2);
+      const totalFund = oldFund - amount;
       const fund = {
         transactionType,
         amount,
@@ -119,7 +119,10 @@ class Trade extends React.Component {
         <Divider />
         <form onSubmit={this.onSubmit} className={classes.root}>
           <DialogContent>
-            <div>Stock Symbol: {multi !== null ? multi[0].value : ""}</div>
+            <div>
+              Stock Symbol:{" "}
+              {multi !== null && multi[0] !== undefined ? multi[0].value : ""}
+            </div>
             <div style={{ paddingLeft: 62, marginTop: 10, marginBottom: 10 }}>
               Price:{" "}
               <span style={{ color: "green" }}>

@@ -13,17 +13,31 @@ const styles = theme => ({
   }
 });
 
-class Tab extends React.Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-        <Button color="inherit" component={Link} to="/dashboard">
-          Dashboard
-        </Button>
-      </Typography>
-    );
-  }
+function getPage() {
+  const rawURL = window.location.href;
+  const re = /\/(?:[^/]+)$/;
+  const resultArr = re.exec(rawURL);
+  return resultArr[0];
+}
+
+const tabsObj = {
+  "/dashboard": "dashboard",
+  "/chart": "chart",
+  "/company": "company",
+  "/financials": "financials",
+  "/profile": "profile",
+}
+
+function Tab(props) {
+  const { classes } = props;
+  const page = tabsObj[getPage()];
+  return (
+    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+      <Button color="inherit" component={Link} to={getPage()}>
+          {page}
+      </Button>
+    </Typography>
+  );
 }
 
 export default withStyles(styles)(Tab);

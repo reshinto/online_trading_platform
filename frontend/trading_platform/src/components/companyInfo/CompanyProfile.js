@@ -35,7 +35,8 @@ class CompanyProfile extends React.Component {
   }
 
   getProfile = symbol => {
-    this.props.getProfile(symbol[0].value);
+    if (symbol[0] !== undefined)
+      this.props.getProfile(symbol[0].value);
   };
 
   render() {

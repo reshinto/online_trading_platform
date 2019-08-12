@@ -3,8 +3,16 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import { getQuote } from "../../redux/actions/iexAction";
+import Trade from "../portfolio/Trade";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import { currencyFormat } from "../../redux/utility";
 
-class Chart extends React.Component {
+class Title extends React.Component {
+  state = {
+    openTrade: false
+  };
+
   componentDidMount() {
     this.getQuote(this.props.multi);
   }
@@ -13,17 +21,29 @@ class Chart extends React.Component {
     const { multi, quote } = this.props;
     if (multi !== null) {
       setTimeout(() => {
-        if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
+        if (multi[0] !== undefined)
+          if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
       }, 3000);
     }
   }
 
   getQuote(symbol) {
-    this.props.getQuote(symbol[0].value);
+    if (symbol[0] !== undefined)
+      this.props.getQuote(symbol[0].value);
   }
 
+  handleClickOpenTrade = () => {
+    this.setState({ openTrade: true });
+  };
+
+  closeDialog = () => {
+    this.setState({
+      openTrade: false
+    });
+  };
+
   render() {
-    const { multi, quote } = this.props;
+    const { multi, quote, isAuthenticated, funds } = this.props;
     const isPositive = Math.sign(quote.changePercent);
     return (
       <div style={{ paddingLeft: 10, paddingTop: 10 }}>
@@ -31,7 +51,25 @@ class Chart extends React.Component {
           <Grid container spacing={8}>
             <Grid item>
               <Typography component="div" variant="h5">
-                {multi[0].name}
+                {multi !== null && multi !== undefined && multi[0] !== undefined
+                  ? multi[0].name
+                  : ""}
+                {isAuthenticated && funds !== null ? (
+                  <>
+                    <Button color="primary" onClick={this.handleClickOpenTrade}>
+                      Trade
+                    </Button>
+                    <Dialog
+                      open={this.state.openTrade}
+                      onClose={this.closeDialog}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <Trade clickSubmit={this.closeDialog} />
+                    </Dialog>
+                  </>
+                ) : (
+                  ""
+                )}
               </Typography>
             </Grid>
           </Grid>
@@ -42,7 +80,9 @@ class Chart extends React.Component {
                   <span>
                     Latest Price:{" "}
                     <span style={{ color: "green" }}>
-                      {quote.latestPrice.toFixed(2)}
+                      {quote.latestPrice !== null
+                        ? quote.latestPrice.toFixed(2)
+                        : ""}
                     </span>
                   </span>
                 </Typography>
@@ -70,6 +110,22 @@ class Chart extends React.Component {
                   </span>
                 </Typography>
               </Grid>
+              {isAuthenticated && funds !== null ? (
+                <>
+                  <Grid item>
+                    <Typography component="div" variant="body1">
+                      <span>Current Cash: </span>
+                      <span>
+                        {funds[funds.length - 1].totalFund === null
+                          ? 0
+                          : currencyFormat(funds[funds.length - 1].totalFund)}
+                      </span>
+                    </Typography>
+                  </Grid>
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
           ) : (
             <div>loading...</div>
@@ -82,8 +138,10 @@ class Chart extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    isAuthenticated: state.authReducer.isAuthenticated,
     multi: state.searchReducer.multi,
-    quote: state.iexReducer.quote
+    quote: state.iexReducer.quote,
+    funds: state.fundsReducer.funds
   };
 };
 
@@ -94,4 +152,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Chart);
+)(Title);

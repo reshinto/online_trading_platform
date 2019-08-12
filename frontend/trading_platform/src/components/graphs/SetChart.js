@@ -35,10 +35,8 @@ class SetChart extends React.Component {
   }
 
   getChart = (symbol, range) => {
-    this.props.getChart(
-      symbol[0].value,
-      range,
-    );
+    if (symbol[0] !== undefined)
+      this.props.getChart(symbol[0].value, range);
   };
 
   handleRangeChange = e => {
@@ -46,6 +44,8 @@ class SetChart extends React.Component {
   };
 
   render() {
+    const { multi, chart } = this.props;
+
     return (
       <React.Fragment>
         {this.props.chart.length !== 0 ? (
@@ -63,18 +63,18 @@ class SetChart extends React.Component {
                   handleRangeChange={this.handleRangeChange}
                 />
                 <Typography variant="h5">
-                  {this.props.multi !== null ? this.props.multi[0].value : ""}
+                  {multi !== null &&
+                  multi !== undefined &&
+                  multi[0] !== undefined
+                    ? multi[0].value
+                    : ""}
                 </Typography>
                 <ChartSelect
                   {...this.state}
                   handleRangeChange={this.handleRangeChange}
                 />
               </div>
-              <CandleStickChart
-                data={this.props.chart}
-                {...this.state}
-                multi={this.props.multi}
-              />
+              <CandleStickChart data={chart} {...this.state} multi={multi} />
             </div>
           </Paper>
         ) : (

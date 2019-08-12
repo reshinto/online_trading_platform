@@ -30,7 +30,8 @@ class SetNews extends React.Component {
   }
 
   getNews = (symbol, cparameter) => {
-    this.props.getNews(symbol[0].value, cparameter);
+    if (symbol[0] !== undefined)
+      this.props.getNews(symbol[0].value, cparameter);
   };
 
   handleRangeChange = e => {
