@@ -8,8 +8,8 @@
 ## How to make this work
 * Get your own Django secret key
   * Create your own Django app => copy the secret key => paste into this project's secret key location at settings.py or in your environment.
-* ~~Create your own mysql database
-  * Change the username, password, and database name at settings.py~~
+* ~~Create your own mysql database~~
+  * ~~Change the username, password, and database name at settings.py~~
 * API key is required if you want to use data from IEX cloud.
   * Create your own account with IEX (it's free).
 * Use pipenv to install all python dependencies for the backend.
