@@ -34,11 +34,11 @@ class FundInput extends React.Component {
 
   render() {
     const { amount } = this.state;
-    const { handleFundInputClose, fundInputIsClicked } = this.props;
+    const { handleClose, isClicked } = this.props;
     return (
       <Dialog
-        open={fundInputIsClicked}
-        onClose={handleFundInputClose}
+        open={isClicked}
+        onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <form onSubmit={this.handleSubmit}>
@@ -68,7 +68,7 @@ class FundInput extends React.Component {
           >
             >
             <Button
-              onClick={handleFundInputClose}
+              onClick={handleClose}
               color="primary"
               type="submit"
             >

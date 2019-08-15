@@ -28,8 +28,7 @@ class Title extends React.Component {
   }
 
   getQuote(symbol) {
-    if (symbol[0] !== undefined)
-      this.props.getQuote(symbol[0].value);
+    if (symbol[0] !== undefined) this.props.getQuote(symbol[0].value);
   }
 
   handleClickOpenTrade = () => {
@@ -110,7 +109,7 @@ class Title extends React.Component {
                   </span>
                 </Typography>
               </Grid>
-              {isAuthenticated && funds !== null ? (
+              {isAuthenticated && funds !== null && funds[0] !== undefined ? (
                 <>
                   <Grid item>
                     <Typography component="div" variant="body1">

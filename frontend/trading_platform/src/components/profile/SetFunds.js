@@ -8,9 +8,9 @@ import {currencyFormat} from "../../redux/utility";
 function SetFunds(props) {
   const {
     funds,
-    handleFundInputOpen,
-    handleFundInputClose,
-    fundInputIsClicked
+    handleOpen,
+    handleClose,
+    isClicked
   } = props;
 
   return (
@@ -29,12 +29,12 @@ function SetFunds(props) {
         </Typography>
       </td>
       <td>
-        <Button color="primary" onClick={handleFundInputOpen}>
+        <Button color="primary" onClick={handleOpen}>
           DEPOSIT
         </Button>
         <FundInput
-          handleFundInputClose={handleFundInputClose}
-          fundInputIsClicked={fundInputIsClicked}
+          handleClose={handleClose}
+          isClicked={isClicked}
         />
       </td>
     </tr>

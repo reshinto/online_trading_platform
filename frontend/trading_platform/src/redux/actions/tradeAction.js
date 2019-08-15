@@ -1,12 +1,10 @@
 import axios from "axios";
 import * as actionTypes from "../types";
-import { tokenConfig } from "../utility";
-
-const db = "http://127.0.0.1:8000/api/portfolio/";
+import { db, tokenConfig } from "../utility";
 
 export const getTrades = () => (dispatch, state) => {
   axios
-    .get(`${db}`, tokenConfig(state))
+    .get(`${db}/api/portfolio/`, tokenConfig(state))
     .then(res => {
       dispatch({
         type: actionTypes.GET_TRADES,
@@ -22,7 +20,7 @@ export const getTrades = () => (dispatch, state) => {
 
 export const deleteTrade = id => (dispatch, state) => {
   axios
-    .delete(`${db}${id}/`, tokenConfig(state))
+    .delete(`${db}/api/portfolio/${id}/`, tokenConfig(state))
     .then(res => {
       dispatch({
         type: actionTypes.DELETE_TRADE,
@@ -36,7 +34,7 @@ export const deleteTrade = id => (dispatch, state) => {
 
 export const addTrade = trade => (dispatch, state) => {
   axios
-    .post(`${db}`, trade, tokenConfig(state))
+    .post(`${db}/api/portfolio/`, trade, tokenConfig(state))
     .then(res => {
       dispatch({
         type: actionTypes.ADD_TRADE,

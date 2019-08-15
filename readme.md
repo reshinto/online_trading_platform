@@ -8,15 +8,15 @@
 ## How to make this work
 * Get your own Django secret key
   * Create your own Django app => copy the secret key => paste into this project's secret key location at settings.py or in your environment.
-* Create your own mysql database
-  * Change the username, password, and database name at settings.py
+* ~~Create your own mysql database
+  * Change the username, password, and database name at settings.py~~
 * API key is required if you want to use data from IEX cloud.
   * Create your own account with IEX (it's free).
 * Use pipenv to install all python dependencies for the backend.
 * Use npm to install all frontend related dependencies.
 
 ## How to run
-1. Turn on MySql server
+1. ~~Turn on MySql server~~
 2. Turn on backend server
     * python manage.py runserver
 3. Turn on Frontend server
@@ -26,7 +26,7 @@
 * Django
 * React
 * D3
-* MySql
+* ~~MySql~~ changed to sqlite due to django-mysql problem when updating user profile
 * Django Rest Framework
 * Redux
 * Material-UI
@@ -72,10 +72,12 @@
 * ~~Add transaction history at backend~~
 * ~~Add manual fund input feature~~
 * ~~Improve profile feature~~
+* ~~Add username update feature~~
+* ~~Add email update feature~~
+* ~~Add password update feature~~
+* ~~Add error handling for user profile update feature~~
 * Improve auto logout alert UI
 * Add password reset feature
-* Add username edit feature
-* Add email edit feature
 * Improve loading UI
 * Implement chart select feature
 * Improve d3 visualization

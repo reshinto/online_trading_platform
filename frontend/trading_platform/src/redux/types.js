@@ -21,6 +21,10 @@ export const GET_INCOME_STATEMENT = "GET_INCOME_STATEMENT";
 
 // User data
 export const GET_USER_DATA = "GET_USER_DATA";
+export const UPDATE_DATA = "UPDATE_DATA";
+export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+export const UPDATE_FAIL = "UPDATE_FAIL";
+export const CLEAR_UPDATE_ERRORS = "CLEAR_UPDATE_ERRORS";
 
 // Search Bar
 export const GET_SEARCH_RESULTS = "GET_SEARCH_RESULTS";

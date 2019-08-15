@@ -16,35 +16,23 @@ class Profile extends React.Component {
   state = {
     tradeHistIsClicked: false,
     fundsHistIsClicked: false,
-    fundInputIsClicked: false
+    fundInputIsClicked: false,
+    usernameInputIsClicked: false,
+    emailInputIsClicked: false,
+    passwordInputIsClicked: false,
   };
 
   componentDidMount() {
     this.props.getUserData();
   }
 
-  handleFundInputOpen = () => {
-    this.setState({ fundInputIsClicked: true });
+  handleOpen = prop => () => {
+    this.setState({ [prop]: true });
   };
 
-  handleFundInputClose = () => {
-    this.setState({ fundInputIsClicked: false });
-  };
-
-  handleTradeHistoryOpen = () => {
-    this.setState({ tradeHistIsClicked: true });
-  };
-
-  handleTradeHistoryClose = () => {
-    this.setState({ tradeHistIsClicked: false });
-  };
-
-  handleFundsHistoryOpen = () => {
-    this.setState({ fundsHistIsClicked: true });
-  };
-
-  handleFundsHistoryClose = () => {
-    this.setState({ fundsHistIsClicked: false });
+  handleClose = prop => () => {
+    this.setState({ [prop]: false });
+    this.props.getUserData();
   };
 
   render() {
@@ -52,7 +40,10 @@ class Profile extends React.Component {
     const {
       fundInputIsClicked,
       tradeHistIsClicked,
-      fundsHistIsClicked
+      fundsHistIsClicked,
+      usernameInputIsClicked,
+      emailInputIsClicked,
+      passwordInputIsClicked,
     } = this.state;
     return (
       <div>
@@ -80,23 +71,35 @@ class Profile extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <SetUsername />
-                  <SetEmail />
-                  <SetFunds
-                    handleFundInputOpen={this.handleFundInputOpen}
-                    handleFundInputClose={this.handleFundInputClose}
-                    fundInputIsClicked={fundInputIsClicked}
+                  <SetUsername
+                    isClicked={usernameInputIsClicked}
+                    handleOpen={this.handleOpen("usernameInputIsClicked")}
+                    handleClose={this.handleClose("usernameInputIsClicked")}
                   />
-                  <SetPassword />
+                  <SetEmail
+                    isClicked={emailInputIsClicked}
+                    handleOpen={this.handleOpen("emailInputIsClicked")}
+                    handleClose={this.handleClose("emailInputIsClicked")}
+                  />
+                  <SetFunds
+                    isClicked={fundInputIsClicked}
+                    handleOpen={this.handleOpen("fundInputIsClicked")}
+                    handleClose={this.handleClose("fundInputIsClicked")}
+                  />
+                  <SetPassword
+                    isClicked={passwordInputIsClicked}
+                    handleOpen={this.handleOpen("passwordInputIsClicked")}
+                    handleClose={this.handleClose("passwordInputIsClicked")}
+                  />
                   <SetTradeHistory
-                    tradeHistIsClicked={tradeHistIsClicked}
-                    handleTradeHistoryOpen={this.handleTradeHistoryOpen}
-                    handleTradeHistoryClose={this.handleTradeHistoryClose}
+                    isClicked={tradeHistIsClicked}
+                    handleOpen={this.handleOpen("tradeHistIsClicked")}
+                    handleClose={this.handleClose("tradeHistIsClicked")}
                   />
                   <SetFundsHistory
-                    fundsHistIsClicked={fundsHistIsClicked}
-                    handleFundsHistoryOpen={this.handleFundsHistoryOpen}
-                    handleFundsHistoryClose={this.handleFundsHistoryClose}
+                    isClicked={fundsHistIsClicked}
+                    handleOpen={this.handleOpen("fundsHistIsClicked")}
+                    handleClose={this.handleClose("fundsHistIsClicked")}
                   />
                 </tbody>
               </table>

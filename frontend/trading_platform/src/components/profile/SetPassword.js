@@ -1,9 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import UpdatePassword from "./UpdatePassword";
 
 function SetPassword(props) {
+  const { handleOpen, handleClose, isClicked } = props;
   return (
     <tr>
       <td>
@@ -13,19 +14,13 @@ function SetPassword(props) {
         <Typography variant="body1">:</Typography>
       </td>
       <td>
-        <Button color="primary">CHANGE PASSWORD</Button>
+        <Button color="primary" onClick={handleOpen}>
+          CHANGE PASSWORD
+        </Button>
+        <UpdatePassword handleClose={handleClose} isClicked={isClicked} />
       </td>
     </tr>
   );
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SetPassword);
+export default SetPassword;

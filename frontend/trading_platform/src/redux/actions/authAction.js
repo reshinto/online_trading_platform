@@ -1,8 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "../types";
-import { tokenConfig } from "../utility";
-
-const authProxy = "http://127.0.0.1:8000/api/auth";
+import { db, tokenConfig } from "../utility";
 
 export const authStart = () => {
   return {
@@ -39,7 +37,7 @@ export const logoutSuccess = () => {
 
 export const logout = () => (dispatch, state) => {
   axios
-    .post(`${authProxy}/logout`, null, tokenConfig(state))
+    .post(`${db}/api/auth/logout`, null, tokenConfig(state))
     .then(res => {
       localStorage.removeItem("authToken");
       dispatch(logoutSuccess());
@@ -68,7 +66,7 @@ export const login = (username, password) => dispatch => {
   dispatch(authStart());
   axios
     .post(
-      `${authProxy}/login`,
+      `${db}/api/auth/login`,
       {
         username: username,
         password: password
@@ -97,7 +95,7 @@ export const signup = (username, email, password) => dispatch => {
   dispatch(authStart());
   axios
     .post(
-      `${authProxy}/register`,
+      `${db}/api/auth/register`,
       {
         username: username,
         email: email,

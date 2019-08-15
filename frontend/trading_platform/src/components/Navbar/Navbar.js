@@ -69,39 +69,22 @@ class Navbar extends React.Component {
     }
   }
 
-  handleClickOpenLogin = () => {
-    this.setState({ openLogin: true });
+  handleOpen = prop => () => {
+    this.setState({ [prop]: true });
     this.props.clearErrors();
   };
 
-  handleClickOpenSignup = () => {
-    this.setState({ openSignup: true });
-    this.props.clearErrors();
-  };
+  // handleClose = prop => () => {
+  //   this.setState({ [prop]: false });
+  // };
 
-  handleProfileMenuOpen = e => {
-    this.setState({
-      anchorEl: e.currentTarget
-    });
+  handleMenuOpen = prop => e => {
+    this.setState({ [prop]: e.currentTarget });
     this.closeDialog();
   };
 
   handleMenuClose = () => {
-    this.setState({ anchorEl: null });
-    this.handleMobileMenuClose();
-  };
-
-  handleMobileMenuOpen = event => {
-    this.setState({
-      mobileMoreAnchorEl: event.currentTarget
-    });
-    this.closeDialog();
-  };
-
-  handleMobileMenuClose = () => {
-    this.setState({
-      mobileMoreAnchorEl: null
-    });
+    this.setState({ anchorEl: null, mobileMoreAnchorEl: null });
     this.closeDialog();
   };
 
@@ -136,7 +119,11 @@ class Navbar extends React.Component {
             Profile
           </MenuItem>
           <span onClick={this.handleMenuClose}>
-            <MenuItem onClick={this.props.logout}>Logout</MenuItem>
+            <MenuItem
+              onClick={this.props.logout}
+            >
+              Logout
+            </MenuItem>
           </span>
         </span>
       </Menu>
@@ -150,18 +137,14 @@ class Navbar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem
-          onClick={this.handleMobileMenuClose}
-          component={Link}
-          to="/profile"
-        >
+        <MenuItem onClick={this.handleMenuClose} component={Link} to="/profile">
           <IconButton color="inherit">
             <AccountCircle />
           </IconButton>
           <p>Profile</p>
         </MenuItem>
         <div onClick={this.props.logout}>
-          <MenuItem onClick={this.handleMobileMenuClose}>
+          <MenuItem onClick={this.handleMenuClose}>
             <IconButton color="inherit">
               <LogoutIcon />
             </IconButton>
@@ -185,7 +168,7 @@ class Navbar extends React.Component {
                   <IconButton
                     aria-owns={isMenuOpen ? "material-appbar" : undefined}
                     aria-haspopup="true"
-                    onClick={this.handleProfileMenuOpen}
+                    onClick={this.handleMenuOpen("anchorEl")}
                     color="inherit"
                   >
                     <AccountCircle />
@@ -194,7 +177,7 @@ class Navbar extends React.Component {
                 <div className={classes.sectionMobile}>
                   <IconButton
                     aria-haspopup="true"
-                    onClick={this.handleMobileMenuOpen}
+                    onClick={this.handleMenuOpen("mobileMoreAnchorEl")}
                     color="inherit"
                   >
                     <MoreIcon />
@@ -203,10 +186,7 @@ class Navbar extends React.Component {
               </div>
             ) : (
               <div>
-                <Button
-                  color="inherit"
-                  onClick={this.handleClickOpenSignup}
-                >
+                <Button color="inherit" onClick={this.handleOpen("openSignup")}>
                   Signup
                 </Button>
                 <Dialog
@@ -216,10 +196,7 @@ class Navbar extends React.Component {
                 >
                   <Signup />
                 </Dialog>
-                <Button
-                  color="inherit"
-                  onClick={this.handleClickOpenLogin}
-                >
+                <Button color="inherit" onClick={this.handleOpen("openLogin")}>
                   Login
                 </Button>
                 <Dialog

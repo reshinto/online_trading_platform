@@ -1,12 +1,10 @@
 import axios from "axios";
 import * as actionTypes from "../types";
-import { tokenConfig } from "../utility";
-
-const db = "http://127.0.0.1:8000/api/funds/";
+import { db, tokenConfig } from "../utility";
 
 export const getFunds = () => (dispatch, state) => {
   axios
-    .get(`${db}`, tokenConfig(state))
+    .get(`${db}/api/funds/`, tokenConfig(state))
     .then(res => {
       dispatch({
         type: actionTypes.GET_FUNDS,
@@ -20,7 +18,7 @@ export const getFunds = () => (dispatch, state) => {
 
 export const deleteFunds = id => (dispatch, state) => {
   axios
-    .delete(`${db}${id}/`, tokenConfig(state))
+    .delete(`${db}/api/funds/${id}/`, tokenConfig(state))
     .then(res => {
       dispatch({
         type: actionTypes.DELETE_FUNDS,
@@ -34,7 +32,7 @@ export const deleteFunds = id => (dispatch, state) => {
 
 export const addFunds = fund => (dispatch, state) => {
   axios
-    .post(`${db}`, fund, tokenConfig(state))
+    .post(`${db}/api/funds/`, fund, tokenConfig(state))
     .then(res => {
       dispatch({
         type: actionTypes.ADD_FUNDS,

@@ -7,9 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 
 function SetTradeHistory(props) {
   const {
-    tradeHistIsClicked,
-    handleTradeHistoryOpen,
-    handleTradeHistoryClose
+    isClicked,
+    handleOpen,
+    handleClose
   } = props;
   return (
     <tr>
@@ -20,12 +20,12 @@ function SetTradeHistory(props) {
         <Typography variant="body1">:</Typography>
       </td>
       <td>
-        <Button color="primary" onClick={handleTradeHistoryOpen}>
+        <Button color="primary" onClick={handleOpen}>
           View
         </Button>
         <Dialog
-          open={tradeHistIsClicked}
-          onClose={handleTradeHistoryClose}
+          open={isClicked}
+          onClose={handleClose}
           maxWidth="xl"
         >
           <DialogContent>
