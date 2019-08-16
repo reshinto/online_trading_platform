@@ -81,6 +81,7 @@
 * ~~Add error handling for user profile update feature~~
 * ~~Refactor code for reuse and reduce code redundancy~~
 * ~~Implement real news feed~~
+* ~~Implement real company profile details~~
 * Improve auto logout alert UI
 * Add password reset feature
 * Improve loading UI

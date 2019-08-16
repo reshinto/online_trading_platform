@@ -9,6 +9,7 @@ import searchReducer from "./reducers/searchReducer";
 import tradeReducer from "./reducers/tradeReducer";
 import fundsReducer from "./reducers/fundsReducer";
 import newsReducer from "./reducers/newsReducer";
+import fmpReducer from "./reducers/fmpReducer";
 
 const initialState = {};
 
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   tradeReducer,
   fundsReducer,
   newsReducer,
+  fmpReducer,
 });
 
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));

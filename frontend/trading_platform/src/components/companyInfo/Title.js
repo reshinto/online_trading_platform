@@ -7,6 +7,14 @@ import Trade from "../portfolio/Trade";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import { currencyFormat } from "../../redux/utility";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+  root: {
+    paddingLeft: 20,
+    paddingTop: 10
+  }
+};
 
 class Title extends React.Component {
   state = {
@@ -42,10 +50,10 @@ class Title extends React.Component {
   };
 
   render() {
-    const { multi, quote, isAuthenticated, funds } = this.props;
+    const { multi, quote, isAuthenticated, funds, classes } = this.props;
     const isPositive = Math.sign(quote.changePercent);
     return (
-      <div style={{ paddingLeft: 10, paddingTop: 10 }}>
+      <div className={classes.root}>
         <React.Fragment>
           <Grid container spacing={8}>
             <Grid item>
@@ -115,7 +123,8 @@ class Title extends React.Component {
                     <Typography component="div" variant="body1">
                       <span>Current Cash: </span>
                       <span>
-                        ${funds[funds.length - 1].totalFund === null
+                        $
+                        {funds[funds.length - 1].totalFund === null
                           ? 0
                           : currencyFormat(funds[funds.length - 1].totalFund)}
                       </span>
@@ -151,4 +160,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Title);
+)(withStyles(styles)(Title));

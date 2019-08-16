@@ -7,7 +7,7 @@ const initialState = {
   quote: {},
   symbols: [],
   // news: [],
-  profile: {},
+  // profile: {},
   advStats: {},
   keyStats: {},
   balanceSheet: {},
@@ -45,11 +45,11 @@ const getSymbols = (state, action) => {
 //   });
 // };
 
-const getProfile = (state, action) => {
-  return updateObject(state, {
-    profile: action.payload
-  });
-};
+// const getProfile = (state, action) => {
+//   return updateObject(state, {
+//     profile: action.payload
+//   });
+// };
 
 const getAdvStats = (state, action) => {
   return updateObject(state, {
@@ -91,8 +91,8 @@ const iexReducer = (state = initialState, action) => {
       return getSymbols(state, action);
     // case actionTypes.GET_NEWS:
     //   return getNews(state, action);
-    case actionTypes.GET_COMPANY_PROFILE:
-      return getProfile(state, action);
+    // case actionTypes.GET_COMPANY_PROFILE:
+    //   return getProfile(state, action);
     case actionTypes.GET_ADVANCED_STATS:
       return getAdvStats(state, action);
     case actionTypes.GET_KEY_STATS:
