@@ -28,10 +28,9 @@ class Title extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { multi, quote } = this.props;
     if (multi !== null) {
-      setTimeout(() => {
-        if (multi[0] !== undefined)
-          if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
-      }, 3000);
+      if (multi[0] !== undefined)
+        if (quote.iexRealtimePrice !== prevProps.quote.iexRealtimePrice)
+          this.props.getQuote(multi[0].value);
     }
   }
 
@@ -87,8 +86,8 @@ class Title extends React.Component {
                   <span>
                     Latest Price:{" "}
                     <span style={{ color: "green" }}>
-                      {quote.latestPrice !== null
-                        ? quote.latestPrice.toFixed(2)
+                      {quote.iexRealtimePrice !== null
+                        ? quote.iexRealtimePrice.toFixed(2)
                         : ""}
                     </span>
                   </span>
@@ -128,6 +127,12 @@ class Title extends React.Component {
                           ? 0
                           : currencyFormat(funds[funds.length - 1].totalFund)}
                       </span>
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography component="div" variant="body1">
+                      <span>Market is now </span>
+                      <span>{quote.isUSMarketOpen ? "Open" : "Close"}</span>
                     </Typography>
                   </Grid>
                 </>

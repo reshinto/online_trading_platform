@@ -28,26 +28,12 @@ class Trade extends React.Component {
     quantity: ""
   };
 
-  // componentDidMount() {
-  //   const { multi } = this.props;
-  //   if (multi !== null) this.props.getQuote(multi[0].value);
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { multi, quote } = this.props;
-  //   if (multi !== null) {
-  //     setTimeout(() => {
-  //       if (quote !== prevProps.quote) this.props.getQuote(multi[0].value);
-  //     }, 5000);
-  //   }
-  // }
-
   onSubmit = e => {
     e.preventDefault();
     const { transaction, quantity } = this.state;
     const { multi, quote } = this.props;
     const owner = this.props.userData.id;
-    const price = quote.latestPrice;
+    const price = quote.iexRealtimePrice;
     let symbol;
     let company;
     if (multi !== null && multi[0] !== undefined) {
@@ -74,7 +60,7 @@ class Trade extends React.Component {
     const { quantity } = this.state;
     const { quote, funds } = this.props;
     const transactionType = "BUY";
-    const price = quote.latestPrice;
+    const price = quote.iexRealtimePrice;
     const oldFund = funds[funds.length - 1].totalFund;
     const amount = (price * quantity).toFixed(2);
     if (oldFund >= amount) {
@@ -96,7 +82,7 @@ class Trade extends React.Component {
     const { quantity } = this.state;
     const { quote, funds } = this.props;
     const transactionType = "SELL";
-    const price = quote.latestPrice;
+    const price = quote.iexRealtimePrice;
     const oldFund = funds[funds.length - 1].totalFund;
     const amount = price * quantity;
     const totalFund = (oldFund + amount).toFixed(2);
@@ -126,7 +112,7 @@ class Trade extends React.Component {
             <div style={{ paddingLeft: 62, marginTop: 10, marginBottom: 10 }}>
               Price:{" "}
               <span style={{ color: "green" }}>
-                {multi !== null ? quote.latestPrice : ""}
+                {multi !== null ? quote.iexRealtimePrice : ""}
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
