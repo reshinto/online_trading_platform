@@ -11,7 +11,10 @@
 * ~~Create your own mysql database~~
   * ~~Change the username, password, and database name at settings.py~~
 * API key is required if you want to use data from IEX cloud.
-  * Create your own account with IEX (it's free).
+  * Create free account with IEX at https://iexcloud.io/.
+  * Free data is limited, simulated data is free
+* API key is required to get real news feed from news api
+  * Create account for free at https://newsapi.org/
 * Use pipenv to install all python dependencies for the backend.
 * Use npm to install all frontend related dependencies.
 
@@ -76,6 +79,8 @@
 * ~~Add email update feature~~
 * ~~Add password update feature~~
 * ~~Add error handling for user profile update feature~~
+* ~~Refactor code for reuse and reduce code redundancy~~
+* ~~Implement real news feed~~
 * Improve auto logout alert UI
 * Add password reset feature
 * Improve loading UI
