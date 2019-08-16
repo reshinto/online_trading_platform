@@ -1,12 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getNews } from "../../redux/actions/iexAction";
+import { getNews } from "../../redux/actions/newsAction";
 import Paper from "@material-ui/core/Paper";
 import News from "./News";
 
 class SetNews extends React.Component {
   state = {
-    cparameter: this.props.noOfNews
+    options: {
+      dateStyle: "short",
+      timeStyle: "short",
+      hour12: false
+    }
   };
 
   componentDidMount() {
@@ -14,24 +18,17 @@ class SetNews extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { cparameter } = this.state;
     const { multi } = this.props;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.getNews(multi, cparameter);
-      }
-      if (cparameter !== prevState.cparameter) {
-        this.setState((prevState, props) => ({
-          cparameter: prevState.cparameter
-        }));
-        this.getNews(multi, cparameter);
+        this.getNews(multi);
       }
     }
   }
 
-  getNews = (symbol, cparameter) => {
+  getNews = (symbol) => {
     if (symbol[0] !== undefined)
-      this.props.getNews(symbol[0].value, cparameter);
+      this.props.getNews(symbol[0].value);
   };
 
   handleRangeChange = e => {
@@ -39,11 +36,12 @@ class SetNews extends React.Component {
   };
 
   render() {
+    const { news, height } = this.props
     return (
       <React.Fragment>
-        {this.props.news.length !== 0 ? (
-          <Paper elevation={2}>
-            <News height={this.props.height} />
+        {news.articles !== undefined ? (
+          <Paper elevation={0}>
+              <News height={height} {...this.state}/>
           </Paper>
         ) : (
           <div>loading...</div>
@@ -55,7 +53,7 @@ class SetNews extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    news: state.iexReducer.news,
+    news: state.newsReducer.news,
     multi: state.searchReducer.multi
   };
 };

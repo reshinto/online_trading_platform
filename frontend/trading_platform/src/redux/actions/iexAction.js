@@ -105,17 +105,17 @@ export const getQuote = (symbol) => (
   );
 };
 
-export const getNews = (symbol, parameter) => (dispatch, state) => {
-  requestCloudData(
-    dispatch,
-    state,
-    actionTypes.GET_NEWS,
-    "stock",
-    symbol,
-    "newsLast",
-    parameter
-  );
-};
+// export const getNews = (symbol, parameter) => (dispatch, state) => {
+//   requestCloudData(
+//     dispatch,
+//     state,
+//     actionTypes.GET_NEWS,
+//     "stock",
+//     symbol,
+//     "newsLast",
+//     parameter
+//   );
+// };
 
 export const getProfile = symbol => (dispatch, state) => {
   requestCloudData(

@@ -11,13 +11,16 @@ export const GET_CLOUD_DATA = "GET_CLOUD_DATA";
 export const GET_CHART = "GET_CHART";
 export const GET_QUOTE = "GET_QUOTE";
 export const GET_SYMBOLS = "GET_SYMBOLS";
-export const GET_NEWS = "GET_NEWS";
+// export const GET_NEWS = "GET_NEWS";
 export const GET_COMPANY_PROFILE = "GET_COMPANY_PROFILE";
 export const GET_ADVANCED_STATS = "GET_ADVANCED_STATS";
 export const GET_KEY_STATS = "GET_KEY_STATS";
 export const GET_BALANCE_SHEET = "GET_BALANCE_SHEET";
 export const GET_CASH_FLOW = "GET_CASH_FLOW";
 export const GET_INCOME_STATEMENT = "GET_INCOME_STATEMENT";
+
+// News api
+export const GET_NEWS = "GET_NEWS"
 
 // User data
 export const GET_USER_DATA = "GET_USER_DATA";
