@@ -25,8 +25,8 @@ const tabsObj = {
   "/chart": "chart",
   "/company": "company",
   "/financials": "financials",
-  "/profile": "profile",
-}
+  "/profile": "profile"
+};
 
 function Tab(props) {
   const { classes } = props;
@@ -34,7 +34,7 @@ function Tab(props) {
   return (
     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
       <Button color="inherit" component={Link} to={getPage()}>
-          {page}
+        {page}
       </Button>
     </Typography>
   );

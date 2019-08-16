@@ -1,8 +1,7 @@
 import React from "react";
 import Title from "../components/companyInfo/Title";
 import SetChart from "../components/graphs/SetChart";
-import AdvancedStats from "../components/companyInfo/AdvancedStats";
-import KeyStats from "../components/companyInfo/KeyStats";
+import FinancialStatements from "../components/companyInfo/FinancialStatements";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
@@ -25,10 +24,10 @@ class Dashboard extends React.Component {
                 <SetChart height={600} />
               </Grid>
               <Grid item md={6}>
-                <AdvancedStats height={300} />
+                <FinancialStatements type="Advanced Stats" height={300} />
               </Grid>
               <Grid item md={6}>
-                <KeyStats height={300} />
+                <FinancialStatements type="Key Stats" height={300} />
               </Grid>
             </Grid>
           </Paper>

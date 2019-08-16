@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   formControl: {
     marginLeft: theme.spacing.unit * 4,
-    minWidth: 120
+    minWidth: 145
   }
 });
 
@@ -22,20 +22,19 @@ class Range extends React.Component {
   }
 
   render() {
-    const { classes, range, handleRangeChange, menuList } = this.props;
+    const { classes, range, handleRangeChange, list, name } = this.props;
     const {defaultRange} = this.state;
-    const menu = menuList === undefined ? defaultRange : menuList;
+    const menu = list === undefined ? defaultRange : list;
 
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="date-range">Range</InputLabel>
+          <InputLabel htmlFor="date-range">{name}</InputLabel>
           <Select
             value={range}
             onChange={handleRangeChange}
             inputProps={{
               name: "range",
-              id: "date-range"
             }}
           >
             {menu.map((data, i) => (

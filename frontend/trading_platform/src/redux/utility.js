@@ -23,7 +23,7 @@ export const tokenConfig = getState => {
 };
 
 export const currencyFormat = num => {
-  return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
 
 export const db = "http://127.0.0.1:8000";

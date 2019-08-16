@@ -23,7 +23,7 @@ function SetFunds(props) {
       </td>
       <td>
         <Typography variant="body1">
-          {funds[funds.length - 1].totalFund === null
+          ${funds[funds.length - 1].totalFund === null
             ? 0
             : currencyFormat(funds[funds.length - 1].totalFund)}{" "}
         </Typography>

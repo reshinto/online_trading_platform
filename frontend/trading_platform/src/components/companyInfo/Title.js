@@ -115,7 +115,7 @@ class Title extends React.Component {
                     <Typography component="div" variant="body1">
                       <span>Current Cash: </span>
                       <span>
-                        {funds[funds.length - 1].totalFund === null
+                        ${funds[funds.length - 1].totalFund === null
                           ? 0
                           : currencyFormat(funds[funds.length - 1].totalFund)}
                       </span>

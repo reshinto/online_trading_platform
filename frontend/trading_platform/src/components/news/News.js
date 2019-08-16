@@ -23,6 +23,7 @@ const styles = {
 class News extends React.Component {
   render() {
     const { news, classes } = this.props;
+    console.log(news)
 
     return (
       <Card className={classes.card} style={{height: this.props.height}}>

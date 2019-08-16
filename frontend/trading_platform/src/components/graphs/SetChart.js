@@ -61,6 +61,7 @@ class SetChart extends React.Component {
                 <Range
                   {...this.state}
                   handleRangeChange={this.handleRangeChange}
+                  name="Range"
                 />
                 <Typography variant="h5">
                   {multi !== null &&
