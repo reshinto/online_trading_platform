@@ -11,6 +11,9 @@ import SetPassword from "../components/profile/SetPassword";
 import SetTradeHistory from "../components/profile/SetTradeHistory";
 import SetFundsHistory from "../components/profile/SetFundsHistory";
 import Title from "../components/companyInfo/Title";
+import FundsHistory from "../components/portfolio/FundsHistory";
+import PortfolioHistory from "../components/portfolio/PortfolioHistory";
+import Divider from '@material-ui/core/Divider';
 
 class Profile extends React.Component {
   state = {
@@ -19,7 +22,7 @@ class Profile extends React.Component {
     fundInputIsClicked: false,
     usernameInputIsClicked: false,
     emailInputIsClicked: false,
-    passwordInputIsClicked: false,
+    passwordInputIsClicked: false
   };
 
   componentDidMount() {
@@ -43,25 +46,24 @@ class Profile extends React.Component {
       fundsHistIsClicked,
       usernameInputIsClicked,
       emailInputIsClicked,
-      passwordInputIsClicked,
+      passwordInputIsClicked
     } = this.state;
     return (
-      <div>
+      <div style={{ height: "95vh", overflow: "auto" }}>
         {this.props.multi !== null ? <Title /> : <br />}
+        <h1 style={{ textAlign: "center" }}>Welcome {userData.username}</h1>
         <Grid
           container
+          spacing={8}
           style={{
             display: "flex",
-            flexDirection: "column",
             flexWrap: "wrap",
+            justifyContent: "center",
             alignContent: "center"
           }}
         >
-          <Grid item>
-            <Paper style={{ paddingLeft: 10, paddingRight: 10 }} elevation={2}>
-              <h1 style={{ textAlign: "center" }}>
-                Welcome {userData.username}
-              </h1>
+          <Grid item style={{ marginTop: 10 }}>
+            <Paper style={{ padding: 10 }} elevation={2}>
               <table>
                 <thead>
                   <tr>
@@ -91,20 +93,50 @@ class Profile extends React.Component {
                     handleOpen={this.handleOpen("passwordInputIsClicked")}
                     handleClose={this.handleClose("passwordInputIsClicked")}
                   />
-                  <SetTradeHistory
-                    isClicked={tradeHistIsClicked}
-                    handleOpen={this.handleOpen("tradeHistIsClicked")}
-                    handleClose={this.handleClose("tradeHistIsClicked")}
-                  />
-                  <SetFundsHistory
-                    isClicked={fundsHistIsClicked}
-                    handleOpen={this.handleOpen("fundsHistIsClicked")}
-                    handleClose={this.handleClose("fundsHistIsClicked")}
-                  />
                 </tbody>
               </table>
             </Paper>
           </Grid>
+          <Paper
+            elevation={2}
+            style={{
+              margin: 10,
+              padding: 10
+            }}
+          >
+            <Typography
+              variant="h5"
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <span>Trade History</span>
+              <SetTradeHistory
+                isClicked={tradeHistIsClicked}
+                handleOpen={this.handleOpen("tradeHistIsClicked")}
+                handleClose={this.handleClose("tradeHistIsClicked")}
+              />
+            </Typography>
+            <Grid item style={{ height: 350, overflow: "auto" }}>
+              <PortfolioHistory />
+            </Grid>
+            <Typography
+              variant="h5"
+              style={{
+                marginTop: 20,
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              Funds History
+              <SetFundsHistory
+                isClicked={fundsHistIsClicked}
+                handleOpen={this.handleOpen("fundsHistIsClicked")}
+                handleClose={this.handleClose("fundsHistIsClicked")}
+              />
+            </Typography>
+            <Grid item style={{ height: 350, overflow: "auto" }}>
+              <FundsHistory />
+            </Grid>
+          </Paper>
         </Grid>
       </div>
     );

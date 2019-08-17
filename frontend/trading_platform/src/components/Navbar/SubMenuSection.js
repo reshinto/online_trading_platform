@@ -11,13 +11,13 @@ import { getFunds, addFunds } from "../../redux/actions/fundsAction";
 
 class SubMenuSection extends React.Component {
   componentDidUpdate() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, initialFund } = this.props;
     if (isAuthenticated) {
       if (this.props.funds === null) {
         this.props.getFunds();
       } else {
         if (this.props.funds.length === 0) {
-          this.props.addFunds(this.state.initialFund);
+          this.props.addFunds(initialFund);
         }
       }
     }

@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Divider from "@material-ui/core/Divider";
+import { currencyFormat } from "../../redux/utility";
 
 const styles = theme => ({
   root: {
@@ -112,7 +113,9 @@ class Trade extends React.Component {
             <div style={{ paddingLeft: 62, marginTop: 10, marginBottom: 10 }}>
               Price:{" "}
               <span style={{ color: "green" }}>
-                {multi !== null ? quote.iexRealtimePrice : ""}
+                {multi !== null
+                  ? currencyFormat(quote.iexRealtimePrice, 2)
+                  : ""}
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -122,6 +125,7 @@ class Trade extends React.Component {
               <TextField
                 id="quantity"
                 variant="outlined"
+                type="number"
                 name="quantity"
                 onChange={this.onChange}
                 value={quantity}

@@ -28,9 +28,17 @@ class Title extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { multi, quote } = this.props;
     if (multi !== null) {
-      if (multi[0] !== undefined)
-        if (quote.iexRealtimePrice !== prevProps.quote.iexRealtimePrice)
+      if (multi[0] !== undefined) {
+        if (multi !== prevProps.multi) {
           this.props.getQuote(multi[0].value);
+        } else if (
+          quote.iexRealtimePrice !== prevProps.quote.iexRealtimePrice
+        ) {
+          if (quote.isUSMarketOpen) {
+            this.props.getQuote(multi[0].value);
+          }
+        }
+      }
     }
   }
 
@@ -87,7 +95,7 @@ class Title extends React.Component {
                     Latest Price:{" "}
                     <span style={{ color: "green" }}>
                       {quote.iexRealtimePrice !== null
-                        ? quote.iexRealtimePrice.toFixed(2)
+                        ? currencyFormat(quote.iexRealtimePrice, 2)
                         : ""}
                     </span>
                   </span>
@@ -125,7 +133,10 @@ class Title extends React.Component {
                         $
                         {funds[funds.length - 1].totalFund === null
                           ? 0
-                          : currencyFormat(funds[funds.length - 1].totalFund)}
+                          : currencyFormat(
+                              funds[funds.length - 1].totalFund,
+                              2
+                            )}
                       </span>
                     </Typography>
                   </Grid>

@@ -109,7 +109,7 @@ class FinancialStatements extends React.Component {
         oldStatement = statement[range];
       else oldStatement = statement[range][0];
       for (let [key, value] of Object.entries(oldStatement)) {
-        if (typeof value === "number") value = currencyFormat(value)
+        if (typeof value === "number") value = currencyFormat(value, 2)
         arr.push({ key: key, value: value });
       }
     }

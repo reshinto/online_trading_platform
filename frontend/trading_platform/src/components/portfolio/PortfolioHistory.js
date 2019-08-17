@@ -4,13 +4,14 @@ import { getTrades, deleteTrade } from "../../redux/actions/tradeAction";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { currencyFormat } from "../../redux/utility";
 
 const styles = {
   root: {
     padding: 10,
     width: "auto",
     height: "auto",
-    overflowY: "auto"
+    overflow: "auto"
   },
   row: {
     textAlign: "center",
@@ -36,7 +37,7 @@ class PortfolioHistory extends React.Component {
     const { tradeData, classes } = this.props;
     const { options } = this.state;
     return (
-      <React.Fragment>
+      <div style={{ height: this.props.height }}>
         {tradeData === undefined ? (
           ""
         ) : (
@@ -75,10 +76,14 @@ class PortfolioHistory extends React.Component {
                   <td className={classes.row}>{data.symbol}</td>
                   <td className={classes.row}>{data.company}</td>
                   <td className={classes.row}>{data.transaction}</td>
-                  <td className={classes.row}>{data.quantity}</td>
-                  <td className={classes.row}>{data.price}</td>
                   <td className={classes.row}>
-                    {(data.price * data.quantity).toFixed(2)}
+                    {currencyFormat(data.quantity, 0)}
+                  </td>
+                  <td className={classes.row}>
+                    {currencyFormat(data.price, 2)}
+                  </td>
+                  <td className={classes.row}>
+                    {currencyFormat(data.price * data.quantity, 2)}
                   </td>
                   <td className={classes.row}>
                     {new Date(data.created_at).toLocaleString("en-US", options)}
@@ -95,7 +100,7 @@ class PortfolioHistory extends React.Component {
             </tbody>
           </table>
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -4,13 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { deleteFunds } from "../../redux/actions/fundsAction";
 import Button from "@material-ui/core/Button";
+import { currencyFormat } from "../../redux/utility";
 
 const styles = {
   root: {
     padding: 10,
     width: "auto",
     height: "auto",
-    overflowY: "auto"
+    overflow: "auto"
   },
   row: {
     textAlign: "center",
@@ -32,7 +33,7 @@ class FundsHistory extends React.Component {
     const { funds, classes } = this.props;
     const { options } = this.state;
     return (
-      <React.Fragment>
+      <div style={{ height: this.props.height }}>
         <table rules="groups">
           <thead>
             <tr>
@@ -55,10 +56,12 @@ class FundsHistory extends React.Component {
               <tr key={data.id}>
                 <td className={classes.row}>{data.transactionType}</td>
                 <td className={classes.row}>
-                  {data.amount === null ? 0 : data.amount}
+                  {data.amount === null ? 0 : currencyFormat(data.amount, 2)}
                 </td>
                 <td className={classes.row}>
-                  {data.totalFund === null ? 0 : data.totalFund}
+                  {data.totalFund === null
+                    ? 0
+                    : currencyFormat(data.totalFund, 2)}
                 </td>
                 <td className={classes.row}>
                   {new Date(data.created_at).toLocaleString("en-US", options)}
@@ -72,7 +75,7 @@ class FundsHistory extends React.Component {
             ))}
           </tbody>
         </table>
-      </React.Fragment>
+      </div>
     );
   }
 }
