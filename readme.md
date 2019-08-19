@@ -82,10 +82,10 @@
 * ~~Refactor code for reuse and reduce code redundancy~~
 * ~~Implement real news feed~~
 * ~~Implement real company profile details~~
+* ~~Implement chart select feature~~
 * Improve auto logout alert UI
 * Add password reset feature
 * Improve loading UI
-* Implement chart select feature
 * Improve d3 visualization
 * Expand the type of graphs and visualizations with d3
 * Add Real time chart support

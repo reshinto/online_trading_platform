@@ -110,7 +110,6 @@ class CandleStickChart extends React.Component {
       : {};
 
     return (
-      <div>
         <ChartCanvas
           ref={this.saveNode}
           height={height}
@@ -130,12 +129,6 @@ class CandleStickChart extends React.Component {
           xAccessor={xAccessor}
           displayXAccessor={displayXAccessor}
         >
-          <Label
-            x={(width - margin.left - margin.right) / 2}
-            y={height - 50}
-            fontSize={12}
-            text="Date"
-          />
           <Label
             x={-margin.left + 20}
             y={height / 2 - margin.top - margin.bottom}
@@ -176,7 +169,6 @@ class CandleStickChart extends React.Component {
           </Chart>
           <CrossHairCursor />
         </ChartCanvas>
-      </div>
     );
   }
 }

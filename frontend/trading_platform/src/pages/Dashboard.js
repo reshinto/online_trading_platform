@@ -11,7 +11,15 @@ class Dashboard extends React.Component {
     return (
       <div>
         {this.props.multi !== null ? (
-          <Paper elevation={0} style={{ height: "95vh", overflowY: "scroll" }}>
+          <Paper
+            elevation={0}
+            style={{
+              height: "95vh",
+              overflowY: "scroll",
+              paddingLeft: 20,
+              paddingRight: 20
+            }}
+          >
             <Title />
             <Grid
               container
@@ -21,7 +29,7 @@ class Dashboard extends React.Component {
               style={{ padding: 10, position: "relative", zIndex: 1 }}
             >
               <Grid item xs={12}>
-                <SetChart height={600} />
+                <SetChart height={590} />
               </Grid>
               <Grid item md={6}>
                 <FinancialStatements type="Advanced Stats" height={300} />

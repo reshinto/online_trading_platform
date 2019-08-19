@@ -2,10 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getChart } from "../../redux/actions/iexAction";
 import Paper from "@material-ui/core/Paper";
-import Range from "./Range";
 import ChartSelect from "./ChartSelect";
-import CandleStickChart from "./CandleStickChart";
-import Typography from "@material-ui/core/Typography";
 
 class SetChart extends React.Component {
   state = {
@@ -35,8 +32,7 @@ class SetChart extends React.Component {
   }
 
   getChart = (symbol, range) => {
-    if (symbol[0] !== undefined)
-      this.props.getChart(symbol[0].value, range);
+    if (symbol[0] !== undefined) this.props.getChart(symbol[0].value, range);
   };
 
   handleRangeChange = e => {
@@ -44,39 +40,21 @@ class SetChart extends React.Component {
   };
 
   render() {
-    const { multi, chart } = this.props;
+    const { chart } = this.props;
 
     return (
       <React.Fragment>
         {this.props.chart.length !== 0 ? (
-          <Paper elevation={2}>
-            <div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                  justifyContent: "space-between"
-                }}
-              >
-                <Range
-                  {...this.state}
-                  handleRangeChange={this.handleRangeChange}
-                  name="Range"
-                />
-                <Typography variant="h5">
-                  {multi !== null &&
-                  multi !== undefined &&
-                  multi[0] !== undefined
-                    ? multi[0].value
-                    : ""}
-                </Typography>
-                <ChartSelect
-                  {...this.state}
-                  handleRangeChange={this.handleRangeChange}
-                />
-              </div>
-              <CandleStickChart data={chart} {...this.state} multi={multi} />
-            </div>
+          <Paper
+            style={{ padding: 10 }}
+            elevation={2}
+          >
+            <ChartSelect
+              {...this.state}
+              {...this.props}
+              data={chart}
+              handleRangeChange={this.handleRangeChange}
+            />
           </Paper>
         ) : (
           <div>loading...</div>

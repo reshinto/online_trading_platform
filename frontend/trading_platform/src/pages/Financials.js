@@ -11,9 +11,17 @@ class Financials extends React.Component {
     return (
       <div>
         {this.props.multi !== null ? (
-          <Paper elevation={0} style={{ height: "95vh", overflowY: "scroll" }}>
+          <Paper
+            elevation={0}
+            style={{
+              height: "95vh",
+              overflowY: "scroll",
+              marginLeft: 20,
+              marginRight: 20
+            }}
+          >
             <Title />
-            <div style={{ margin: 20 }}>
+            <div>
               <FinancialStatements />
             </div>
           </Paper>

@@ -32,7 +32,7 @@ class Title extends React.Component {
         if (multi !== prevProps.multi) {
           this.props.getQuote(multi[0].value);
         } else if (
-          quote.iexRealtimePrice !== prevProps.quote.iexRealtimePrice
+          quote.latestPrice !== prevProps.quote.latestPrice
         ) {
           if (quote.isUSMarketOpen) {
             this.props.getQuote(multi[0].value);
@@ -94,8 +94,8 @@ class Title extends React.Component {
                   <span>
                     Latest Price:{" "}
                     <span style={{ color: "green" }}>
-                      {quote.iexRealtimePrice !== null
-                        ? currencyFormat(quote.iexRealtimePrice, 2)
+                      {quote.latestPrice !== null
+                        ? currencyFormat(quote.latestPrice, 2)
                         : ""}
                     </span>
                   </span>

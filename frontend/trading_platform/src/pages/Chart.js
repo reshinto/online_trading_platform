@@ -6,13 +6,19 @@ import Paper from "@material-ui/core/Paper";
 import Title from "../components/companyInfo/Title";
 
 class Chart extends React.Component {
-  default = this.props.multi;
-
   render() {
     return (
       <div>
         {this.props.multi !== null ? (
-          <Paper elevation={0} style={{ height: "95vh", overflowY: "scroll" }}>
+          <Paper
+            elevation={0}
+            style={{
+              height: "95vh",
+              overflowY: "scroll",
+              paddingLeft: 20,
+              paddingRight: 20
+            }}
+          >
             <Title />
             <Grid
               container
@@ -22,7 +28,7 @@ class Chart extends React.Component {
               style={{ padding: 10, position: "relative", zIndex: 1 }}
             >
               <Grid item xs={12}>
-                <SetChart height={window.innerHeight - 200} />
+                <SetChart height={window.innerHeight - 250} />
               </Grid>
             </Grid>
           </Paper>

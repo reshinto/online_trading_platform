@@ -30,7 +30,7 @@ const styles = theme => ({
 
 class FinancialStatements extends React.Component {
   state = {
-    range: "Advanced Stats",
+    financials: "Advanced Stats",
     list: [
       "Advanced Stats",
       "Key Stats",
@@ -42,46 +42,46 @@ class FinancialStatements extends React.Component {
 
   componentDidMount() {
     let { type, multi } = this.props;
-    let { range } = this.state;
+    let { financials } = this.state;
     if (type !== undefined) {
-      this.setState({ range: type });
+      this.setState({ financials: type });
       this.getStatement(type, multi);
     } else {
-      this.getStatement(range, multi);
+      this.getStatement(financials, multi);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { multi } = this.props;
-    const { range } = this.state;
+    const { financials } = this.state;
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.getStatement(range, multi);
+        this.getStatement(financials, multi);
       }
-      if (range !== prevState.range) {
-        this.getStatement(range, multi);
+      if (financials !== prevState.financials) {
+        this.getStatement(financials, multi);
       }
     }
   }
 
-  getStatement = (range, symbol) => {
+  getStatement = (financials, symbol) => {
     if (symbol[0] !== undefined) {
       const sym = symbol[0].value;
-      if (range === "Advanced Stats") {
+      if (financials === "Advanced Stats") {
         this.props.getAdvStats(sym);
-      } else if (range === "Key Stats") {
+      } else if (financials === "Key Stats") {
         this.props.getKeyStats(sym);
-      } else if (range === "Balance Sheet") {
+      } else if (financials === "Balance Sheet") {
         this.props.getBalanceSheet(sym);
-      } else if (range === "Cash Flow") {
+      } else if (financials === "Cash Flow") {
         this.props.getCashFlow(sym);
-      } else if (range === "Income Statement") {
+      } else if (financials === "Income Statement") {
         this.props.getIncomeStatement(sym);
       }
     }
   };
 
-  handleRangeChange = e => {
+  handlefinancialsChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -94,7 +94,7 @@ class FinancialStatements extends React.Component {
       incomeStatement,
       classes
     } = this.props;
-    const { range } = this.state;
+    const { financials } = this.state;
     const statement = {
       "Advanced Stats": advStats,
       "Key Stats": keyStats,
@@ -104,10 +104,10 @@ class FinancialStatements extends React.Component {
     };
     const arr = [];
     let oldStatement;
-    if (statement[range] !== undefined) {
-      if (range === "Advanced Stats" || range === "Key Stats")
-        oldStatement = statement[range];
-      else oldStatement = statement[range][0];
+    if (statement[financials] !== undefined) {
+      if (financials === "Advanced Stats" || financials === "Key Stats")
+        oldStatement = statement[financials];
+      else oldStatement = statement[financials][0];
       for (let [key, value] of Object.entries(oldStatement)) {
         if (typeof value === "number") value = currencyFormat(value, 2)
         arr.push({ key: key, value: value });
@@ -121,14 +121,15 @@ class FinancialStatements extends React.Component {
             <div style={{display: "flex", justifyContent: "space-between"}}>
               <span>
                 <Typography className={classes.title} gutterBottom>
-                  <b>{range}</b>
+                  <b>{financials}</b>
                 </Typography>
               </span>
               <span>
                 <Range
                   {...this.state}
-                  handleRangeChange={this.handleRangeChange}
-                  name="Select Type"
+                  handleRangeChange={this.handlefinancialsChange}
+                  name="financials"
+                  range={financials}
                 />
               </span>
             </div>

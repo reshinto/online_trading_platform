@@ -34,7 +34,7 @@ class Trade extends React.Component {
     const { transaction, quantity } = this.state;
     const { multi, quote } = this.props;
     const owner = this.props.userData.id;
-    const price = quote.iexRealtimePrice;
+    const price = quote.latestPrice;
     let symbol;
     let company;
     if (multi !== null && multi[0] !== undefined) {
@@ -61,7 +61,7 @@ class Trade extends React.Component {
     const { quantity } = this.state;
     const { quote, funds } = this.props;
     const transactionType = "BUY";
-    const price = quote.iexRealtimePrice;
+    const price = quote.latestPrice;
     const oldFund = funds[funds.length - 1].totalFund;
     const amount = (price * quantity).toFixed(2);
     if (oldFund >= amount) {
@@ -83,7 +83,7 @@ class Trade extends React.Component {
     const { quantity } = this.state;
     const { quote, funds } = this.props;
     const transactionType = "SELL";
-    const price = quote.iexRealtimePrice;
+    const price = quote.latestPrice;
     const oldFund = funds[funds.length - 1].totalFund;
     const amount = price * quantity;
     const totalFund = (oldFund + amount).toFixed(2);
@@ -114,7 +114,7 @@ class Trade extends React.Component {
               Price:{" "}
               <span style={{ color: "green" }}>
                 {multi !== null
-                  ? currencyFormat(quote.iexRealtimePrice, 2)
+                  ? currencyFormat(quote.latestPrice, 2)
                   : ""}
               </span>
             </div>
