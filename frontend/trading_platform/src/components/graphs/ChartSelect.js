@@ -19,24 +19,31 @@ class ChartSelect extends React.Component {
     const { range, multi, handleRangeChange } = this.props;
     let { chart } = this.state;
     const selectChart = {
-      "Candle Stick": (
-        <CandleStickChart {...this.state} {...this.props} />
-      ),
-      "Heikin Ashi": (
-        <HeikinAshiChart {...this.state} {...this.props} />
-      ),
-      "Area": (
-        <AreaChart {...this.state} {...this.props} />
-      )
+      "Candle Stick": <CandleStickChart {...this.state} {...this.props} />,
+      "Heikin Ashi": <HeikinAshiChart {...this.state} {...this.props} />,
+      Area: <AreaChart {...this.state} {...this.props} />
     };
 
     return (
       <>
+      <Typography
+        variant="h5"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: -20
+          }}
+      >
+          {multi !== null && multi !== undefined && multi[0] !== undefined
+            ? multi[0].value
+            : ""}
+        </Typography>
         <div
           style={{
             display: "flex",
-            alignItems: "flex-end",
+            alignItems: "center",
             justifyContent: "space-between",
+            flexWrap: "wrap",
             paddingLeft: 50,
             paddingRight: 50
           }}
@@ -47,13 +54,6 @@ class ChartSelect extends React.Component {
             name="range"
             range={range}
           />
-          <Typography variant="h5">
-            {multi !== null &&
-            multi !== undefined &&
-            multi[0] !== undefined
-              ? multi[0].value
-              : ""}
-          </Typography>
           <Range
             {...this.state}
             list={this.state.chartList}
