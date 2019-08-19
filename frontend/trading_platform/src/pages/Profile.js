@@ -13,7 +13,6 @@ import SetFundsHistory from "../components/profile/SetFundsHistory";
 import Title from "../components/companyInfo/Title";
 import FundsHistory from "../components/portfolio/FundsHistory";
 import PortfolioHistory from "../components/portfolio/PortfolioHistory";
-import Divider from '@material-ui/core/Divider';
 
 class Profile extends React.Component {
   state = {
