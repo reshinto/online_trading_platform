@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -33,7 +33,7 @@ function Tab(props) {
   const page = tabsObj[getPage()];
   return (
     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-      <Button color="inherit" component={Link} to={getPage()}>
+      <Button disabled style={{color: "white"}}>
         {page}
       </Button>
     </Typography>
@@ -41,3 +41,5 @@ function Tab(props) {
 }
 
 export default withStyles(styles)(Tab);
+
+      // <Button color="inherit" component={Link} to={getPage()}>
