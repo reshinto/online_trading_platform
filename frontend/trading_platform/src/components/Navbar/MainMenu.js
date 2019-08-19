@@ -73,27 +73,6 @@ class MainMenu extends React.Component {
             </Button>
           ))}
         </List>
-        <Divider />
-        {/*
-        <List>
-          {["Portfolio"].map((text, i) => (
-            <Button
-              key={i}
-              disabled={!isAuthenticated}
-              fullWidth
-              component={Link}
-              to={`/${text.toLowerCase()}`}
-            >
-              <ListItem>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </Button>
-          ))}
-        </List>
-        */}
       </div>
     );
 

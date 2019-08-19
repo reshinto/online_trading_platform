@@ -254,7 +254,7 @@ class SearchBar extends React.Component {
               components={components}
               value={multi}
               onChange={this.handleSearchChange("multi")}
-              placeholder="Search..."
+              placeholder="Search Stock Symbol..."
               isMulti
             />
           </NoSsr>

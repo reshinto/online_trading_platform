@@ -16,6 +16,7 @@ import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Range from "../graphs/Range";
 import {currencyFormat} from "../../redux/utility.js";
+import Loading from "../Loading";
 
 const styles = theme => ({
   root: {
@@ -146,7 +147,7 @@ class FinancialStatements extends React.Component {
             </Table>
           </div>
         ) : (
-          <div>loading...</div>
+          <Loading />
         )}
       </React.Fragment>
     );

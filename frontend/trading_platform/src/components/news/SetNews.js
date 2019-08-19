@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getNews } from "../../redux/actions/newsAction";
 import Paper from "@material-ui/core/Paper";
 import News from "./News";
+import Loading from "../Loading";
 
 class SetNews extends React.Component {
   state = {
@@ -44,7 +45,7 @@ class SetNews extends React.Component {
               <News height={height} {...this.state}/>
           </Paper>
         ) : (
-          <div>loading...</div>
+          <Loading />
         )}
       </React.Fragment>
     );

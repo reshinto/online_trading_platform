@@ -85,8 +85,8 @@
 * ~~Implement chart select feature~~
 * ~~Improve d3 visualization~~
 * ~~Expand the type of graphs and visualizations with d3~~
+* ~~Add loading UI~~
 * Improve auto logout alert UI
 * Add password reset feature
-* Improve loading UI
 * Add Real time chart support
 * Improve overall styling

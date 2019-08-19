@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getChart } from "../../redux/actions/iexAction";
 import Paper from "@material-ui/core/Paper";
 import ChartSelect from "./ChartSelect";
+import Loading from "../Loading";
 
 class SetChart extends React.Component {
   state = {
@@ -57,7 +58,7 @@ class SetChart extends React.Component {
             />
           </Paper>
         ) : (
-          <div>loading...</div>
+          <Loading />
         )}
       </React.Fragment>
     );

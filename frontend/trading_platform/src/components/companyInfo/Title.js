@@ -8,6 +8,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import { currencyFormat } from "../../redux/utility";
 import { withStyles } from "@material-ui/core/styles";
+import Loading from "../Loading";
 
 const styles = {
   root: {
@@ -152,7 +153,7 @@ class Title extends React.Component {
               )}
             </Grid>
           ) : (
-            <div>loading...</div>
+            <Loading />
           )}
         </React.Fragment>
       </div>
