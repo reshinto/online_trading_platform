@@ -15,10 +15,8 @@ import { Label } from "react-stockcharts/lib/annotation";
 import { HoverTooltip } from "react-stockcharts/lib/tooltip";
 
 class CandleStickChart extends React.Component {
-  componentWillMount() {
-    this.setState({
-      suffix: 1
-    });
+  state = {
+    suffix: 1
   }
 
   saveNode = node => {

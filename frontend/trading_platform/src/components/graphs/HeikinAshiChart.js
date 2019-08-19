@@ -28,10 +28,8 @@ import { ema, heikinAshi, sma } from "react-stockcharts/lib/indicator";
 import { currencyFormat } from "../../redux/utility";
 
 class HeikinAshiChart extends React.Component {
-  componentWillMount() {
-    this.setState({
-      suffix: 1
-    });
+  state = {
+    suffix: 1
   }
 
   saveNode = node => {
