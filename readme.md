@@ -86,7 +86,7 @@
 * ~~Improve d3 visualization~~
 * ~~Expand the type of graphs and visualizations with d3~~
 * ~~Add loading UI~~
-* ~~Add last 4 annually and quartarly financial reports~~
+* ~~Add last 4 annually and quarterly financial reports~~
 * ~~Fix number and word formats in financial reports~~
 * Improve auto logout alert UI
 * Add password reset feature
