@@ -32,9 +32,7 @@ class Title extends React.Component {
       if (multi[0] !== undefined) {
         if (multi !== prevProps.multi) {
           this.props.getQuote(multi[0].value);
-        } else if (
-          quote.latestPrice !== prevProps.quote.latestPrice
-        ) {
+        } else if (quote.latestPrice !== prevProps.quote.latestPrice) {
           if (quote.isUSMarketOpen) {
             this.props.getQuote(multi[0].value);
           }
@@ -125,6 +123,12 @@ class Title extends React.Component {
                   </span>
                 </Typography>
               </Grid>
+              <Grid item>
+                <Typography component="div" variant="body1">
+                  <span>Market is now </span>
+                  <span>{quote.isUSMarketOpen ? "Open" : "Close"}</span>
+                </Typography>
+              </Grid>
               {isAuthenticated && funds !== null && funds[0] !== undefined ? (
                 <>
                   <Grid item>
@@ -139,12 +143,6 @@ class Title extends React.Component {
                               2
                             )}
                       </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography component="div" variant="body1">
-                      <span>Market is now </span>
-                      <span>{quote.isUSMarketOpen ? "Open" : "Close"}</span>
                     </Typography>
                   </Grid>
                 </>
