@@ -150,7 +150,7 @@ export const getKeyStats = symbol => (dispatch, state) => {
   );
 };
 
-export const getBalanceSheet = symbol => (dispatch, state) => {
+export const getBalanceSheet = (symbol, query) => (dispatch, state) => {
   requestCloudData(
     dispatch,
     state,
@@ -158,11 +158,11 @@ export const getBalanceSheet = symbol => (dispatch, state) => {
     "stock",
     symbol,
     "balanceSheet",
-    "?period=annual"
+    query
   );
 };
 
-export const getCashFlow = symbol => (dispatch, state) => {
+export const getCashFlow = (symbol, query) => (dispatch, state) => {
   requestCloudData(
     dispatch,
     state,
@@ -170,11 +170,11 @@ export const getCashFlow = symbol => (dispatch, state) => {
     "stock",
     symbol,
     "cashFlow",
-    "?period=annual"
+    query
   );
 };
 
-export const getIncomeStatement = symbol => (dispatch, state) => {
+export const getIncomeStatement = (symbol, query) => (dispatch, state) => {
   requestCloudData(
     dispatch,
     state,
@@ -182,6 +182,6 @@ export const getIncomeStatement = symbol => (dispatch, state) => {
     "stock",
     symbol,
     "incomeStatement",
-    "?period=annual"
+    query
   );
 };

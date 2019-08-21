@@ -21,11 +21,6 @@ const styles = {
     flexWrap: "wrap",
     margin: 10
   },
-  media: {
-    width: 200,
-    height: 200,
-    margin: 10
-  },
   description: {
     textAlign: "justify"
   },
@@ -61,7 +56,6 @@ class News extends React.Component {
               <CardMedia
                 component="img"
                 alt="No Image"
-                className={classes.media}
                 image={data.urlToImage}
               />
             </Grid>

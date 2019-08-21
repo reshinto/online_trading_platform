@@ -11,11 +11,12 @@ import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Range from "../graphs/Range";
-import {currencyFormat} from "../../redux/utility.js";
+import { formatStr, currencyFormat } from "../../redux/utility.js";
 import Loading from "../Loading";
 
 const styles = theme => ({
@@ -31,8 +32,11 @@ const styles = theme => ({
 
 class FinancialStatements extends React.Component {
   state = {
+    last: "?last=4",
     financials: "Advanced Stats",
-    list: [
+    period: "Annual",
+    periodList: ["Annual", "Quarter"],
+    financialList: [
       "Advanced Stats",
       "Key Stats",
       "Cash Flow",
@@ -43,29 +47,34 @@ class FinancialStatements extends React.Component {
 
   componentDidMount() {
     let { type, multi } = this.props;
-    let { financials } = this.state;
+    let { financials, last, period } = this.state;
+    let query = last + "&period=" + period.toLowerCase();
     if (type !== undefined) {
       this.setState({ financials: type });
-      this.getStatement(type, multi);
+      this.getStatement(type, multi, query);
     } else {
-      this.getStatement(financials, multi);
+      this.getStatement(financials, multi, query);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { multi } = this.props;
-    const { financials } = this.state;
+    let { financials, last, period } = this.state;
+    let query = last + "&period=" + period.toLowerCase();
     if (multi !== null) {
       if (multi !== prevProps.multi) {
-        this.getStatement(financials, multi);
+        this.getStatement(financials, multi, query);
       }
       if (financials !== prevState.financials) {
-        this.getStatement(financials, multi);
+        this.getStatement(financials, multi, query);
+      }
+      if (period !== prevState.period) {
+        this.getStatement(financials, multi, query);
       }
     }
   }
 
-  getStatement = (financials, symbol) => {
+  getStatement = (financials, symbol, query) => {
     if (symbol[0] !== undefined) {
       const sym = symbol[0].value;
       if (financials === "Advanced Stats") {
@@ -73,16 +82,16 @@ class FinancialStatements extends React.Component {
       } else if (financials === "Key Stats") {
         this.props.getKeyStats(sym);
       } else if (financials === "Balance Sheet") {
-        this.props.getBalanceSheet(sym);
+        this.props.getBalanceSheet(sym, query);
       } else if (financials === "Cash Flow") {
-        this.props.getCashFlow(sym);
+        this.props.getCashFlow(sym, query);
       } else if (financials === "Income Statement") {
-        this.props.getIncomeStatement(sym);
+        this.props.getIncomeStatement(sym, query);
       }
     }
   };
 
-  handlefinancialsChange = e => {
+  handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -95,7 +104,7 @@ class FinancialStatements extends React.Component {
       incomeStatement,
       classes
     } = this.props;
-    const { financials } = this.state;
+    const { financials, financialList, period, periodList } = this.state;
     const statement = {
       "Advanced Stats": advStats,
       "Key Stats": keyStats,
@@ -104,14 +113,34 @@ class FinancialStatements extends React.Component {
       "Income Statement": incomeStatement.income
     };
     const arr = [];
+    let subArr;
     let oldStatement;
     if (statement[financials] !== undefined) {
-      if (financials === "Advanced Stats" || financials === "Key Stats")
-        oldStatement = statement[financials];
-      else oldStatement = statement[financials][0];
-      for (let [key, value] of Object.entries(oldStatement)) {
-        if (typeof value === "number") value = currencyFormat(value, 2)
-        arr.push({ key: key, value: value });
+      oldStatement = statement[financials];
+      if (financials === "Advanced Stats" || financials === "Key Stats") {
+        for (let [key, value] of Object.entries(oldStatement)) {
+          if (!isNaN(Number(value))) {
+            if (!Number.isInteger(Number(value)))
+              value = currencyFormat(Number(value), 2);
+            else value = currencyFormat(Number(value), 0);
+          }
+          if (value === "0") value = "";
+          arr.push({ key: key, value: value });
+        }
+      } else {
+        for (let i = 0; i < oldStatement.length; i++) {
+          subArr = [];
+          for (let [key, value] of Object.entries(oldStatement[i])) {
+            if (!isNaN(Number(value))) {
+              if (!Number.isInteger(Number(value)))
+                value = currencyFormat(Number(value), 2);
+              else value = currencyFormat(Number(value), 0);
+            }
+            if (value === "0") value = "";
+            subArr.push({ key: key, value: value });
+          }
+          arr.push(subArr);
+        }
       }
     }
 
@@ -119,31 +148,88 @@ class FinancialStatements extends React.Component {
       <React.Fragment>
         {arr.length !== 0 ? (
           <div className={classes.root} style={{ height: this.props.height }}>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
-              <span>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between"
+                // flexWrap: "wrap"
+              }}
+            >
+              <span style={{ flexBasis: "60%" }}>
                 <Typography className={classes.title} gutterBottom>
                   <b>{financials}</b>
                 </Typography>
               </span>
+              {financials !== "Advanced Stats" && financials !== "Key Stats" ? (
+                <span>
+                  <Range
+                    handleRangeChange={this.handleChange}
+                    name="period"
+                    range={period}
+                    list={periodList}
+                  />
+                </span>
+              ) : (
+                ""
+              )}
               <span>
                 <Range
-                  {...this.state}
-                  handleRangeChange={this.handlefinancialsChange}
+                  handleRangeChange={this.handleChange}
                   name="financials"
                   range={financials}
+                  list={financialList}
                 />
               </span>
             </div>
             <Divider />
             <Table>
-              <TableBody>
-                {arr.map((row, i) => (
-                  <TableRow key={i}>
-                    <TableCell>{row.key}</TableCell>
-                    <TableCell align="right">{row.value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
+              {financials === "Advanced Stats" || financials === "Key Stats" ? (
+                <TableBody>
+                  {arr.map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell>
+                        <i>{formatStr(row.key)}</i>
+                      </TableCell>
+                      <TableCell align="right">{row.value}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              ) : (
+                <>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <b>{formatStr(arr[0][0].key)}</b>
+                      </TableCell>
+                      <TableCell align="right">{arr[3][0].value}</TableCell>
+                      <TableCell align="right">{arr[2][0].value}</TableCell>
+                      <TableCell align="right">{arr[1][0].value}</TableCell>
+                      <TableCell align="right">{arr[0][0].value}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {arr[0].slice(1).map((row, i) => (
+                      <TableRow key={i}>
+                        <TableCell>
+                          <i>{formatStr(arr[0].slice(1)[i].key)}</i>
+                        </TableCell>
+                        <TableCell align="right">
+                          {arr[3].slice(1)[i].value}
+                        </TableCell>
+                        <TableCell align="right">
+                          {arr[2].slice(1)[i].value}
+                        </TableCell>
+                        <TableCell align="right">
+                          {arr[1].slice(1)[i].value}
+                        </TableCell>
+                        <TableCell align="right">
+                          {arr[0].slice(1)[i].value}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </>
+              )}
             </Table>
           </div>
         ) : (

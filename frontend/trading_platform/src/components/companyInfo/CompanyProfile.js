@@ -22,11 +22,6 @@ const styles = {
     flexWrap: "wrap",
     margin: 10
   },
-  media: {
-    width: 200,
-    height: 200,
-    margin: 10
-  },
   description: {
     textAlign: "justify"
   },
@@ -75,7 +70,7 @@ class CompanyProfile extends React.Component {
         style={{ height: this.props.height }}
       >
         <Typography className={classes.title} gutterBottom>
-          <b>Company Profile</b>
+          <b>COMPANY PROFILE</b>
         </Typography>
         {profile !== undefined ? (
           <Card className={classes.card}>
@@ -83,7 +78,6 @@ class CompanyProfile extends React.Component {
               <CardMedia
                 component="img"
                 alt="No Image"
-                className={classes.cover}
                 image={profile.image}
               />
             </Grid>
