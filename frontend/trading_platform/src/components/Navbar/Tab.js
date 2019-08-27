@@ -17,6 +17,7 @@ function getPage() {
   const rawURL = window.location.href;
   const re = /\/(?:[^/]+)$/;
   const resultArr = re.exec(rawURL);
+  if (resultArr === null) return "/dashboard";
   return resultArr[0];
 }
 

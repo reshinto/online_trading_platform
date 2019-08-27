@@ -74,4 +74,4 @@ export const formatStr = str => {
   return newStr.toUpperCase();
 };
 
-export const db = "http://127.0.0.1:8000";
+export const db = process.env.REACT_APP_DB;

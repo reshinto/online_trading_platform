@@ -17,6 +17,8 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 django-rest-knox = "*"
 django-rest-passwordreset = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"

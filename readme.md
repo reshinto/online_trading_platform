@@ -8,6 +8,11 @@
 ## How to make this work
 * Get your own Django secret key
   * Create your own Django app => copy the secret key => paste into this project's secret key location at settings.py or in your environment.
+      ```python
+      # Use python 3 to generate your own Django secret key
+      import secrets
+      print(secrets.token_hex(24))
+      ```
 * ~~Create your own mysql database~~
   * ~~Change the username, password, and database name at settings.py~~
 * API key is required if you want to use data from IEX cloud.
