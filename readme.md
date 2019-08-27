@@ -22,7 +22,7 @@
       > export REACT_APP_iexToken="api_key"
 * API key is required to get real news feed from news api
   * Create account for free at https://newsapi.org/
-    > REACT_APP_newsAPI="api_key"
+    > export REACT_APP_newsAPI="api_key"
 * Add local server address to environment or manually edit in the utility.js file
   > export REACT_APP_DB="http://127.0.0.1:8000"
 * Company profile data is taken from https://financialmodelingprep.com
