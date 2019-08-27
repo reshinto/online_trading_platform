@@ -36,7 +36,7 @@
 * Use npm to install all frontend related dependencies.
 
 ## How to run
-1. ~~Run MySql server~~
+1. ~~Run MySql server~~ Postgres is used in the production side
 2. Run backend server
     * python manage.py runserver
 3. Run Frontend server
@@ -46,7 +46,7 @@
 * Django
 * React
 * D3
-* ~~MySql~~ changed to sqlite due to django-mysql problem when updating user profile
+* ~~MySql~~ changed to sqlite for development, and Postgres for production
 * Django Rest Framework
 * Redux
 * Material-UI
