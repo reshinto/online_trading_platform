@@ -18,16 +18,23 @@
 * API key is required if you want to use data from IEX cloud.
   * Create free account with IEX at https://iexcloud.io/.
   * Free data is limited, simulated data is free
+    * If using simulated data, paste the following with the api key in the environment
+    > export REACT_APP_iexToken="api_key"
 * API key is required to get real news feed from news api
   * Create account for free at https://newsapi.org/
+  > REACT_APP_newsAPI="api_key"
+* Add local server address to environment or manually edit in the utility.js file
+> export REACT_APP_DB="http://127.0.0.1:8000"
+* Company profile data is taken from https://financialmodelingprep.com
+  * no additional settings required
 * Use pipenv to install all python dependencies for the backend.
 * Use npm to install all frontend related dependencies.
 
 ## How to run
-1. ~~Turn on MySql server~~
-2. Turn on backend server
+1. ~~Run MySql server~~
+2. Run backend server
     * python manage.py runserver
-3. Turn on Frontend server
+3. Run Frontend server
     * npm start
 
 ## List of major technologies used
