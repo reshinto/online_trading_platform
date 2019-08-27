@@ -23,12 +23,12 @@ class Title extends React.Component {
   };
 
   componentDidMount() {
-    this.getQuote(this.props.multi)
+    this.getQuote(this.props.multi);
     this.timer = setInterval(() => this.getQuote(this.props.multi), 5000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer)
+    clearInterval(this.timer);
   }
 
   componentDidUpdate(prevProps, prevState) {
