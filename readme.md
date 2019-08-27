@@ -5,6 +5,11 @@
 * Charts visualization and creation of personal portfolios will be the first end goal.
 * Implement machine learning to analyze stocks will be my 2nd end goal, this will be done in the near future when I have the time.
 
+## Demo
+* Feel free to create an account and try out the demo
+  > https://onlinetradingplatform.herokuapp.com/
+* Disclaimer, accounts will be deleted without prior notice as this project is still in the development stage.
+
 ## How to make this work
 * Get your own Django secret key
   * Create your own Django app => copy the secret key => paste into this project's secret key location at settings.py or in your environment.
