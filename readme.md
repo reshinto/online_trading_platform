@@ -17,7 +17,7 @@
   * ~~Change the username, password, and database name at settings.py~~
 * API key is required if you want to use data from IEX cloud.
   * Create free account with IEX at https://iexcloud.io/.
-  * Free data is limited, simulated data is free
+  * Real data is free data but limited. However, simulated data is completely free.
     * If using simulated data, paste the following with the api key in the environment
       > export REACT_APP_iexToken="api_key"
 * API key is required to get real news feed from news api
