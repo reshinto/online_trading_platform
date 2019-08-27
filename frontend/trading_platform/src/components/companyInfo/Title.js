@@ -23,27 +23,36 @@ class Title extends React.Component {
   };
 
   componentDidMount() {
-    this.getQuote(this.props.multi);
+    this.getQuote(this.props.multi)
+    this.timer = setInterval(() => this.getQuote(this.props.multi), 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { multi, quote } = this.props;
+    const { multi } = this.props;
     if (multi !== null) {
       if (multi[0] !== undefined) {
         if (multi !== prevProps.multi) {
-          this.props.getQuote(multi[0].value);
-        } else if (quote.latestPrice !== prevProps.quote.latestPrice) {
-          if (quote.isUSMarketOpen) {
-            this.props.getQuote(multi[0].value);
-          }
+          this.getQuote(this.props.multi);
         }
       }
     }
   }
 
-  getQuote(symbol) {
-    if (symbol[0] !== undefined) this.props.getQuote(symbol[0].value);
-  }
+  getQuote = symbol => {
+    if (symbol[0] !== undefined) {
+      this.props.getQuote(symbol[0].value);
+    }
+  };
+
+  test = symbol => {
+    if (symbol[0] !== undefined) {
+      setInterval(this.props.getQuote(symbol[0].value, 60000));
+    }
+  };
 
   handleClickOpenTrade = () => {
     this.setState({ openTrade: true });
@@ -58,6 +67,7 @@ class Title extends React.Component {
   render() {
     const { multi, quote, isAuthenticated, funds, classes } = this.props;
     const isPositive = Math.sign(quote.changePercent);
+    console.log(quote);
     return (
       <div className={classes.root}>
         <React.Fragment>

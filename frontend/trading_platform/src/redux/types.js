@@ -21,9 +21,9 @@ export const GET_INCOME_STATEMENT = "GET_INCOME_STATEMENT";
 
 // News api
 export const GET_NEWS = "GET_NEWS"
-export const GET_COMPANY_PROFILE = "GET_COMPANY_PROFILE";
 
 // Financial Modeling Prep api
+export const GET_COMPANY_PROFILE = "GET_COMPANY_PROFILE";
 
 
 // User data
