@@ -37,7 +37,7 @@ class Dashboard extends React.Component {
                 <FinancialStatements type="Advanced Stats" height={statsHeight} />
               </Grid>
               <Grid item md={6}>
-                <FinancialStatements type="Key Stats" height={statsHeight} />
+                <FinancialStatements type="Cash Flow" height={statsHeight} />
               </Grid>
             </Grid>
           </Paper>

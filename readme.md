@@ -106,7 +106,8 @@
 * ~~Add last 4 annually and quarterly financial reports~~
 * ~~Fix number and word formats in financial reports~~
 * ~~Add password reset feature~~
-* Add Tooltip
+* ~~Add Tooltip~~
+* ~~Add Icons~~
 * Improve auto logout alert UI
 * Add Real time chart support
 * Improve overall styling

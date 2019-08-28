@@ -67,7 +67,6 @@ class Title extends React.Component {
   render() {
     const { multi, quote, isAuthenticated, funds, classes } = this.props;
     const isPositive = Math.sign(quote.changePercent);
-    console.log(quote);
     return (
       <div className={classes.root}>
         <React.Fragment>
