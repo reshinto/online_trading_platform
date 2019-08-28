@@ -15,22 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from rest_framework_simplejwt.views import (
-#     TokenObtainPairView,
-#     TokenRefreshView,
-# )
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', include('portfolio.urls')),
     path('', include('funds.urls')),
     path('', include('accounts.urls')),
-    path('api/password_reset',
-         include('django_rest_passwordreset.urls', namespace='password_reset')),
-    # path('api/token/', TokenObtainPairView.as_view()),
-    # path('api/token/refresh/', TokenRefreshView.as_view()),
-    # path('rest-auth/', include('rest_auth.urls')),
-    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    # path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path('password-reset/',
+         auth_views.PasswordResetView.as_view(
+             template_name='accounts/password_reset.html'),
+         name='password_reset'),
+    path('password-reset/done/',
+         auth_views.PasswordResetDoneView.as_view(
+             template_name='accounts/password_reset_done.html'),
+         name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name='accounts/password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='accounts/password_reset_complete.html'),
+         name='password_reset_complete'),
 ]
-# path('', include('dashboard.urls')),

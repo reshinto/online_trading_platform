@@ -9,6 +9,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { db } from "../redux/utility";
 
 class LoginForm extends React.Component {
   state = {
@@ -34,72 +35,84 @@ class LoginForm extends React.Component {
     const { error } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <DialogContent>
-          <TextField
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.onChange("username")}
-            autoFocus
-            margin="dense"
-            label="Username"
-            error={error !== null && username === ""}
-            helperText={
-              error && username === "" ? "This field may not be blank." : ""
-            }
-            autoComplete="username"
-            fullWidth
-          />
-        </DialogContent>
+      <>
+        <form onSubmit={this.handleSubmit}>
+          <DialogContent>
+            <TextField
+              type="text"
+              name="username"
+              value={username}
+              onChange={this.onChange("username")}
+              autoFocus
+              margin="dense"
+              label="Username"
+              error={error !== null && username === ""}
+              helperText={
+                error && username === "" ? "This field may not be blank." : ""
+              }
+              autoComplete="username"
+              fullWidth
+            />
+          </DialogContent>
 
-        <DialogContent>
-          <TextField
-            type={this.state.showPassword ? "text" : "password"}
-            label="Password"
-            value={password}
-            onChange={this.onChange("password")}
-            margin="dense"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Toggle password visibility"
-                    onClick={this.handleClickShowPassword}
-                  >
-                    {this.state.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-            error={error !== null}
-            helperText={
-              error
-                ? error.password
+          <DialogContent>
+            <TextField
+              type={this.state.showPassword ? "text" : "password"}
+              label="Password"
+              value={password}
+              onChange={this.onChange("password")}
+              margin="dense"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="Toggle password visibility"
+                      onClick={this.handleClickShowPassword}
+                    >
+                      {this.state.showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+              error={error !== null}
+              helperText={
+                error
                   ? error.password
-                  : error.non_field_errors
-                : ""
-            }
-            autoComplete="current-password"
-            fullWidth
-          />
-        </DialogContent>
+                    ? error.password
+                    : error.non_field_errors
+                  : ""
+              }
+              autoComplete="current-password"
+              fullWidth
+            />
+          </DialogContent>
 
-        <DialogActions
+          <DialogActions
+            style={{
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
+            <Button color="primary" type="submit">
+              Login
+            </Button>
+          </DialogActions>
+        </form>
+        <div
           style={{
+            fontSize: 10,
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
+            marginBottom: 20
           }}
         >
-          <Button color="primary" type="submit">
-            Login
-          </Button>
-        </DialogActions>
-      </form>
+          <a href={`${db}/password-reset/`}>Forgot password?</a>
+        </div>
+      </>
     );
   }
 }

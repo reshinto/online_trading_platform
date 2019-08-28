@@ -10,10 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 import dj_database_url
-from datetime import timedelta
-# from rest_framework.settings import api_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,20 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'corsheaders',
-
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'rest_auth',
-    # 'rest_auth.registration',
     'rest_framework',
-    # 'rest_framework.authtoken',
     'knox',
-    'django_rest_passwordreset',
-
     'portfolio',
     'funds',
     'accounts',
@@ -163,15 +151,9 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-        # 'rest_framework.permissions.AllowAny',
-        # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'knox.auth.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
@@ -191,16 +173,9 @@ REST_KNOX = {
 # CORS config
 CORS_ORIGIN_ALLOW_ALL = True
 
-
-# allauth config
-# Refer to site for more configurations
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-# True by default
-# ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
-# ACCOUNT_EMAIL_VERIFICATION = "none"
-# ACCOUNT_EMAIL_REQUIRED = True
-# Turn off email verification when logging in through rest-auth with allauth
-# ACCOUNT_AUTHENTICATION_METHOD = "username"
-
-
-# SITE_ID = 1
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('my_email1')
+EMAIL_HOST_PASSWORD = os.environ.get('my_email_password1')
