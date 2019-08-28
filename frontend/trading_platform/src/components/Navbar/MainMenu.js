@@ -94,7 +94,7 @@ class MainMenu extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Tooltip title="Menu">
+        <Tooltip disableFocusListener disableTouchListener title="Menu">
           <IconButton
             color="inherit"
             aria-label="Open drawer"

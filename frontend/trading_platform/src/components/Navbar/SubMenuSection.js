@@ -8,7 +8,7 @@ import Signup from "../../pages/Signup";
 import Dialog from "@material-ui/core/Dialog";
 import { connect } from "react-redux";
 import { getFunds, addFunds } from "../../redux/actions/fundsAction";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 
 class SubMenuSection extends React.Component {
   componentDidUpdate() {
@@ -41,7 +41,11 @@ class SubMenuSection extends React.Component {
         {isAuthenticated ? (
           <>
             <div className={classes.navBarSectionDesktop}>
-              <Tooltip title="Account Details">
+              <Tooltip
+                disableFocusListener
+                disableTouchListener
+                title="Account Details"
+              >
                 <IconButton
                   aria-owns={isMenuOpen ? "material-appbar" : undefined}
                   aria-haspopup="true"
@@ -53,7 +57,7 @@ class SubMenuSection extends React.Component {
               </Tooltip>
             </div>
             <div className={classes.navBarSectionMobile}>
-              <Tooltip title="More">
+              <Tooltip disableFocusListener disableTouchListener title="More">
                 <IconButton
                   aria-haspopup="true"
                   onClick={handleMenuOpen("mobileMoreAnchorEl")}
