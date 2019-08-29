@@ -6,9 +6,10 @@
 * Implement machine learning to analyze stocks will be my 2nd end goal, this will be done in the near future when I have the time.
 
 ## Demo
-* Feel free to create an account and try out the demo
+* Feel free to try out the demo
   > https://onlinetradingplatform.herokuapp.com/
-* Disclaimer, accounts will be deleted without prior notice as this project is still in the development stage.
+* Creating an account will be required to test the trading feature and modify acount settings.
+  * Disclaimer, accounts will be deleted without prior notice as this project is still in the development stage.
 
 ## How to make this work
 * Get your own Django secret key
