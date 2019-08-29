@@ -8,7 +8,7 @@
 ## Demo
 * Feel free to try out the demo
   > https://onlinetradingplatform.herokuapp.com/
-* Creating an account will be required to test the trading feature and modify acount settings.
+* Creating an account will be required to test the trading feature and modify account settings.
   * Disclaimer, accounts will be deleted without prior notice as this project is still in the development stage.
 
 ## How to make this work
