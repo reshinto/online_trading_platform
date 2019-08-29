@@ -110,5 +110,6 @@
 * ~~Add Tooltip~~
 * ~~Add Icons~~
 * ~~Add Real time chart support~~
+* Add multi symbol support on a single chart
 * Improve auto logout alert UI
 * Improve overall styling
