@@ -6,13 +6,12 @@ const initialState = {
   chart: [],
   quote: {},
   symbols: [],
-  // news: [],
-  // profile: {},
   advStats: {},
   keyStats: {},
   balanceSheet: {},
   cashFlow: {},
   incomeStatement: {},
+  intraday: []
 };
 
 const getData = (state, action) => {
@@ -38,18 +37,6 @@ const getSymbols = (state, action) => {
     symbols: action.payload
   });
 };
-
-// const getNews = (state, action) => {
-//   return updateObject(state, {
-//     news: action.payload
-//   });
-// };
-
-// const getProfile = (state, action) => {
-//   return updateObject(state, {
-//     profile: action.payload
-//   });
-// };
 
 const getAdvStats = (state, action) => {
   return updateObject(state, {
@@ -81,6 +68,12 @@ const getIncomeStatement = (state, action) => {
   });
 };
 
+const getIntraday = (state, action) => {
+  return updateObject(state, {
+    intraday: action.payload
+  });
+};
+
 const iexReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_DATA:
@@ -89,10 +82,6 @@ const iexReducer = (state = initialState, action) => {
       return getChart(state, action);
     case actionTypes.GET_SYMBOLS:
       return getSymbols(state, action);
-    // case actionTypes.GET_NEWS:
-    //   return getNews(state, action);
-    // case actionTypes.GET_COMPANY_PROFILE:
-    //   return getProfile(state, action);
     case actionTypes.GET_ADVANCED_STATS:
       return getAdvStats(state, action);
     case actionTypes.GET_KEY_STATS:
@@ -105,6 +94,8 @@ const iexReducer = (state = initialState, action) => {
       return getIncomeStatement(state, action);
     case actionTypes.GET_QUOTE:
       return getQuote(state, action);
+    case actionTypes.GET_INTRADAY_PRICES:
+      return getIntraday(state, action);
     default:
       return state;
   }

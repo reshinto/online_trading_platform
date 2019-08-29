@@ -17,12 +17,12 @@ const styles = theme => ({
 
 class Range extends React.Component {
   state = {
-    defaultRange: ["", "max", "5y", "1y", "ytd", "6m", "3m", "1m"]
-  }
+    defaultRange: ["", "max", "5y", "1y", "ytd", "6m", "3m", "1m", "intraday"]
+  };
 
   render() {
     const { classes, range, handleRangeChange, list, name } = this.props;
-    const {defaultRange} = this.state;
+    const { defaultRange } = this.state;
     const menu = list === undefined ? defaultRange : list;
 
     return (
@@ -33,11 +33,13 @@ class Range extends React.Component {
             value={range}
             onChange={handleRangeChange}
             inputProps={{
-              name: name,
+              name: name
             }}
           >
             {menu.map((data, i) => (
-              <MenuItem key={i} value={data}>{data}</MenuItem>
+              <MenuItem key={i} value={data}>
+                {data}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

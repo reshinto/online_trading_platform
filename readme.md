@@ -109,6 +109,6 @@
 * ~~Add password reset feature~~
 * ~~Add Tooltip~~
 * ~~Add Icons~~
+* ~~Add Real time chart support~~
 * Improve auto logout alert UI
-* Add Real time chart support
 * Improve overall styling

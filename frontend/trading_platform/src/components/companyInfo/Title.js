@@ -48,12 +48,6 @@ class Title extends React.Component {
     }
   };
 
-  test = symbol => {
-    if (symbol[0] !== undefined) {
-      setInterval(this.props.getQuote(symbol[0].value, 60000));
-    }
-  };
-
   handleClickOpenTrade = () => {
     this.setState({ openTrade: true });
   };

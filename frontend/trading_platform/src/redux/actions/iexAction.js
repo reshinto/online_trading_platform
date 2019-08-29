@@ -105,29 +105,6 @@ export const getQuote = (symbol) => (
   );
 };
 
-// export const getNews = (symbol, parameter) => (dispatch, state) => {
-//   requestCloudData(
-//     dispatch,
-//     state,
-//     actionTypes.GET_NEWS,
-//     "stock",
-//     symbol,
-//     "newsLast",
-//     parameter
-//   );
-// };
-
-export const getProfile = symbol => (dispatch, state) => {
-  requestCloudData(
-    dispatch,
-    state,
-    actionTypes.GET_COMPANY_PROFILE,
-    "stock",
-    symbol,
-    "company"
-  );
-};
-
 export const getAdvStats = symbol => (dispatch, state) => {
   requestCloudData(
     dispatch,
@@ -183,5 +160,16 @@ export const getIncomeStatement = (symbol, query) => (dispatch, state) => {
     symbol,
     "incomeStatement",
     query
+  );
+};
+
+export const getIntraday = symbol => (dispatch, state) => {
+  requestCloudData(
+    dispatch,
+    state,
+    actionTypes.GET_INTRADAY_PRICES,
+    "stock",
+    symbol,
+    "intradayPrices"
   );
 };

@@ -21,7 +21,7 @@ class ChartSelect extends React.Component {
     const selectChart = {
       "Candle Stick": <CandleStickChart {...this.state} {...this.props} />,
       "Heikin Ashi": <HeikinAshiChart {...this.state} {...this.props} />,
-      Area: <AreaChart {...this.state} {...this.props} />
+      "Area": <AreaChart {...this.state} {...this.props} />
     };
 
     return (
