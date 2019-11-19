@@ -6,6 +6,7 @@
 * Implement machine learning to analyze stocks will be my 2nd end goal, this will be done in the near future when I have the time.
 
 ## Demo
+![Demo](./images/demo.gif)
 * Feel free to try out the demo
   > https://onlinetradingplatform.herokuapp.com/
 * Creating an account will be required to test the trading feature and modify account settings.
