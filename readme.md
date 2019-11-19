@@ -6,6 +6,8 @@
 * Implement machine learning to analyze stocks will be my 2nd end goal, this will be done in the near future when I have the time.
 
 ## Demo
+* This app uses 2 heroku servers, 1 for the frontend, and another for the backend.
+  * Therefore, if may take a while to load the page or for the user registration / sign in.
 ![Demo](./images/demo.gif)
 * Feel free to try out the demo
   > https://onlinetradingplatform.herokuapp.com/
